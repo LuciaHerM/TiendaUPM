@@ -25,6 +25,47 @@ public class App {
             String comando = sc.nextLine();
             String[] comandUni = comando.split(" ");
             switch (comandUni[0]) {
+                case "prod":
+                    switch (comandUni[1]) {
+                        case "add":
+                            prodAdd(comandUni[2], comandUni[3], comandUni[4], comandUni[5]);
+                            break;
+                        case "list":
+                            prodList();
+                            break;
+                        case "update":
+                            prodUpdate(comandUni[2], comandUni[3], comandUni[4]);
+                            break;
+                        case "remove":
+                            prodRemove(comandUni[2]);
+                            break;
+                        default:
+                            unknownCommand();
+                            break;
+                    }
+                    break;
+                case "ticket":
+                    switch (comandUni[1]) {
+                        case "new":
+                            ticketNew();
+                            break;
+                        case "add":
+                            ticketAdd(comandUni[2], comandUni[3]);
+                            break;
+                        case "remove":
+                            ticketRemove(comandUni[2]);
+                            break;
+                        case "print":
+                            ticketPrint();
+                            break;
+                        default:
+                            unknownCommand();
+                            break;
+                    }
+                    break;
+                case "echo":
+                    echo(comandUni[1]);
+                    break;
                 case "help":
                     printHelp();
                     break;
@@ -54,6 +95,33 @@ public class App {
                 "exit\n\n" +
                 "Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n" +
                 "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.");
+    }
+
+    private void prodAdd(String id, String name, String category, String price) {
+    }
+
+    private void prodList() {
+    }
+
+    private void prodUpdate(String id, String change, String value) {
+    }
+
+    private void prodRemove(String id) {
+    }
+
+    private void ticketNew() {
+    }
+
+    private void ticketAdd(String prodId, String quantity) {
+    }
+
+    private void ticketRemove(String prodId) {
+    }
+
+    private void ticketPrint() {
+    }
+
+    private void echo(String texto) {
     }
 
     private static void exitProgram() {
