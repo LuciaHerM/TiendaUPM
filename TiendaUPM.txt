@@ -1,0 +1,58 @@
+@startuml
+class Product {
+- String id
+- String name
+- Category category
+- Double price
+- Product()
++ Product(String id, String name, Category category, Double price)
++ String getID()
++ String getName()
++ String setName()
++ String getCategory()
++ String setCategory()
++ String getPrice()
++ String setPrice()
++ String toString()
+}
+
+enum Category{
++ MERCH
++ STATIONERY
++ CLOTHES
++ BOOK
++ ELECTRONICS
+}
+
+class Ticket{
+- Product[] cart
+- Double totalPrice
++ Ticket()
++ AddProduct(Product producto)
++ RemoveProduct(Product producto)
++ RemoveAll()
++ String ToString()
+}
+
+class TiendaUPM {
+- Product[] shop
+- Ticket ticket
++ main(String[] args)
++ void init()
++ void start()
++ void printHelp()
++ void prodAdd(String id, String name, String category, String price) 
++ void prodList()
++ void prodUpdate(String id, String change, String value)
++ void prodRemove(String id)
++ void ticketNew()
++ void ticketAdd(String prodId, String quantity)
++ void ticketRemove(String prodId)
++ void ticketPrint()
++ void echo(String texto)
++ void exitProgram()
++ void unknownCommand()
++ void end()
+
+}
+@enduml
