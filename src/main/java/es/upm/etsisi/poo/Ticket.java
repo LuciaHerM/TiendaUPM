@@ -19,7 +19,9 @@ public class Ticket {
 
     }
     public void RemoveAll(){
-
+        for (int i = productNumber - 1; i > 0; i--) {
+            RemoveProduct(cart[i]);
+        }
     }
     public String ToString(){
      return null;
