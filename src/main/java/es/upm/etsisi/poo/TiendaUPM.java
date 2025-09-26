@@ -64,7 +64,7 @@ public class TiendaUPM {
                     }
                     break;
                 case "echo":
-                    echo(comandUni[1]);
+                    echo(comandUni);
                     break;
                 case "help":
                     printHelp();
@@ -121,7 +121,12 @@ public class TiendaUPM {
     private void ticketPrint() {
     }
 
-    private void echo(String texto) {
+    private void echo(String[] texto) {
+        String text = "";
+        for(int i=0;i<texto.length;i++){
+            text += texto[i] + " ";
+        }
+        System.out.println(text);
     }
 
     private static void exitProgram() {
