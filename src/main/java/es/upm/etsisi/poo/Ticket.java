@@ -4,13 +4,16 @@ public class Ticket {
     private Product[] cart;
     Double totalPrice;
     private static int MAX_CART_PRODUCTS = 100;
+    private int productNumber;
 
     public Ticket(){
         this.cart = new Product[MAX_CART_PRODUCTS];
         this.totalPrice = 0.0;
+        this.productNumber = 0;
     }
     public void AddProduct(Product producto){
-
+        cart[productNumber] = producto;
+        productNumber++;
     }
     public void RemoveProduct(Product producto){
 
