@@ -2,9 +2,10 @@ package es.upm.etsisi.poo;
 
 public class Ticket {
     private Product[] cart;
-    Double totalPrice;
+    private Double totalPrice;
     private static int MAX_CART_PRODUCTS = 100;
     private int productNumber;
+    private Double totalDiscount;
 
     public Ticket(){
         this.cart = new Product[MAX_CART_PRODUCTS];
