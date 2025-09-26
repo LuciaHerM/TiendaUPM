@@ -35,6 +35,35 @@ public class Ticket {
         }
     }
     public String ToString(){
+        int numMerch=0;
+        int numStationery=0;
+        int numClothes=0;
+        int numBook=0;
+        int numEelctronics=0;
+        for(int i = 0 ; i < productNumber ; i++){
+            switch (cart[i].Category.toStringh()){
+                case 'MERCH':
+                    numMerch++;
+                    break;
+                case 'STATIONERY':
+                    numStationery++;
+                    break;
+                case 'CLOTHES':
+                    numClothes++;
+                    break;
+                case 'BOOK':
+                    numBook++;
+                    break;
+                case 'ELECTRONICS':
+                    numEelctronics++;
+                    break;
+            }
+        }
+        for(int i = 0 ; i < productNumber ; i++){
+
+        }
+
+
      return null;
     }
 }
