@@ -49,30 +49,71 @@ public class Ticket {
         int numClothes=0;
         int numBook=0;
         int numEelctronics=0;
+        StringBuilder str = new StringBuilder();
         for(int i = 0 ; i < productNumber ; i++){
-            switch (cart[i].Category.toStringh()){
-                case 'MERCH':
+            switch (cart[i].getCategory()){
+                case "MERCH":
                     numMerch++;
                     break;
-                case 'STATIONERY':
+                case "STATIONERY":
                     numStationery++;
                     break;
-                case 'CLOTHES':
+                case "CLOTHES":
                     numClothes++;
                     break;
-                case 'BOOK':
+                case "BOOK":
                     numBook++;
                     break;
-                case 'ELECTRONICS':
+                case "ELECTRONICS":
                     numEelctronics++;
                     break;
             }
         }
         for(int i = 0 ; i < productNumber ; i++){
+            Double productDiscount=0.0;
+            switch (cart[i].getCategory()){
+                case "MERCH":
+                    if(numMerch>=2){
+                        productDiscount=0.0;
+                    }
+                    break;
+                case "STATIONERY":
+                    if(numStationery>=2){
+                        productDiscount=0.05;
+                    }
+                    break;
+                case "CLOTHES":
+                    if(numClothes>=2){
+                        productDiscount=0.07;
+                    }
+                    break;
+                case "BOOK":
+                    if(numBook>=2){
+                        productDiscount=0.1;
+                    }
+                    break;
+                case "ELECTRONICS":
+                    if(numEelctronics>=2){
+                        productDiscount=0.03;
+                    }
+                    break;
+            }
+            if(productDiscount==0.0){
+                str.append("{class:Product, id:"+cart[i].getID()+", name:'"+cart[i].toString()+"', category:"+cart[i].getCategory()+", price:"+cart[i].getPrice()+"} \n");
+            }
+            else {
+                str.append("{class:Product, id:"+cart[i].getID()+", name:'"+cart[i].toString()+"', category:"+cart[i].getCategory()+", price:"+cart[i].getPrice()+"} **discount -"+(cart[i].getPrice()*productDiscount)+"\n");
+            }
+            totalPrice+=cart[i].getPrice();
+            totalDiscount+=cart[i].getPrice()*productDiscount;
 
         }
+        str.append("Total price: "+totalPrice+"\n");
+        str.append("Total discount: "+totalDiscount+"\n");
+        str.append("Final Price: "+(totalPrice-totalDiscount)+"\n");
+        str.append("ticket print: ok "+"\n");
 
 
-     return null;
+     return str.toString();
     }
 }
