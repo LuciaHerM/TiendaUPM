@@ -198,6 +198,20 @@ public class TiendaUPM {
     }
 
     private void prodRemove(String id) {
+        int i=0;
+        boolean encontrado=false;
+        while(!encontrado && i< products.length){
+            if(products[i].getID().equals(id)){
+                encontrado=true;
+            }
+            else
+                i++;
+        }
+        if(encontrado){
+            for(int j=i;j<num_products;j++){
+                products[j]=products[j+1];
+            }
+        }
     }
 
     private void ticketNew() {
