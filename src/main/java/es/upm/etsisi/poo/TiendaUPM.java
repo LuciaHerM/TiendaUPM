@@ -152,6 +152,49 @@ public class TiendaUPM {
     }
 
     private void prodUpdate(String id, String change, String value) {
+        int i=0;
+        boolean encontrado=false;
+        while(!encontrado && i< products.length){
+            if(products[i].getID().equals(id)){
+                encontrado=true;
+            }
+            else
+                i++;
+        }
+        if(encontrado){
+            switch (change){
+                case "NAME":
+                    products[i].setName(value);
+                    break;
+                case "CATEGORY":
+                    Category category = null;
+                    switch (value){
+                        case "MERCH":
+                            category = Category.MERCH;
+                            break;
+                        case "STATIONERY":
+                            category = Category.STATIONERY;
+                            break;
+                        case "CLOTHES":
+                            category = Category.CLOTHES;
+                            break;
+                        case "BOOK":
+                            category = Category.BOOK;
+                            break;
+                        case "ELECTRONICS":
+                            category = Category.ELECTRONICS;
+                            break;
+                    }
+                    products[i].setCategory(category);
+                    break;
+                case "PRICE":
+                    double price = Double.parseDouble(value);
+                    products[i].setPrice(price);
+                    break;
+            }
+            System.out.println(products[i].toString());
+            System.out.println("prod update: ok");
+        }
     }
 
     private void prodRemove(String id) {
