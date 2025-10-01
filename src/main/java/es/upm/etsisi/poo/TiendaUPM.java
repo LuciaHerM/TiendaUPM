@@ -1,7 +1,11 @@
 package es.upm.etsisi.poo;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TiendaUPM {
 
@@ -31,7 +35,19 @@ public class TiendaUPM {
         while(continuar){
             System.out.print("tUPM>");
             String comando = sc.nextLine();
-            String[] comandUni = comando.split(" ");
+            Pattern pattern = Pattern.compile("\"([^\"]*)\"|(\\S+)");
+            Matcher matcher = pattern.matcher(comando);
+
+            String[] comandUni = new String[10];
+            int i=0;
+            while (matcher.find()) {
+                if (matcher.group(1) != null) {
+                    comandUni[i] = matcher.group(1); // valor dentro de comillas
+                } else {
+                    comandUni[i] = matcher.group(2); // palabra normal
+                }
+                i++;
+            }
             switch (comandUni[0]) {
                 case "prod":
                     switch (comandUni[1]) {
@@ -108,7 +124,7 @@ public class TiendaUPM {
     private void prodAdd(String id, String name, String category, String price) {
         int i=0;
         boolean encontrado=false;
-        while(!encontrado && i< products.length){
+        while(!encontrado && i< num_products){
             if(products[i].getID().equals(id)){
                 System.out.println("No se puede introducir un producto con el mismo id de otro ya introducido.");
                 encontrado=true;
@@ -146,7 +162,7 @@ public class TiendaUPM {
     private void prodList() {
         System.out.println("Catalog:");
         for(int i=0;i<num_products;i++){
-            System.out.println(products[i].toString());
+            System.out.println(" "+products[i].toString());
         }
         System.out.println("prod list: ok");
     }
@@ -211,6 +227,7 @@ public class TiendaUPM {
             for(int j=i;j<num_products;j++){
                 products[j]=products[j+1];
             }
+            num_products--;
         }
     }
 
