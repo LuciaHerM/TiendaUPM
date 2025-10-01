@@ -6,6 +6,11 @@ import java.util.Scanner;
 public class TiendaUPM {
 
     static Scanner sc = new Scanner(System.in);
+    static Ticket ticket;
+    static Product[] products;
+    static int MAX_NUM_PRODUCTS=200;
+    static int num_products;
+
     public static void main(String[] args) {
         TiendaUPM app = new TiendaUPM();
         app.init();
@@ -15,6 +20,9 @@ public class TiendaUPM {
 
     private void init() {
         System.out.println("\"Welcome to the ticket module App.");
+        ticket = new Ticket();
+        products = new Product[MAX_NUM_PRODUCTS];
+        num_products=0;
     }
 
     private void start() {
@@ -98,6 +106,39 @@ public class TiendaUPM {
     }
 
     private void prodAdd(String id, String name, String category, String price) {
+        int i=0;
+        boolean encontrado=false;
+        while(!encontrado && i< products.length){
+            if(products[i].getID().equals(id)){
+                System.out.println("No se puede introducir un producto con el mismo id de otro ya introducido.");
+                encontrado=true;
+            }
+            i++;
+        }
+        if(!encontrado){
+            Category category1 = null;
+            switch (category){
+                case "MERCH":
+                    category1 = Category.MERCH;
+                    break;
+                case "STATIONERY":
+                    category1 = Category.STATIONERY;
+                    break;
+                case "CLOTHES":
+                    category1 = Category.CLOTHES;
+                    break;
+                case "BOOK":
+                    category1 = Category.BOOK;
+                    break;
+                case "ELECTRONICS":
+                    category1 = Category.ELECTRONICS;
+                    break;
+            }
+            double price1 = Double.parseDouble(price);
+            Product product = new Product(id,name,category1,price1);
+            products[num_products]=product;
+            num_products++;
+        }
     }
 
     private void prodList() {
