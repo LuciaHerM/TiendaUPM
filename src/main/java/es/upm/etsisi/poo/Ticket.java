@@ -52,19 +52,19 @@ public class Ticket {
         StringBuilder str = new StringBuilder();
         for(int i = 0 ; i < productNumber ; i++){
             switch (cart[i].getCategory()){
-                case "MERCH":
+                case MERCH:
                     numMerch++;
                     break;
-                case "STATIONERY":
+                case STATIONERY:
                     numStationery++;
                     break;
-                case "CLOTHES":
+                case CLOTHES:
                     numClothes++;
                     break;
-                case "BOOK":
+                case BOOK:
                     numBook++;
                     break;
-                case "ELECTRONICS":
+                case ELECTRONICS:
                     numEelctronics++;
                     break;
             }
@@ -72,27 +72,27 @@ public class Ticket {
         for(int i = 0 ; i < productNumber ; i++){
             Double productDiscount=0.0;
             switch (cart[i].getCategory()){
-                case "MERCH":
+                case MERCH:
                     if(numMerch>=2){
                         productDiscount=0.0;
                     }
                     break;
-                case "STATIONERY":
+                case STATIONERY:
                     if(numStationery>=2){
                         productDiscount=0.05;
                     }
                     break;
-                case "CLOTHES":
+                case CLOTHES:
                     if(numClothes>=2){
                         productDiscount=0.07;
                     }
                     break;
-                case "BOOK":
+                case BOOK:
                     if(numBook>=2){
                         productDiscount=0.1;
                     }
                     break;
-                case "ELECTRONICS":
+                case ELECTRONICS:
                     if(numEelctronics>=2){
                         productDiscount=0.03;
                     }
