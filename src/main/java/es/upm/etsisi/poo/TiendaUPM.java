@@ -138,10 +138,17 @@ public class TiendaUPM {
             Product product = new Product(id,name,category1,price1);
             products[num_products]=product;
             num_products++;
+            System.out.println(product.toString());
+            System.out.println("prod add: ok");
         }
     }
 
     private void prodList() {
+        System.out.println("Catalog:");
+        for(int i=0;i<num_products;i++){
+            System.out.println(products[i].toString());
+        }
+        System.out.println("prod list: ok");
     }
 
     private void prodUpdate(String id, String change, String value) {
