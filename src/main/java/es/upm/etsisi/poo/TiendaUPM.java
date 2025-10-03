@@ -254,7 +254,7 @@ public class TiendaUPM {
        int cont = 0;
        boolean encontrado = false;
        while (cont < products.length && !encontrado){
-           if (products[cont].getID() == prodId){
+           if (products[cont].getID().equals(prodId)){
                encontrado = true;
            }
        }
