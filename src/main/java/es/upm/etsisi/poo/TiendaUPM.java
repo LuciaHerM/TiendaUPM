@@ -226,7 +226,7 @@ public class TiendaUPM {
             num_products--;
         }
     }
-//crea un nuevo ticket
+
     private void ticketNew() {
         ticket=new Ticket();
     }
