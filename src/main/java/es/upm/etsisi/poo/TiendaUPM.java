@@ -274,6 +274,7 @@ public class TiendaUPM {
     }
 
     private void ticketPrint() {
+        ticket.ToString();
     }
 
     private void echo(String[] texto) {
