@@ -1,8 +1,6 @@
 package es.upm.etsisi.poo;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -262,6 +260,7 @@ public class TiendaUPM {
     }
 
     private void ticketPrint() {
+        ticket.ToString();
     }
 
     private void echo(String[] texto) {
