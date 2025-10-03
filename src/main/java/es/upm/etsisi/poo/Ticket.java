@@ -100,10 +100,10 @@ public class Ticket {
                     break;
             }
             if(productDiscount==0.0){
-                str.append(cart.toString() + " \n");
+                str.append(cart[i].toString() + " \n");
             }
             else {
-                str.append(cart.toString() + " **discount -"+(cart[i].getPrice()*productDiscount)+"\n");
+                str.append(cart[i].toString() + " **discount -"+(cart[i].getPrice()*productDiscount)+"\n");
             }
             totalPrice+=cart[i].getPrice();
             totalDiscount+=cart[i].getPrice()*productDiscount;
