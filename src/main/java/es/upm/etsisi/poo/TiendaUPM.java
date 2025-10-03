@@ -243,7 +243,6 @@ public class TiendaUPM {
     private void ticketRemove(String prodId) {
         int i=0;
         boolean encontrado=false;
-        Product product;
         while(!encontrado && i<products.length){
             if(products[i].getID().equals(prodId)){
                 encontrado=true;
@@ -252,7 +251,13 @@ public class TiendaUPM {
                 i++;
             }
         }
-        ticket.RemoveProduct(product=products[i]);
+        if(encontrado) {
+            ticket.RemoveProduct(products[i]);
+            ticketPrint();
+            System.out.println("ticket remove: ok");
+        }else{
+            System.err.println("This product can't be found");
+        }
         
     }
 
