@@ -255,6 +255,19 @@ public class TiendaUPM {
     }
 
     private void ticketRemove(String prodId) {
+        int i=0;
+        boolean encontrado=false;
+        Product product;
+        while(!encontrado && i<products.length){
+            if(products[i].getID().equals(prodId)){
+                encontrado=true;
+            }
+            else{
+                i++;
+            }
+        }
+        ticket.RemoveProduct(product=products[i]);
+        
     }
 
     private void ticketPrint() {
