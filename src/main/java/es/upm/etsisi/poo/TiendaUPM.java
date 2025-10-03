@@ -17,9 +17,9 @@ public class TiendaUPM {
 
     public static void main(String[] args) {
         TiendaUPM app = new TiendaUPM();
-        app.init();
-        app.start();
-        app.end();
+        app.init();//inicializa las variables de tienda UPM
+        app.start();//comienza el programa
+        app.end();//indica mensaje de programa terminado
     }
 
     private void init() {
