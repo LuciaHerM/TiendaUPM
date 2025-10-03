@@ -43,7 +43,11 @@ public class Ticket {
             cart[i] = null;
         }
     }
-
+    /*
+    cuneto con un for el numero de cada tipo de producto
+    para luego ir producto a producto aplicando el
+    descuento .
+    */
     public String ToString(){
         int numMerch=0;
         int numStationery=0;
@@ -114,7 +118,6 @@ public class Ticket {
         str.append("Final Price: "+(totalPrice-totalDiscount)+"\n");
         str.append("ticket print: ok "+"\n");
 
-
-     return str.toString();
+        return str.toString();
     }
 }
