@@ -231,7 +231,11 @@ public class TiendaUPM {
 
     private void ticketNew() {
     }
-//
+//Haces un bucle while para encontrar en el array de productos el ID que nos pasan por parámetro
+//después, cuando lo encuentras te sales del bucle, si no lo encuentra y acaba el array de productos,
+//se sale del bucle, y no añade nada. En caso de que lo encuentre, entra en un bucle, para añadir el
+// producto las veces que se mandan en el String quantity(Argumento). Se usa un Integer.parseInt, para
+// convertir el Str a int, para poder iterar en el bucle.
     private void ticketAdd(String prodId, String quantity) {
        int cont = 0;
        boolean encontrado = false;
@@ -240,9 +244,13 @@ public class TiendaUPM {
                encontrado = true;
            }
        }
-        for (int i = 0; i < Integer.parseInt(quantity); i++) {
-            ticket.AddProduct(products[cont]);
-        }
+       if (encontrado) {
+           for (int i = 0; i < Integer.parseInt(quantity); i++) {
+               ticket.AddProduct(products[cont]);
+           }
+       } else {
+           System.out.println("The product was not found");
+       }
     }
 
     private void ticketRemove(String prodId) {
