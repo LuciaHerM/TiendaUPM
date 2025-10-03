@@ -106,6 +106,7 @@ public class TiendaUPM {
                     unknownCommand();
                     break;
             }
+            System.out.println();
         }
     }
 
@@ -236,6 +237,7 @@ public class TiendaUPM {
                 products[j]=products[j+1];
             }
             num_products--;
+            System.out.println("prod remove: ok");
         }
     }
 
@@ -291,11 +293,7 @@ public class TiendaUPM {
     }
 
     private void echo(String[] texto) {
-        String text = "";
-        for (int i = 0; i < texto.length; i++) {
-            text += texto[i] + " ";
-        }
-        System.out.println(text);
+        System.out.println(texto[0] + " \"" + texto[1] + "\"");
     }
 
     private static void exitProgram() {
