@@ -28,7 +28,7 @@ public class TiendaUPM {
     }
 
     private void init() {
-        System.out.println("\"Welcome to the ticket module App.");
+        System.out.println("Welcome to the ticket module App.");
         ticket = new Ticket();
         products = new Product[MAX_NUM_PRODUCTS];
         num_products=0;
@@ -286,7 +286,7 @@ public class TiendaUPM {
     }
 
     private void ticketPrint() {
-        ticket.ToString();
+        System.out.print(ticket.ToString());
     }
 
     private void echo(String[] texto) {
