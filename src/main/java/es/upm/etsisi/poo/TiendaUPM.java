@@ -241,6 +241,7 @@ public class TiendaUPM {
 
     private void ticketNew() {
         ticket=new Ticket();
+        System.out.println("ticket new: ok");
     }
 //Haces un bucle while para encontrar en el array de productos el ID que nos pasan por parámetro
 //después, cuando lo encuentras te sales del bucle, si no lo encuentra y acaba el array de productos,
