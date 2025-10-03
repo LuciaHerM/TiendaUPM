@@ -253,7 +253,7 @@ public class TiendaUPM {
     private void ticketAdd(String prodId, String quantity) {
        int cont = 0;
        boolean encontrado = false;
-       while (cont < products.length || encontrado){
+       while (cont < products.length && !encontrado){
            if (products[cont].getID() == prodId){
                encontrado = true;
            }
