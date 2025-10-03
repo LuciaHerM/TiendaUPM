@@ -253,6 +253,8 @@ public class TiendaUPM {
         }
         if(encontrado) {
             ticket.RemoveProduct(products[i]);
+            ticketPrint();
+            System.out.println("ticket remove: ok");
         }else{
             System.err.println("This product can't be found");
         }
