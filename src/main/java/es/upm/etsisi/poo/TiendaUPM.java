@@ -231,9 +231,18 @@ public class TiendaUPM {
 
     private void ticketNew() {
     }
-
+//
     private void ticketAdd(String prodId, String quantity) {
-
+       int cont = 0;
+       boolean encontrado = false;
+       while (cont < products.length || encontrado){
+           if (products[cont].getID() == prodId){
+               encontrado = true;
+           }
+       }
+        for (int i = 0; i < Integer.parseInt(quantity); i++) {
+            ticket.AddProduct(products[cont]);
+        }
     }
 
     private void ticketRemove(String prodId) {
