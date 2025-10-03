@@ -291,7 +291,7 @@ public class TiendaUPM {
     }
 
     private void ticketPrint() {
-        System.out.print(ticket.ToString());
+        System.out.println(ticket.ToString());
     }
 
     private void echo(String[] texto) {
