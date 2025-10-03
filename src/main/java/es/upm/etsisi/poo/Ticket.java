@@ -25,7 +25,7 @@ public class Ticket {
     public void RemoveProduct(Product producto){
         boolean find = false;
         for(int i = 0 ; i < productNumber ; i++) {
-            if (cart[i] == producto && !find) {
+            if (cart[i].equals(producto) && !find) {
                 find = true;
             }
             if (find) {
