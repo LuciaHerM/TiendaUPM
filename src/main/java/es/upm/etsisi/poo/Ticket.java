@@ -43,6 +43,7 @@ public class Ticket {
             cart[i] = null;
         }
     }
+
     public String ToString(){
         int numMerch=0;
         int numStationery=0;
