@@ -230,6 +230,7 @@ public class TiendaUPM {
     }
 
     private void ticketNew() {
+        ticket=new Ticket();
     }
 
     private void ticketAdd(String prodId, String quantity) {
