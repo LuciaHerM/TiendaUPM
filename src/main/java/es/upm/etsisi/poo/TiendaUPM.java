@@ -131,7 +131,7 @@ public class TiendaUPM {
             }
             i++;
         }
-        if(!encontrado){
+        if(!encontrado && num_products<MAX_NUM_PRODUCTS){
             Category category1 = null;
             switch (category){
                 case "MERCH":
@@ -156,6 +156,9 @@ public class TiendaUPM {
             num_products++;
             System.out.println(product.toString());
             System.out.println("prod add: ok");
+        }
+        else{
+            System.err.println("The product can't be add.");
         }
     }
 
