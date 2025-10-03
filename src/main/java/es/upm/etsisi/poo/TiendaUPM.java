@@ -106,6 +106,7 @@ public class TiendaUPM {
                     unknownCommand();
                     break;
             }
+            System.out.println();
         }
     }
 
@@ -236,11 +237,13 @@ public class TiendaUPM {
                 products[j]=products[j+1];
             }
             num_products--;
+            System.out.println("prod remove: ok");
         }
     }
 
     private void ticketNew() {
         ticket=new Ticket();
+        System.out.println("ticket new: ok");
     }
 //Haces un bucle while para encontrar en el array de productos el ID que nos pasan por parámetro
 //después, cuando lo encuentras te sales del bucle, si no lo encuentra y acaba el array de productos,
@@ -259,8 +262,10 @@ public class TiendaUPM {
            for (int i = 0; i < Integer.parseInt(quantity); i++) {
                ticket.AddProduct(products[cont]);
            }
+           ticketPrint();
+           System.out.println("ticket add: ok");
        } else {
-           System.out.println("The product was not found");
+           System.err.println("The product was not found");
        }
     }
 
@@ -290,11 +295,7 @@ public class TiendaUPM {
     }
 
     private void echo(String[] texto) {
-        String text = "";
-        for (int i = 0; i < texto.length; i++) {
-            text += texto[i] + " ";
-        }
-        System.out.println(text);
+        System.out.println(texto[0] + " \"" + texto[1] + "\"");
     }
 
     private static void exitProgram() {

@@ -39,4 +39,9 @@ public class Product {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return "{class:Product, id:"+id+", name:'"+name+"', category:"+category+", price:"+price+"}";
+    }
+
 }

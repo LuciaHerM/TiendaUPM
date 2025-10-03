@@ -100,10 +100,10 @@ public class Ticket {
                     break;
             }
             if(productDiscount==0.0){
-                str.append("{class:Product, id:"+cart[i].getID()+", name:'"+cart[i].toString()+"', category:"+cart[i].getCategory()+", price:"+cart[i].getPrice()+"} \n");
+                str.append(cart[i].toString() + " \n");
             }
             else {
-                str.append("{class:Product, id:"+cart[i].getID()+", name:'"+cart[i].toString()+"', category:"+cart[i].getCategory()+", price:"+cart[i].getPrice()+"} **discount -"+(cart[i].getPrice()*productDiscount)+"\n");
+                str.append(cart[i].toString() + " **discount -"+(cart[i].getPrice()*productDiscount)+"\n");
             }
             totalPrice+=cart[i].getPrice();
             totalDiscount+=cart[i].getPrice()*productDiscount;
