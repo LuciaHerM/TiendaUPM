@@ -1,23 +1,30 @@
 package es.upm.etsisi.poo;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TiendaUPM {
 
-    static Scanner sc = new Scanner(System.in);
+    static Scanner sc;
     static Ticket ticket;
     static Product[] products;
     static int MAX_NUM_PRODUCTS=200;
     static int num_products;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         TiendaUPM app = new TiendaUPM();
-        app.init();//inicializa las variables de tienda UPM
-        app.start();//comienza el programa
-        app.end();//indica mensaje de programa terminado
+        if(args.length>0){
+            sc = new Scanner(new File(args[0]));
+        }else{
+            sc = new Scanner(System.in);
+        }
+        app.init();
+        app.start();
+        app.end();
     }
 
     private void init() {
