@@ -262,8 +262,10 @@ public class TiendaUPM {
            for (int i = 0; i < Integer.parseInt(quantity); i++) {
                ticket.AddProduct(products[cont]);
            }
+           ticketPrint();
+           System.out.println("ticket add: ok");
        } else {
-           System.out.println("The product was not found");
+           System.err.println("The product was not found");
        }
     }
 
