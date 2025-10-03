@@ -257,10 +257,12 @@ public class TiendaUPM {
            if (products[cont].getID().equals(prodId)){
                encontrado = true;
            }
-           cont++;
+           else {
+               cont++;
+           }
        }
        if (encontrado) {
-           for (int i = 0; i <= Integer.parseInt(quantity); i++) {
+           for (int i = 0; i < Integer.parseInt(quantity); i++) {
                ticket.AddProduct(products[cont]);
            }
            ticketPrint();
