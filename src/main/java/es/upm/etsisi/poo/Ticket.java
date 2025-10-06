@@ -1,14 +1,18 @@
 package es.upm.etsisi.poo;
 
+/**
+ * La clase Ticket representa un ticket de compra en la app. Permite gestionar los productos, los descuentos e
+ * imprimir el ticket a traves de sus metodos.
+ */
 public class Ticket {
     private Product[] cart;
     private Double totalPrice;
-    private static int MAX_CART_PRODUCTS = 100;
+    private static final int MAX_CART_PRODUCTS = 100;
     private int productNumber;
     private Double totalDiscount;
 
-    /*
-    Constructor de la clase ticket, que asigna valores a las variables privadas.
+    /**
+     * Constructor de la clase Ticket, que inicializa las variables privadas.
      */
     public Ticket(){
         this.cart = new Product[MAX_CART_PRODUCTS];
@@ -16,18 +20,19 @@ public class Ticket {
         this.productNumber = 0;
         this.totalDiscount = 0.0;
     }
-    /*
-    Añade el producto pasado por parámetro en la posición del total de productos
-    (debido a que empiezan los arrays en 0)
-    */
 
+    /**
+     * Añade el producto al array de productos, cart. El producto se inserta en la siguiente posición libre del array.
+     * @param producto  Producto a añadir al ticket.
+     */
     public void AddProduct(Product producto) {
         cart[productNumber] = producto;
         productNumber++;
     }
-    /*
-    Elimina el producto pasado por parámetro.
-    Recoloca los productos por si queda un hueco en el array
+
+    /**
+     * Elimina el producto de cart.
+     * @param producto  Producto a eliminar del ticket.
      */
     public void RemoveProduct(Product producto){
         boolean find = false;
@@ -43,21 +48,22 @@ public class Ticket {
             productNumber--;
         }
     }
-    /*
-    Utiliza un bucle para eliminar los productos desde
-    el último producto hasta la posición 0.
-    */
 
+    /**
+     * Permite eliminar todos los productos desde
+     * el último producto hasta la posición 0.
+    */
     public void RemoveAll(){
         for (int i = productNumber - 1; i > 0; i--) {
             cart[i] = null;
         }
     }
-    /*
-    cuneto con un for el numero de cada tipo de producto
-    para luego ir producto a producto aplicando el
-    descuento .
-    */
+
+    /**
+     * Crea una representacion textual del ticket con todos los producto, los descuentos aplicados y
+     * el precio total. El metodo utiliza un for para contar el numero de productos por categoria y poder aplicar el posible descuento.
+     * @return  Cadena con el contenido del ticket.
+     */
     public String ToString(){
         int numMerch=0;
         int numStationery=0;
