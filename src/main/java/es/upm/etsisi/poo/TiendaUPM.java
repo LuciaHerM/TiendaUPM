@@ -9,11 +9,11 @@ import java.util.regex.Pattern;
 
 public class TiendaUPM {
 
-    static Scanner sc;
-    static Ticket ticket;
-    static Product[] products;
-    static int MAX_NUM_PRODUCTS=200;
-    static int num_products;
+    private static Scanner sc;
+    private static Ticket ticket;
+    private static Product[] products;
+    private static int MAX_NUM_PRODUCTS = 200;
+    private static int num_products;
 
     public static void main(String[] args) throws FileNotFoundException {
         TiendaUPM app = new TiendaUPM();
