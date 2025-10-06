@@ -1,4 +1,10 @@
 @startuml
+
+TiendaUPM-->Ticket
+TiendaUPM-->Product
+Ticket-->Product
+Product-->Category
+
 class Product {
 - String id
 - String name
