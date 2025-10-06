@@ -7,14 +7,24 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * La clase TiendaUPM permite gestionar un sistema de compra de productos y de sus tickets.
+ */
 public class TiendaUPM {
 
     private static Scanner sc;
     private static Ticket ticket;
     private static Product[] products;
-    private static int MAX_NUM_PRODUCTS = 200;
+    private static final int MAX_NUM_PRODUCTS = 200;
     private static int num_products;
 
+    /**
+     * Es el método principal de ejecucion de la aplicación. Funciona tanto al propocionar un archivo como argumento
+     * (los comandos se leen desde él) o se utiliza la entrada estándar.
+     *
+     * @param args  Argumentos de la linea de comandos.
+     * @throws FileNotFoundException    Se lanza una excepcion si el archivo proporcionado no existe.
+     */
     public static void main(String[] args) throws FileNotFoundException {
         TiendaUPM app = new TiendaUPM();
         if(args.length>0){
@@ -27,6 +37,9 @@ public class TiendaUPM {
         app.end();
     }
 
+    /**
+     * Muestra el mensaje de bienvenida de la app, inicializa el ticket y el array de productos.
+     */
     private void init() {
         System.out.println("Welcome to the ticket module App.");
         ticket = new Ticket();
@@ -34,6 +47,9 @@ public class TiendaUPM {
         num_products=0;
     }
 
+    /**
+     * Inicia el bucle principal del programa, donde se procesan los comandos.
+     */
     private void start() {
         boolean continuar = true;
         System.out.println("Ticket module. Type 'help' to see commands.");
@@ -110,6 +126,9 @@ public class TiendaUPM {
         }
     }
 
+    /**
+     * Imprime los posibles comandos de la app.
+     */
     private void printHelp() {
         System.out.println("Commands:\n" +
                 "prod add <id> \"<name>\" <category> <price>\n" +
@@ -127,6 +146,14 @@ public class TiendaUPM {
                 "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.");
     }
 
+    /**
+     * Añade un nuevo producto al catalogo de la tienda.
+     *
+     * @param id   Identificador único del producto.
+     * @param name  Nombre del producto.
+     * @param category  Categoria del producto perteneciente al enum Category.
+     * @param price Precio del producto.
+     */
     private void prodAdd(String id, String name, String category, String price) {
         int i=0;
         boolean encontrado=false;
@@ -168,6 +195,9 @@ public class TiendaUPM {
         }
     }
 
+    /**
+     * Muestra el catalogo de productos actualmente registrados.
+     */
     private void prodList() {
         System.out.println("Catalog:");
         for(int i=0;i<num_products;i++){
@@ -176,6 +206,13 @@ public class TiendaUPM {
         System.out.println("prod list: ok");
     }
 
+    /**
+     * Permite modificar un atributo de un producto.
+     *
+     * @param id    Identificador del producto.
+     * @param change    Atributo a modificar (name, category o price).
+     * @param value     Nuevo valor del atributo.
+     */
     private void prodUpdate(String id, String change, String value) {
         int i=0;
         boolean encontrado=false;
@@ -222,6 +259,10 @@ public class TiendaUPM {
         }
     }
 
+    /**
+     * Elimina un producto del catalogo.
+     * @param id    Identificador del producto.
+     */
     private void prodRemove(String id) {
         int i=0;
         boolean encontrado=false;
@@ -241,6 +282,9 @@ public class TiendaUPM {
         }
     }
 
+    /**
+     * Resetea el ticket en curso.
+     */
     private void ticketNew() {
         ticket=new Ticket();
         System.out.println("ticket new: ok");
@@ -251,6 +295,13 @@ public class TiendaUPM {
     //se sale del bucle, y no añade nada. En caso de que lo encuentre, entra en un bucle, para añadir el
     // producto las veces que se mandan en el String quantity(Argumento). Se usa un Integer.parseInt, para
     // convertir el Str a int, para poder iterar en el bucle.
+     */
+
+    /**
+    *  Añade una cantidad especifica de un producto al ticket.
+     *
+     * @param prodId    Identificador del producto.
+     * @param quantity  Cantidad de unidades a agregar.
      */
     private void ticketAdd(String prodId, String quantity) {
        int cont = 0;
@@ -274,6 +325,11 @@ public class TiendaUPM {
        }
     }
 
+    /**
+     * Elimina un producto del ticket.
+     *
+     * @param prodId    Identificador del producto.
+     */
     private void ticketRemove(String prodId) {
         int i=0;
         boolean encontrado=false;
@@ -295,22 +351,38 @@ public class TiendaUPM {
 
     }
 
+    /**
+     *  Imprime el ticket actual.
+     */
     private void ticketPrint() {
         System.out.println(ticket.ToString());
     }
 
+    /**
+     * Imprime el texto del parametro.
+     * @param texto Array de String del texto a mostrar.
+     */
     private void echo(String[] texto) {
         System.out.println(texto[0] + " \"" + texto[1] + "\"");
     }
 
+    /**
+     * Imprime un mensaje al cerrar la app.
+     */
     private static void exitProgram() {
         System.out.println("Closing application.");
     }
 
+    /**
+     * Imprime un mensaje cuando el usuario introduce un comando desconocido.
+     */
     private static void unknownCommand() {
         System.out.println("Comando no reconocido");
     }
 
+    /**
+     * Finaliza la ejecucion de la app mostrando un mensaje de despedida.
+     */
     private void end() {
         System.out.println("Goodbye!");
 
