@@ -19,10 +19,10 @@ public class TiendaUPM {
     private static int num_products;
 
     /**
-     * Es el método principal de ejecucion de la aplicación. Funciona tanto al propocionar un archivo como argumento
+     * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
      * (los comandos se leen desde él) o se utiliza la entrada estándar.
      *
-     * @param args  Argumentos de la linea de comandos.
+     * @param args  Argumentos de la línea de comandos.
      * @throws FileNotFoundException    Se lanza una excepcion si el archivo proporcionado no existe.
      */
     public static void main(String[] args) throws FileNotFoundException {
@@ -59,30 +59,30 @@ public class TiendaUPM {
             Pattern pattern = Pattern.compile("\"([^\"]*)\"|(\\S+)");
             Matcher matcher = pattern.matcher(comando);
 
-            String[] comandUni = new String[10];
+            String[] comand = new String[10];
             int i=0;
             while (matcher.find()) {
                 if (matcher.group(1) != null) {
-                    comandUni[i] = matcher.group(1); // valor dentro de comillas
+                    comand[i] = matcher.group(1); // valor dentro de comillas
                 } else {
-                    comandUni[i] = matcher.group(2); // palabra normal
+                    comand[i] = matcher.group(2); // palabra normal
                 }
                 i++;
             }
-            switch (comandUni[0]) {
+            switch (comand[0]) {
                 case "prod":
-                    switch (comandUni[1]) {
+                    switch (comand[1]) {
                         case "add":
-                            prodAdd(comandUni[2], comandUni[3], comandUni[4], comandUni[5]);
+                            prodAdd(comand[2], comand[3], comand[4], comand[5]);
                             break;
                         case "list":
                             prodList();
                             break;
                         case "update":
-                            prodUpdate(comandUni[2], comandUni[3], comandUni[4]);
+                            prodUpdate(comand[2], comand[3], comand[4]);
                             break;
                         case "remove":
-                            prodRemove(comandUni[2]);
+                            prodRemove(comand[2]);
                             break;
                         default:
                             unknownCommand();
@@ -90,15 +90,15 @@ public class TiendaUPM {
                     }
                     break;
                 case "ticket":
-                    switch (comandUni[1]) {
+                    switch (comand[1]) {
                         case "new":
                             ticketNew();
                             break;
                         case "add":
-                            ticketAdd(comandUni[2], comandUni[3]);
+                            ticketAdd(comand[2], comand[3]);
                             break;
                         case "remove":
-                            ticketRemove(comandUni[2]);
+                            ticketRemove(comand[2]);
                             break;
                         case "print":
                             ticketPrint();
@@ -109,7 +109,7 @@ public class TiendaUPM {
                     }
                     break;
                 case "echo":
-                    echo(comandUni);
+                    echo(comand);
                     break;
                 case "help":
                     printHelp();
@@ -165,24 +165,14 @@ public class TiendaUPM {
             i++;
         }
         if(!encontrado && num_products<MAX_NUM_PRODUCTS){
-            Category category1 = null;
-            switch (category){
-                case "MERCH":
-                    category1 = Category.MERCH;
-                    break;
-                case "STATIONERY":
-                    category1 = Category.STATIONERY;
-                    break;
-                case "CLOTHES":
-                    category1 = Category.CLOTHES;
-                    break;
-                case "BOOK":
-                    category1 = Category.BOOK;
-                    break;
-                case "ELECTRONICS":
-                    category1 = Category.ELECTRONICS;
-                    break;
-            }
+            Category category1 = switch (category){
+                case "MERCH" -> Category.MERCH;
+                case "STATIONERY"-> Category.STATIONERY;
+                case "CLOTHES" -> Category.CLOTHES;
+                case "BOOK" -> Category.BOOK;
+                case "ELECTRONICS" -> Category.ELECTRONICS;
+                default -> throw new IllegalStateException("Unexpected value: " + category);
+            };
             double price1 = Double.parseDouble(price);
             Product product = new Product(id,name,category1,price1);
             products[num_products]=product;
@@ -196,7 +186,7 @@ public class TiendaUPM {
     }
 
     /**
-     * Muestra el catalogo de productos actualmente registrados.
+     * Muestra el catálogo de productos actualmente registrados.
      */
     private void prodList() {
         System.out.println("Catalog:");
@@ -229,24 +219,14 @@ public class TiendaUPM {
                     products[i].setName(value);
                     break;
                 case "CATEGORY":
-                    Category category = null;
-                    switch (value){
-                        case "MERCH":
-                            category = Category.MERCH;
-                            break;
-                        case "STATIONERY":
-                            category = Category.STATIONERY;
-                            break;
-                        case "CLOTHES":
-                            category = Category.CLOTHES;
-                            break;
-                        case "BOOK":
-                            category = Category.BOOK;
-                            break;
-                        case "ELECTRONICS":
-                            category = Category.ELECTRONICS;
-                            break;
-                    }
+                    Category category = switch (value){
+                        case "MERCH" -> Category.MERCH;
+                        case "STATIONERY"-> Category.STATIONERY;
+                        case "CLOTHES" -> Category.CLOTHES;
+                        case "BOOK" -> Category.BOOK;
+                        case "ELECTRONICS" -> Category.ELECTRONICS;
+                        default -> throw new IllegalStateException("Unexpected value: " + value);
+                    };
                     products[i].setCategory(category);
                     break;
                 case "PRICE":
@@ -260,7 +240,7 @@ public class TiendaUPM {
     }
 
     /**
-     * Elimina un producto del catalogo.
+     * Elimina un producto del catálogo.
      * @param id    Identificador del producto.
      */
     private void prodRemove(String id) {
@@ -298,7 +278,7 @@ public class TiendaUPM {
      */
 
     /**
-    *  Añade una cantidad especifica de un producto al ticket.
+    *  Añade una cantidad específica de un producto al ticket.
      *
      * @param prodId    Identificador del producto.
      * @param quantity  Cantidad de unidades a agregar.
