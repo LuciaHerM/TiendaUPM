@@ -13,11 +13,11 @@ class Product {
 + Product(String id, String name, Category category, Double price)
 + String getID()
 + String getName()
-+ String setName()
-+ String getCategory()
-+ String setCategory()
-+ String getPrice()
-+ String setPrice()
++ void setName(String name)
++ Category getCategory()
++ void setCategory(Category category)
++ Double getPrice()
++ void setPrice(Double price)
 + String toString()
 }
 
