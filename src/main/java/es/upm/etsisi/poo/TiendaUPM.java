@@ -159,7 +159,7 @@ public class TiendaUPM {
         boolean encontrado=false;
         while(!encontrado && i< num_products){
             if(products[i].getID().equals(id)){
-                System.out.println("No se puede introducir un producto con el mismo id de otro ya introducido.");
+                System.out.println("Can't be add a product with the same id");
                 encontrado=true;
             }
             i++;
@@ -236,6 +236,8 @@ public class TiendaUPM {
             }
             System.out.println(products[i].toString());
             System.out.println("prod update: ok");
+        }else{
+            System.out.println("Product to update not found");
         }
     }
 
@@ -357,7 +359,7 @@ public class TiendaUPM {
      * Imprime un mensaje cuando el usuario introduce un comando desconocido.
      */
     private static void unknownCommand() {
-        System.out.println("Comando no reconocido");
+        System.out.println("Command not found");
     }
 
     /**
