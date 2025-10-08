@@ -261,6 +261,8 @@ public class TiendaUPM {
             }
             num_products--;
             System.out.println("prod remove: ok");
+        }else{
+            System.out.println("Product to remove not found");
         }
     }
 
