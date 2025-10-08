@@ -60,8 +60,8 @@ public class Ticket {
     }
 
     /**
-     * Crea una representacion textual del ticket con todos los producto, los descuentos aplicados y
-     * el precio total. El metodo utiliza un for para contar el numero de productos por categoria y poder aplicar el posible descuento.
+     * Crea una representacion textual del ticket con todos los productos, los descuentos aplicados y
+     * el precio total. El metodo utiliza un for para contar el número de productos por categoria y poder aplicar el posible descuento.
      * @return  Cadena con el contenido del ticket.
      */
     public String ToString(){
@@ -69,7 +69,7 @@ public class Ticket {
         int numStationery=0;
         int numClothes=0;
         int numBook=0;
-        int numEelctronics=0;
+        int numElectronics=0;
         StringBuilder str = new StringBuilder();
         for(int i = 0 ; i < productNumber ; i++){
             switch (cart[i].getCategory()){
@@ -86,7 +86,7 @@ public class Ticket {
                     numBook++;
                     break;
                 case ELECTRONICS:
-                    numEelctronics++;
+                    numElectronics++;
                     break;
             }
         }
@@ -114,7 +114,7 @@ public class Ticket {
                     }
                     break;
                 case ELECTRONICS:
-                    if(numEelctronics>=2){
+                    if(numElectronics>=2){
                         productDiscount=0.03;
                     }
                     break;
