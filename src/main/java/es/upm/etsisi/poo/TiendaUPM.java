@@ -164,23 +164,24 @@ public class TiendaUPM {
             }
             i++;
         }
-        if(!encontrado && num_products<MAX_NUM_PRODUCTS){
-            Category category1 = switch (category){
-                case "MERCH" -> Category.MERCH;
-                case "STATIONERY"-> Category.STATIONERY;
-                case "CLOTHES" -> Category.CLOTHES;
-                case "BOOK" -> Category.BOOK;
-                case "ELECTRONICS" -> Category.ELECTRONICS;
-                default -> throw new IllegalStateException("Unexpected value: " + category);
-            };
-            double price1 = Double.parseDouble(price);
-            Product product = new Product(id,name,category1,price1);
-            products[num_products]=product;
-            num_products++;
-            System.out.println(product.toString());
-            System.out.println("prod add: ok");
-        }
-        else{
+        if(id!=null && name!=null && category!=null && price!=null) {
+            if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
+                Category category1 = switch (category) {
+                    case "MERCH" -> Category.MERCH;
+                    case "STATIONERY" -> Category.STATIONERY;
+                    case "CLOTHES" -> Category.CLOTHES;
+                    case "BOOK" -> Category.BOOK;
+                    case "ELECTRONICS" -> Category.ELECTRONICS;
+                    default -> throw new IllegalStateException("Unexpected value: " + category);
+                };
+                double price1 = Double.parseDouble(price);
+                Product product = new Product(id, name, category1, price1);
+                products[num_products] = product;
+                num_products++;
+                System.out.println(product.toString());
+                System.out.println("prod add: ok");
+            }
+        } else {
             System.err.println("The product can't be add.");
         }
     }

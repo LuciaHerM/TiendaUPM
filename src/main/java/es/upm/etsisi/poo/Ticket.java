@@ -26,8 +26,12 @@ public class Ticket {
      * @param producto  Producto a añadir al ticket.
      */
     public void AddProduct(Product producto) {
-        cart[productNumber] = producto;
-        productNumber++;
+        if(productNumber<MAX_CART_PRODUCTS) {
+            cart[productNumber] = producto;
+            productNumber++;
+        }else{
+            System.err.println("Intentas introducir más productos al Ticket.");
+        }
     }
 
     /**
