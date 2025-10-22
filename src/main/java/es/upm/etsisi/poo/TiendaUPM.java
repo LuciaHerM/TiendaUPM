@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
  */
 public class TiendaUPM {
 
+
     private static Scanner sc;
     private static Ticket ticket;
     private static Product[] products;
@@ -69,61 +70,107 @@ public class TiendaUPM {
                 }
                 i++;
             }
-            switch (comand[0]) {
-                case "prod":
-                    switch (comand[1]) {
-                        case "add":
-                            prodAdd(comand[2], comand[3], comand[4], comand[5]);
-                            break;
-                        case "list":
-                            prodList();
-                            break;
-                        case "update":
-                            prodUpdate(comand[2], comand[3], comand[4]);
-                            break;
-                        case "remove":
-                            prodRemove(comand[2]);
-                            break;
-                        default:
-                            unknownCommand();
-                            break;
-                    }
-                    break;
-                case "ticket":
-                    switch (comand[1]) {
-                        case "new":
-                            ticketNew();
-                            break;
-                        case "add":
-                            ticketAdd(comand[2], comand[3]);
-                            break;
-                        case "remove":
-                            ticketRemove(comand[2]);
-                            break;
-                        case "print":
-                            ticketPrint();
-                            break;
-                        default:
-                            unknownCommand();
-                            break;
-                    }
-                    break;
-                case "echo":
-                    echo(comand);
-                    break;
-                case "help":
-                    printHelp();
-                    break;
-                case "exit":
-                    continuar = false;
-                    exitProgram();
-                    break;
-                default:
-                    unknownCommand();
-                    break;
-            }
-            System.out.println();
+            continuar=gestionComandos(comand);
         }
+    }
+
+    /**
+     * Un metodo para gestionar los comandos que recibe
+     * @param comand
+     * @return
+     */
+    private boolean gestionComandos(String[] comand){
+        boolean continuar=true;
+        switch (comand[0]) {
+            case "client":
+                switch (comand[1]) {
+                    case "add":
+
+                        break;
+                    case "remove":
+                        break;
+                    case "list":
+                        break;
+                    default:
+                        unknownCommand();
+                        break;
+                }
+                break;
+            case "cash":
+                switch (comand[1]) {
+                    case "add":
+                        break;
+                    case "remove":
+                        break;
+                    case "list":
+                        break;
+                    case "tickets":
+                        break;
+                    default:
+                        unknownCommand();
+                        break;
+                }
+                break;
+            case "prod":
+                switch (comand[1]) {
+                    case "add":
+                        prodAdd(comand[2], comand[3], comand[4], comand[5]);
+                        break;
+                    case "list":
+                        prodList();
+                        break;
+                    case "update":
+                        prodUpdate(comand[2], comand[3], comand[4]);
+                        break;
+                    case "addFood":
+                        break;
+                    case "addMeeting":
+                        break;
+                    case "remove":
+                        prodRemove(comand[2]);
+                        break;
+                    default:
+                        unknownCommand();
+                        break;
+                }
+                break;
+            case "ticket":
+                switch (comand[1]) {
+                    case "new":
+                        ticketNew();
+                        break;
+                    case "add":
+                        ticketAdd(comand[2], comand[3]);
+                        break;
+                    case "remove":
+                        ticketRemove(comand[2]);
+                        break;
+                    case "print":
+                        ticketPrint();
+                        break;
+                    case "list":
+                        break;
+                    default:
+                        unknownCommand();
+                        break;
+                }
+                break;
+            case "echo":
+                echo(comand);
+                break;
+            case "help":
+                printHelp();
+                break;
+            case "exit":
+                continuar = false;
+                exitProgram();
+                break;
+            default:
+                unknownCommand();
+                break;
+        }
+        System.out.println();
+        return continuar;
     }
 
     /**
@@ -131,14 +178,24 @@ public class TiendaUPM {
      */
     private void printHelp() {
         System.out.println("Commands:\n" +
+                "client add \"<nombre>\" <DNI> <email> <cashId>\n" +
+                "client remove <DNI>\n" +
+                "client list ( incluye el dato del cash que lo creo y ordenados por nombre)\n" +
+                "cash add [<id>] \"<nombre>\"<email>\n" +
+                "cash remove <id>\n" +
+                "cash list\n" +
+                "cash tickets <id>\n" +
                 "prod add <id> \"<name>\" <category> <price>\n" +
                 "prod list\n" +
                 "prod update <id> NAME|CATEGORY|PRICE <value>\n" +
+                "prod addFood [<id>] \"< name>\" <price> <expiration: yyyy-MM-dd> <max_people>\n" +
+                "prod addMeeting [<id>] \"<name>\" <price> < expiration: yyyy-MM-dd> <max_people>\n" +
                 "prod remove <id>\n" +
                 "ticket new\n" +
-                "ticket add <prodId> <quantity>\n" +
-                "ticket remove <prodId>\n" +
-                "ticket print\n" +
+                "ticket add <ticketId> <cashId> <prodId> <amount> [--p<txt> --p<txt>]\n" +
+                "ticket remove <ticketId><cashId> <prodId>\n" +
+                "ticket print <ticketId> <cashId>\n" +
+                "ticket list\n" +
                 "echo \"<texto>\"\n" +
                 "help\n" +
                 "exit\n\n" +
