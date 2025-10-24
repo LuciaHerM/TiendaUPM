@@ -13,4 +13,8 @@ public class Cash extends User{
     public static String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "{class:Cash, id:"+id+", name:'"+name+"', email:"+ email+"}";    }
 }

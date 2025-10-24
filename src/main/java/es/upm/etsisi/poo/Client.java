@@ -19,4 +19,9 @@ public class Client extends User{
     public static String getCashId() {
         return cashId;
     }
+
+    @Override
+    public String toString() {
+        return "{class:Cliente, name:'"+name+"', DNI:"+DNI+", email:"+ email+", cashId:"+ cashId+"}";
+    }
 }
