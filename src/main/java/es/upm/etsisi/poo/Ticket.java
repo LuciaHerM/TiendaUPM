@@ -1,5 +1,8 @@
 package es.upm.etsisi.poo;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * La clase Ticket representa un ticket de compra en la app. Permite gestionar los productos, los descuentos e
  * imprimir el ticket a traves de sus metodos.
@@ -74,6 +77,7 @@ public class Ticket {
         int numClothes=0;
         int numBook=0;
         int numElectronics=0;
+        Arrays.sort(cart, 0, productNumber, (p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
         StringBuilder str = new StringBuilder();
         for(int i = 0 ; i < productNumber ; i++){
             switch (cart[i].getCategory()){

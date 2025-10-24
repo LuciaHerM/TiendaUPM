@@ -57,7 +57,7 @@ public class TiendaUPM {
         while (continuar) {
             System.out.print("tUPM>");
             String comando = sc.nextLine();
-            Pattern pattern = Pattern.compile("\"([^\"]*)\"|(\\S+)");
+            Pattern pattern = Pattern.compile("\"([^\"]*(?:\"[^\"]*)*)\"|(\\S+)");
             Matcher matcher = pattern.matcher(comando);
 
             String[] comand = new String[10];
