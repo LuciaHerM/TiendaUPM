@@ -1,18 +1,26 @@
 package es.upm.etsisi.poo;
 
 public class Product {
-    private String id;
-    private String name;
-    private Category category;
-    private Double price;
+    public static String id;
+    public static String name;
+    public static Category category;
+    public static Double price;
     public Product(String id, String name, Category category, Double price) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
     }
+
+    public Product() {
+    }
+
     public String getID() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
