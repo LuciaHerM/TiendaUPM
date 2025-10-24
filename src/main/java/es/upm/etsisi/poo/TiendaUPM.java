@@ -191,7 +191,7 @@ public class TiendaUPM {
                 "prod addFood [<id>] \"< name>\" <price> <expiration: yyyy-MM-dd> <max_people>\n" +
                 "prod addMeeting [<id>] \"<name>\" <price> < expiration: yyyy-MM-dd> <max_people>\n" +
                 "prod remove <id>\n" +
-                "ticket new\n" +
+                "ticket new [<id>] <cashId> <userId>\n" +
                 "ticket add <ticketId> <cashId> <prodId> <amount> [--p<txt> --p<txt>]\n" +
                 "ticket remove <ticketId><cashId> <prodId>\n" +
                 "ticket print <ticketId> <cashId>\n" +
