@@ -27,7 +27,7 @@ public class Events extends Product {
             day= Integer.parseInt(array[2]);
             year=Integer.parseInt(array[0]);
             week=Integer.parseInt(array[1]);
-            if(year==LocalDate.now().getYear() && week==LocalDate.now().getDayOfMonth() && day-LocalDate.now().getDayOfYear()<3){
+            if(year==LocalDate.now().getYear() && week==LocalDate.now().getDayOfMonth() && day-LocalDate.now().getDayOfYear()<Integer.parseInt(expiration_day)){
                 System.err.println("The minimum planing time is not of 3 days at least");
             }
         }else{
