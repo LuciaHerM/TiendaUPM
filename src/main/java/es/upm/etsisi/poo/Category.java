@@ -1,19 +1,19 @@
 package es.upm.etsisi.poo;
 
 public enum Category {
-    MERCH(0),
-    STATIONERY(5),
-    CLOTHES(7),
-    BOOK(10),
-    ELECTRONICS(3);
+    MERCH(0.00),
+    STATIONERY(0.05),
+    CLOTHES(0.07),
+    BOOK(0.10),
+    ELECTRONICS(0.03);
 
-    private final int descuento; // Porcentaje de descuento
+    private final double descuento; // Porcentaje de descuento
 
-    Category(int descuento) {
+    Category(double descuento) {
         this.descuento = descuento;
     }
 
-    public int getDescuento() {
+    public double getDescuento() {
         return descuento;
     }
 }

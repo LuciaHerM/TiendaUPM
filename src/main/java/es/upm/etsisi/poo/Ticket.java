@@ -32,6 +32,7 @@ public class Ticket {
         if(productNumber<MAX_CART_PRODUCTS) {
             cart[productNumber] = producto;
             productNumber++;
+            Arrays.sort(cart,Comparator.comparing(Product::getName));
         }else{
             System.err.println("Intentas introducir más productos al Ticket.");
         }
@@ -103,27 +104,27 @@ public class Ticket {
             switch (cart[i].getCategory()){
                 case MERCH:
                     if(numMerch>=2){
-                        productDiscount=0.0;
+                        productDiscount=Category.MERCH.getDescuento();
                     }
                     break;
                 case STATIONERY:
                     if(numStationery>=2){
-                        productDiscount=0.05;
+                        productDiscount=Category.STATIONERY.getDescuento();
                     }
                     break;
                 case CLOTHES:
                     if(numClothes>=2){
-                        productDiscount=0.07;
+                        productDiscount=Category.CLOTHES.getDescuento();
                     }
                     break;
                 case BOOK:
                     if(numBook>=2){
-                        productDiscount=0.1;
+                        productDiscount=Category.BOOK.getDescuento();
                     }
                     break;
                 case ELECTRONICS:
                     if(numElectronics>=2){
-                        productDiscount=0.03;
+                        productDiscount=Category.ELECTRONICS.getDescuento();
                     }
                     break;
             }
