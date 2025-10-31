@@ -11,7 +11,9 @@ public class Events extends Product {
         Events.id=id;
         Events.name=name;
         Events.price=price;
-        Events.expiration_day=expiration_day;
+        if(check_min_time(expiration_day)){
+            Events.expiration_day=expiration_day;
+        }
         if(num_person<=MAX_PARTICIPANTS){
             Events.num_person=num_person;
         }else{
@@ -19,21 +21,24 @@ public class Events extends Product {
         }
     }
 
-    private void check_min_time(String date){
-        int day, year, week;
+    private static boolean check_min_time(String date){
+        int day, year, month;
+        boolean solution=true;
         String[] array;
         array = date.split("-");
         if(array.length==3){
             day= Integer.parseInt(array[2]);
-            year=Integer.parseInt(array[0]);
             week=Integer.parseInt(array[1]);
-            if(year==LocalDate.now().getYear() && week==LocalDate.now().getDayOfMonth() && day-LocalDate.now().getDayOfYear()<Integer.parseInt(expiration_day)){
+            year=Integer.parseInt(array[0]);
+
+            if(year==LocalDate.now().getYear() && month==LocalDate.now().getDayOfMonth() && day-LocalDate.now().getDayOfYear()<){
                 System.err.println("The minimum planing time is not of 3 days at least");
+                solution=false;
             }
         }else{
             System.err.println("The date is not correct written");
         }
-
+        return false;
     }
 
     public static String getExpiration_day() {
