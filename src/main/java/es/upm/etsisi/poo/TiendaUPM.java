@@ -82,11 +82,13 @@ public class TiendaUPM {
             case "client":
                 switch (comand[1]) {
                     case "add":
-
+                        clientAdd(comand[2], comand[3], comand[4], comand[5]);
                         break;
                     case "remove":
+                        clientRemove(comand[2]);
                         break;
                     case "list":
+                        cashList();
                         break;
                     default:
                         unknownCommand();
@@ -96,8 +98,12 @@ public class TiendaUPM {
             case "cash":
                 switch (comand[1]) {
                     case "add":
+                        if (comand.length == 5) {
+                            cashAdd(comand[2], comand[3], comand[4]);
+                        } else { cashAdd(comand[2], comand[3]);}
                         break;
                     case "remove":
+                        cashRemove(comand[1]);
                         break;
                     case "list":
                         break;
@@ -170,6 +176,7 @@ public class TiendaUPM {
         return continuar;
     }
 
+
     /**
      * Imprime los posibles comandos de la app.
      */
@@ -199,6 +206,38 @@ public class TiendaUPM {
                 "Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n" +
                 "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.");
     }
+    /**
+     *
+     */
+    private void clientAdd(String name, String DNI, String email, String cashId){;}
+    /**
+     *
+     */
+    private void clientRemove(String DNI){;}
+    /**
+     *
+     */
+    private void clientList(){;}
+    /**
+     *
+     */
+    private void cashAdd(String name, String email, String id){;}
+    /**
+     *
+     */
+    private void cashAdd(String name, String email){;}
+    /**
+     *
+     */
+    private void cashRemove(String id){;}
+    /**
+     *
+     */
+    private void cashList(){;}
+    /**
+     *
+     */
+    private void cashTickets(String id){;}
 
     /**
      * Añade un nuevo producto al catalogo de la tienda.
@@ -267,7 +306,7 @@ public class TiendaUPM {
            ticketPrint();
            System.out.println("ticket add: ok");
        } else {
-           System.out.println("The product was not found");
+           System.err.println("The product was not found");
        }
     }
 
@@ -280,7 +319,7 @@ public class TiendaUPM {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i<products.length()){
-            if(products.find(i).getID().equals(prodId)){
+            if(products.find(i)!=null && products.find(i).getID().equals(prodId)){
                 encontrado=true;
             }
             else{
