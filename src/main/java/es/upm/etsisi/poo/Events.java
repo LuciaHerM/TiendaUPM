@@ -29,7 +29,7 @@ public class Events extends Product {
         try{
             eventDate=LocalDate.parse(date);
         }catch (Exception e){
-            System.out.println("The date is not correct written");
+            System.out.println("The date is not correct written must be in this format yyyy-mm-dd");
             return false;
         }
         LocalDate today=LocalDate.now();
@@ -37,9 +37,9 @@ public class Events extends Product {
             System.out.println("The date can't be before today");
             return false;
         }
-        long daysBetween= ChronoUnit.DAYS.between(today,eventDate);
+        double daysBetween= ChronoUnit.DAYS.between(today,eventDate);
         if(typeEvent.getMinDaysBefore()>daysBetween){
-                System.err.println("The minimum planing time is not of 3 days at least");
+                System.err.println("The minimum planning time for "+typeEvent+" is "+typeEvent.getMinDaysBefore()+" days.");
                 return false;
         }
         return true;
