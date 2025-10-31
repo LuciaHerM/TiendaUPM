@@ -3,6 +3,7 @@ package es.upm.etsisi.poo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,8 +15,11 @@ public class TiendaUPM {
 
 
     private static Scanner sc;
-    private static Ticket ticket;
-    private static Catalog products;
+    private static Ticket ticketActive;
+    private static Catalog catalog;
+    private static ArrayList<Cash> cashList;
+    private static ArrayList<Client> clientList;
+    private static ArrayList<Ticket> ticketList;
 
     /**
      * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
@@ -41,8 +45,11 @@ public class TiendaUPM {
      */
     private void init() {
         System.out.println("Welcome to the ticket module App.");
-        ticket = new Ticket();
-        products = new Catalog();
+        ticketActive = new Ticket();
+        catalog = new Catalog();
+        cashList=new ArrayList<Cash>();
+        clientList=new ArrayList<Client>();
+        ticketList=new ArrayList<Ticket>();
     }
 
     /**
@@ -243,35 +250,35 @@ public class TiendaUPM {
      * Añade un nuevo producto al catalogo de la tienda.
      */
     private void prodAdd(String id, String name, String category, String price) {
-        products.add(id,name,category,price);
+        catalog.add(id,name,category,price);
     }
 
     /**
      * Muestra el catálogo de productos actualmente registrados.
      */
     private void prodList() {
-        products.list();
+        catalog.list();
     }
 
     /**
      * Permite modificar un atributo de un producto.
      */
     private void prodUpdate(String id, String change, String value) {
-        products.update(id,change,value);
+        catalog.update(id,change,value);
     }
 
     /**
      * Elimina un producto del catálogo.
      */
     private void prodRemove(String id) {
-        products.remove(id);
+        catalog.remove(id);
     }
 
     /**
      * Resetea el ticket en curso.
      */
     private void ticketNew() {
-        ticket=new Ticket();
+        ticketActive =new Ticket();
         System.out.println("ticket new: ok");
     }
     /*
@@ -291,8 +298,8 @@ public class TiendaUPM {
     private void ticketAdd(String prodId, String quantity) {
        int cont = 0;
        boolean encontrado = false;
-       while (cont < products.length() && !encontrado){
-           if (products.find(cont)!=null && products.find(cont).getID().equals(prodId)){
+       while (cont < catalog.length() && !encontrado){
+           if (catalog.find(cont)!=null && catalog.find(cont).getID().equals(prodId)){
                encontrado = true;
            }
            else {
@@ -301,7 +308,7 @@ public class TiendaUPM {
        }
        if (encontrado) {
            for (int i = 0; i < Integer.parseInt(quantity); i++) {
-               ticket.AddProduct(products.find(cont));
+               ticketActive.AddProduct(catalog.find(cont));
            }
            ticketPrint();
            System.out.println("ticket add: ok");
@@ -318,8 +325,8 @@ public class TiendaUPM {
     private void ticketRemove(String prodId) {
         int i=0;
         boolean encontrado=false;
-        while(!encontrado && i<products.length()){
-            if(products.find(i)!=null && products.find(i).getID().equals(prodId)){
+        while(!encontrado && i< catalog.length()){
+            if(catalog.find(i)!=null && catalog.find(i).getID().equals(prodId)){
                 encontrado=true;
             }
             else{
@@ -327,7 +334,7 @@ public class TiendaUPM {
             }
         }
         if(encontrado) {
-            ticket.RemoveProduct(products.find(i));
+            ticketActive.RemoveProduct(catalog.find(i));
             ticketPrint();
             System.out.println("ticket remove: ok");
         }else{
@@ -340,7 +347,7 @@ public class TiendaUPM {
      *  Imprime el ticket actual.
      */
     private void ticketPrint() {
-        System.out.println(ticket.ToString());
+        System.out.println(ticketActive.ToString());
     }
 
     /**

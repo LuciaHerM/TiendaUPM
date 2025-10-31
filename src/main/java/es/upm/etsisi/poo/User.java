@@ -1,6 +1,6 @@
 package es.upm.etsisi.poo;
 
-public class User {
+public abstract class User {
 
     public static String name;
     public static String email;
