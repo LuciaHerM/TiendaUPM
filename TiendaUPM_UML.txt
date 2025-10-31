@@ -1,69 +1,182 @@
 @startuml
+title "Diagrama de Clases - TiendaUPM"
 
-TiendaUPM-->Ticket
-TiendaUPM-->Product
-Ticket-->Product
-Product-->Category
-
-class Product {
-- String id
-- String name
-- Category category
-- Double price
-+ Product(String id, String name, Category category, Double price)
-+ String getID()
-+ String getName()
-+ void setName(String name)
-+ Category getCategory()
-+ void setCategory(Category category)
-+ Double getPrice()
-+ void setPrice(Double price)
-+ String toString()
+'====================================================
+' Enumeraciones (actualizadas)
+'====================================================
+enum Category {
+  - descuento : double
+  --
+  + MERCH(0.00)
+  + STATIONERY(0.05)
+  + CLOTHES(0.07)
+  + BOOK(0.10)
+  + ELECTRONICS(0.03)
+  --
+  + getDescuento() : double
 }
 
-enum Category{
-+ MERCH
-+ STATIONERY
-+ CLOTHES
-+ BOOK
-+ ELECTRONICS
+enum TicketStatus {
+  VACIO
+  ACTIVO
+  CERRADO
 }
 
-class Ticket{
-- Product[] cart
-- Double totalPrice
-- int MAX_CART_PRODUCTS = 100;
-- int productNumber;
-- Double totalDiscount;
-+ Ticket()
-+ AddProduct(Product producto)
-+ RemoveProduct(Product producto)
-+ RemoveAll()
-+ String ToString()
+enum TypeEvent {
+  COMIDA
+  REUNION
 }
+
+'====================================================
+' Clases principales
+'====================================================
+
 
 class TiendaUPM {
-- Scanner sc;
-- Ticket ticket;
-- Product[] products;
-- int MAX_NUM_PRODUCTS = 200;
-- int num_products;
-+ main(String[] args)
-- void init()
-- void start()
-- void printHelp()
-- void prodAdd(String id, String name, String category, String price)
-- void prodList()
-- void prodUpdate(String id, String change, String value)
-- void prodRemove(String id)
-- void ticketNew()
-- void ticketAdd(String prodId, String quantity)
-- void ticketRemove(String prodId)
-- void ticketPrint()
-- void echo(String texto)
-- void exitProgram()
-- void unknownCommand()
-- void end()
-
+  - static sc : Scanner
+  - static ticketActive : Ticket
+  - static catalog : Catalog
+  - static cashList : ArrayList<Cash>
+  - static clientList : ArrayList<Client>
+  - static ticketList : ArrayList<Ticket>
+  --
+  + main(args : String[]) : void
+  - init() : void
+  - start() : void
+  - gestionComandos(comand : String[]) : boolean
+  - printHelp() : void
+  - clientAdd(name : String, dni : String, email : String, cashId : String) : void
+  - clientRemove(dni : String) : void
+  - clientList() : void
+  - cashAdd(name : String, email : String, id : String) : void
+  - cashAdd(name : String, email : String) : void
+  - cashRemove(id : String) : void
+  - cashList() : void
+  - cashTickets(id : String) : void
+  - prodAdd(id : String, name : String, category : String, price : String) : void
+  - prodList() : void
+  - prodUpdate(id : String, change : String, value : String) : void
+  - prodRemove(id : String) : void
+  - ticketNew() : void
+  - ticketAdd(prodId : String, quantity : String) : void
+  - ticketRemove(prodId : String) : void
+  - ticketPrint() : void
+  - echo(texto : String[]) : void
+  - end() : void
+  - exitProgram() : void
+  - unknownCommand() : void
 }
+
+
+class Catalog {
+  - products : Product[]
+  - final MAX_NUM_PRODUCTS : int
+  - num_products : int
+  + Catalog()
+  + length() : int
+  + find(id : int) : Product
+  + add(id : String, name : String, category : String, price : String) : void
+  + list() : void
+  + update(id : String, change : String, value : String) : void
+  + remove(id : String) : void
+}
+
+
+class Product {
+  - static id : String
+  - static name : String
+  - static category : Category
+  - static price : Double
+  + Product(id : String, name : String, category : Category, price : Double)
+  + Product()
+  + getID() : String
+  + setId(id : String) : void
+  + getName() : String
+  + setName(name : String) : void
+  + getCategory() : Category
+  + setCategory(category : Category) : void
+  + getPrice() : Double
+  + setPrice(price : Double) : void
+  + toString() : String
+}
+
+class Events extends Product {
+  - type : TypeEvent
+  - expirationDate : LocalDate
+  - maxPeople : int
+  + validateTimeConstraints() : boolean
+}
+
+class PersonalizedProduct extends Product {
+  - maxPersonalizations : int
+  - texts : List<String>
+  + addTextCustomization(text : String) : void
+  + calculatePrice() : double
+}
+
+class Ticket {
+  - cart : Product[]
+  - totalPrice : Double
+  - totalDiscount : Double
+  - final MAX_CART_PRODUCTS : int
+  - productNumber : int
+  + Ticket()
+  + AddProduct(producto : Product) : void
+  + RemoveProduct(producto : Product) : void
+  + RemoveAll() : void
+  + ToString() : String
+}
+'====================================================
+' Usuarios y Cajeros
+'====================================================
+abstract class User {
+ - name : String
+ - email : String
+ + User(name : String, email : String) : void
+ + getName() : String
+ + getEmail() : String
+}
+
+class Client extends User {
+  - dni : String
+  - cashCreator : Cash
+  - tickets : List<Ticket>
+  + addTicket(ticket : Ticket) : void
+  + listTickets() : List<Ticket>
+}
+
+class Cash extends User {
+  - id : String
+  - tickets : List<Ticket>
+  + createTicket(user : Client) : Ticket
+  + removeTicket(ticketId : String) : void
+  + listTickets() : List<Ticket>
+}
+
+'====================================================
+' Relaciones entre clases
+'====================================================
+
+TiendaUPM --> Catalog
+TiendaUPM --> Cash : contiene
+TiendaUPM --> Client : contiene
+TiendaUPM --> Ticket : contiene
+
+Catalog --> Product : gestiona >
+Ticket --> Product : incluye >
+
+Client --> Ticket : posee >
+Cash --> Ticket : crea >
+Client --> Cash : creado por >
+
+Product <|-- Events
+Product <|-- PersonalizedProduct
+
+User <|-- Client
+User <|-- Cash
+
+Product --> Category : usa >
+Events --> TypeEvent : usa >
+Ticket --> TicketStatus : tiene estado >
+
 @enduml
