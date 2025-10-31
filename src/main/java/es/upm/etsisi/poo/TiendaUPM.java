@@ -15,9 +15,7 @@ public class TiendaUPM {
 
     private static Scanner sc;
     private static Ticket ticket;
-    private static Product[] products;
-    private static final int MAX_NUM_PRODUCTS = 200;
-    private static int num_products;
+    private static Catalog products;
 
     /**
      * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
@@ -44,8 +42,7 @@ public class TiendaUPM {
     private void init() {
         System.out.println("Welcome to the ticket module App.");
         ticket = new Ticket();
-        products = new Product[MAX_NUM_PRODUCTS];
-        num_products=0;
+        products = new Catalog();
     }
 
     /**
@@ -205,123 +202,30 @@ public class TiendaUPM {
 
     /**
      * Añade un nuevo producto al catalogo de la tienda.
-     *
-     * @param id   Identificador único del producto.
-     * @param name  Nombre del producto.
-     * @param category  Categoria del producto perteneciente al enum Category.
-     * @param price Precio del producto.
      */
     private void prodAdd(String id, String name, String category, String price) {
-        int i=0;
-        boolean encontrado=false;
-        while(!encontrado && i< num_products){
-            if(products[i].getID().equals(id)){
-                System.out.println("Can't be add a product with the same id");
-                encontrado=true;
-            }
-            i++;
-        }
-        if(id!=null && name!=null && category!=null && price!=null) {
-            if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
-                Category category1 = switch (category) {
-                    case "MERCH" -> Category.MERCH;
-                    case "STATIONERY" -> Category.STATIONERY;
-                    case "CLOTHES" -> Category.CLOTHES;
-                    case "BOOK" -> Category.BOOK;
-                    case "ELECTRONICS" -> Category.ELECTRONICS;
-                    default -> throw new IllegalStateException("Unexpected value: " + category);
-                };
-                double price1 = Double.parseDouble(price);
-                Product product = new Product(id, name, category1, price1);
-                products[num_products] = product;
-                num_products++;
-                System.out.println(product.toString());
-                System.out.println("prod add: ok");
-            }
-        } else {
-            System.err.println("The product can't be add.");
-        }
+        products.add(id,name,category,price);
     }
 
     /**
      * Muestra el catálogo de productos actualmente registrados.
      */
     private void prodList() {
-        System.out.println("Catalog:");
-        for(int i=0;i<num_products;i++){
-            System.out.println(" "+products[i].toString());
-        }
-        System.out.println("prod list: ok");
+        products.list();
     }
 
     /**
      * Permite modificar un atributo de un producto.
-     *
-     * @param id    Identificador del producto.
-     * @param change    Atributo a modificar (name, category o price).
-     * @param value     Nuevo valor del atributo.
      */
     private void prodUpdate(String id, String change, String value) {
-        int i=0;
-        boolean encontrado=false;
-        while(!encontrado && i< products.length){
-            if(products[i].getID().equals(id)){
-                encontrado=true;
-            }
-            else
-                i++;
-        }
-        if(encontrado){
-            switch (change){
-                case "NAME":
-                    products[i].setName(value);
-                    break;
-                case "CATEGORY":
-                    Category category = switch (value){
-                        case "MERCH" -> Category.MERCH;
-                        case "STATIONERY"-> Category.STATIONERY;
-                        case "CLOTHES" -> Category.CLOTHES;
-                        case "BOOK" -> Category.BOOK;
-                        case "ELECTRONICS" -> Category.ELECTRONICS;
-                        default -> throw new IllegalStateException("Unexpected value: " + value);
-                    };
-                    products[i].setCategory(category);
-                    break;
-                case "PRICE":
-                    double price = Double.parseDouble(value);
-                    products[i].setPrice(price);
-                    break;
-            }
-            System.out.println(products[i].toString());
-            System.out.println("prod update: ok");
-        }else{
-            System.out.println("Product to update not found");
-        }
+        products.update(id,change,value);
     }
 
     /**
      * Elimina un producto del catálogo.
-     * @param id    Identificador del producto.
      */
     private void prodRemove(String id) {
-        int i=0;
-        boolean encontrado=false;
-        while(!encontrado && i< products.length){
-            if(products[i].getID().equals(id)){
-                encontrado=true;
-            }
-            else
-                i++;
-        }
-        if(encontrado){
-            for(int j=i;j<num_products;j++){
-                products[j]=products[j+1];
-            }
-            num_products--;
-            System.out.println("prod remove: ok");
-        }else{
-            System.out.println("Product to remove not found");
-        }
+        products.remove(id);
     }
 
     /**
@@ -348,8 +252,8 @@ public class TiendaUPM {
     private void ticketAdd(String prodId, String quantity) {
        int cont = 0;
        boolean encontrado = false;
-       while (cont < products.length && !encontrado){
-           if (products[cont].getID().equals(prodId)){
+       while (cont < products.length() && !encontrado){
+           if (products.find(cont).getID().equals(prodId)){
                encontrado = true;
            }
            else {
@@ -358,7 +262,7 @@ public class TiendaUPM {
        }
        if (encontrado) {
            for (int i = 0; i < Integer.parseInt(quantity); i++) {
-               ticket.AddProduct(products[cont]);
+               ticket.AddProduct(products.find(cont));
            }
            ticketPrint();
            System.out.println("ticket add: ok");
@@ -375,8 +279,8 @@ public class TiendaUPM {
     private void ticketRemove(String prodId) {
         int i=0;
         boolean encontrado=false;
-        while(!encontrado && i<products.length){
-            if(products[i].getID().equals(prodId)){
+        while(!encontrado && i<products.length()){
+            if(products.find(i).getID().equals(prodId)){
                 encontrado=true;
             }
             else{
@@ -384,7 +288,7 @@ public class TiendaUPM {
             }
         }
         if(encontrado) {
-            ticket.RemoveProduct(products[i]);
+            ticket.RemoveProduct(products.find(i));
             ticketPrint();
             System.out.println("ticket remove: ok");
         }else{
