@@ -12,11 +12,11 @@ public class Client extends User{
         Client.cashId=cashId;
     }
 
-    public static String getDNI() {
+    public String getDNI() {
         return DNI;
     }
 
-    public static String getCashId() {
+    public String getCashId() {
         return cashId;
     }
 
