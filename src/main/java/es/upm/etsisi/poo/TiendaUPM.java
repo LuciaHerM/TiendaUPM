@@ -17,8 +17,8 @@ public class TiendaUPM {
     private static Scanner sc;
     private static Ticket ticketActive;
     private static Catalog catalog;
-    private static ArrayList<Cash> cashList;
-    private static ArrayList<Client> clientList;
+    private static ArrayList<Cash> cashers;
+    private static ArrayList<Client> clients;
     private static ArrayList<Ticket> ticketList;
 
     /**
@@ -47,8 +47,8 @@ public class TiendaUPM {
         System.out.println("Welcome to the ticket module App.");
         ticketActive = new Ticket();
         catalog = new Catalog();
-        cashList=new ArrayList<Cash>();
-        clientList=new ArrayList<Client>();
+        cashers =new ArrayList<Cash>();
+        clients =new ArrayList<Client>();
         ticketList=new ArrayList<Ticket>();
     }
 
@@ -113,8 +113,10 @@ public class TiendaUPM {
                         cashRemove(comand[1]);
                         break;
                     case "list":
+                        cashList();
                         break;
                     case "tickets":
+                        cashTickets(comand[2]);
                         break;
                     default:
                         unknownCommand();
@@ -214,21 +216,59 @@ public class TiendaUPM {
                 "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.");
     }
     /**
-     *
+     * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
+     * si existe, devuelve un error, y no lo añade,
+     * si no existe lo crea y añade a la ArrayList de clientes
      */
-    private void clientAdd(String name, String DNI, String email, String cashId){;}
+    private void clientAdd(String name, String DNI, String email, String cashId) {
+        boolean encuentraDNIEnClientList = false;
+        int cont = 0;
+        while (!encuentraDNIEnClientList && cont < clients.size()){
+            if (clients.get(cont).getDNI().equals(DNI)){
+                encuentraDNIEnClientList = true;
+            } else {
+                cont++;
+            }
+        }
+        if (!encuentraDNIEnClientList) {
+            Client client = new Client(name, DNI, email, cashId);
+            clients.add(client);
+        }
+        if (encuentraDNIEnClientList){
+            System.err.println("Ya existe un cliente con dicho DNI");
+        }
+    }
     /**
      *
      */
-    private void clientRemove(String DNI){;}
+    private void clientRemove(String DNI){
+        ;
+    }
     /**
      *
      */
-    private void clientList(){;}
+    private void clientList(){
+        ;
+    }
     /**
-     *
+     Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea un cajero y o añade a el arrayList de cajeros
      */
-    private void cashAdd(String name, String email, String id){;}
+    private void cashAdd(String name, String email, String id){
+        boolean encontrado = false;
+        int i = 0 ;
+        while (!encontrado&&i<cashers.size()) {
+            if (cashers.get(i).getId().equals(id)) {
+               encontrado = true;
+            }
+            i++;
+        }
+        if(!encontrado) {
+            Cash cash = new Cash(id, name, email);
+            cashers.add(cash);
+        }else {
+            System.err.println("Ya existe un cajero con el mismo Id en la base de datos");
+        }
+    }
     /**
      *
      */
@@ -240,7 +280,9 @@ public class TiendaUPM {
     /**
      *
      */
-    private void cashList(){;}
+    private void cashList(){
+
+    }
     /**
      *
      */
