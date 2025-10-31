@@ -11,11 +11,11 @@ public class Catalog {
         num_products=0;
     }
 
-    public static int length(){
+    public int length(){
         return products.length;
     }
 
-    public static Product find(int id){
+    public Product find(int id){
         return products[id];
     }
 
