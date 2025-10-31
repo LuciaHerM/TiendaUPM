@@ -253,7 +253,7 @@ public class TiendaUPM {
        int cont = 0;
        boolean encontrado = false;
        while (cont < products.length() && !encontrado){
-           if (products.find(cont).getID().equals(prodId)){
+           if (products.find(cont)!=null && products.find(cont).getID().equals(prodId)){
                encontrado = true;
            }
            else {
@@ -267,7 +267,7 @@ public class TiendaUPM {
            ticketPrint();
            System.out.println("ticket add: ok");
        } else {
-           System.err.println("The product was not found");
+           System.out.println("The product was not found");
        }
     }
 
