@@ -19,7 +19,6 @@ public class TiendaUPM {
     private static Catalog catalog;
     private static ArrayList<Cash> cashers;
     private static ArrayList<Client> clients;
-    private static ArrayList<Ticket> ticketList;
 
     /**
      * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
@@ -49,7 +48,7 @@ public class TiendaUPM {
         catalog = new Catalog();
         cashers =new ArrayList<Cash>();
         clients =new ArrayList<Client>();
-        ticketList=new ArrayList<Ticket>();
+        ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
     }
 
     /**
@@ -239,10 +238,22 @@ public class TiendaUPM {
         }
     }
     /**
-     *
+     * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
+     * si existe, lo elimina, y si no devuelve un error.
      */
     private void clientRemove(String DNI){
-        ;
+        boolean encontrarEnListaEliminar = false;
+        int contador = 0;
+        while (!encontrarEnListaEliminar && contador < clients.size()){
+            if (clients.get(contador).getDNI().equals(DNI)){
+                encontrarEnListaEliminar = true;
+            } else { contador++;}
+        }
+        if (encontrarEnListaEliminar){
+            clients.remove(clients.get(contador));
+        } else {
+            System.err.println("No existe dicho cliente, por tanto no se puede eliminar");
+        }
     }
     /**
      *
