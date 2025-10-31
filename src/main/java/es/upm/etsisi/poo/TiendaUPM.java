@@ -226,9 +226,24 @@ public class TiendaUPM {
      */
     private void clientList(){;}
     /**
-     *
+     Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea un cajero y o añade a el arrayList de cajeros
      */
-    private void cashAdd(String name, String email, String id){;}
+    private void cashAdd(String name, String email, String id){
+        boolean encontrado = false;
+        int i = 0 ;
+        while (!encontrado&&i<cashList.size()) {
+            if (cashList.get(i).getId().equals(id)) {
+               encontrado = true;
+            }
+            i++;
+        }
+        if(!encontrado) {
+            Cash cash = new Cash(id, name, email);
+            cashList.add(cash);
+        }else {
+            System.err.println("Ya existe un cajero con el mismo Id en la base de datos");
+        }
+    }
     /**
      *
      */
@@ -240,7 +255,9 @@ public class TiendaUPM {
     /**
      *
      */
-    private void cashList(){;}
+    private void cashList(){
+
+    }
     /**
      *
      */
