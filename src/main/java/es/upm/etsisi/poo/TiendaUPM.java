@@ -281,18 +281,50 @@ public class TiendaUPM {
         }
     }
     /**
-     *
+     busca el mayor id para crear un nuevo el cua sera mayorId + 1 el cual sabemos
+     que no va a exitir
      */
-    private void cashAdd(String name, String email){;}
+    private void cashAdd(String name, String email){
+        int nuevoId = 0 ;
+        int maximo = 0;
+        for (int i = 0 ; i < cashers.size() ; i++){
+            if ( maximo < Integer.parseInt(cashers.get(i).getId())){
+                maximo = Integer.parseInt(cashers.get(i).getId());
+            }
+        }
+        Cash cash = new Cash(String.valueOf(maximo+1),name,email);
+        cashers.add(cash);
+    }
     /**
-     *
+     Busca el id dentro del arrayList de elementos y si lo encuentra elimina el cajero , en cambio
+     si no lo encuentra dispara un mensaje de error de que el id no es correcto .
      */
-    private void cashRemove(String id){;}
+    private void cashRemove(String id){
+        boolean encontrado = false;
+        int i =0;
+        while(i < cashers.size()&&!encontrado){
+            if (cashers.get(i).getId().equals(id)) {
+                encontrado = true;
+            }
+            else {
+                i++;
+            }
+        }
+        if(encontrado){
+            cashers.remove(i);
+        }
+        else {
+            System.err.println("El id introducido no se encuentra en la base de datos del sistema");
+        }
+
+    }
     /**
-     *
+     realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
      */
     private void cashList(){
-
+        for(int i = 0 ; i < cashers.size();i++){
+            System.out.println(cashers.get(i).toString());
+        }
     }
     /**
      *
