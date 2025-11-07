@@ -39,10 +39,9 @@ public class Client extends User{
     }
     /**
      * Si no está ya el ticket en el ArrayList, lo añade
-     * @param clientTickets ArrayList de tickets de este cliente
      * @param ticket Este es el ticket a añadir
      */
-    public void ticketAddClients(List<Ticket> clientTickets, Ticket ticket){
+    public void ticketAddClients(Ticket ticket){
         if (!clientTickets.contains(ticket)) {
             clientTickets.add(ticket);
         }
@@ -50,9 +49,8 @@ public class Client extends User{
 
     /**
      * Este método recorre printeando todos los tickets del cliente
-     * @param clientTickets El ArrayList de tickets de este cliente
      */
-    public void ticketListClientes(List<Ticket> clientTickets){
+    public void ticketListClientes(){
         for (int i = 0; i < clientTickets.size(); i++) System.out.println(clientTickets.get(i).toString());
     }
 }

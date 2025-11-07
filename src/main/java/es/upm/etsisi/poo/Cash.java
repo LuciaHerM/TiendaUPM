@@ -33,10 +33,9 @@ public class Cash extends User{
 
     /**
      * Si no está ya el ticket en el ArrayList, lo añade
-     * @param cashTickets ArrayList de tickets de este cajero
      * @param ticket Este es el ticket a añadir
      */
-    public void ticketAddCash(List<Ticket> cashTickets, Ticket ticket){
+    public void ticketAddCash(Ticket ticket){
         if (!cashTickets.contains(ticket)) {
             cashTickets.add(ticket);
         }
@@ -44,9 +43,8 @@ public class Cash extends User{
 
     /**
      * Este método recorre printeando todos los tickets del cajero
-     * @param cashTickets El ArrayList de tickets de este cajero
      */
-    public void ticketListCash(List<Ticket> cashTickets){
+    public void ticketListCash(){
         for (int i = 0; i < cashTickets.size(); i++) System.out.println(cashTickets.get(i).toString());
     }
 }
