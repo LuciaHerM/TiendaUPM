@@ -256,13 +256,16 @@ public class TiendaUPM {
         }
     }
     /**
-     *
+     * Este método recorre la lista de los clientes, y los va printeando en orden
      */
     private void clientList(){
-        ;
+        for (Client client : clients) {
+            System.out.println(client.toString());
+        }
     }
     /**
-     Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea un cajero y o añade a el arrayList de cajeros
+     * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
+     * un cajero y o añade a el arrayList de cajeros
      */
     private void cashAdd(String name, String email, String id){
         boolean encontrado = false;
