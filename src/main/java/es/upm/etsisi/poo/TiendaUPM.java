@@ -449,6 +449,7 @@ public class TiendaUPM {
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
     }
 
+
     /**
      * Resetea el ticket en curso.
      */
