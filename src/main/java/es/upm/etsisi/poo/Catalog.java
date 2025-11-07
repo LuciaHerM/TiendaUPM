@@ -59,8 +59,38 @@ public class Catalog {
         }
     }
 
-    public void addEvent(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent){
+    public void addEvent(String id, String name, String price, String expiration_day, String num_person, TypeEvent typeEvent){
+        int i=0;
+        boolean encontrado=false;
+        while(!encontrado && i< num_products){
+            if(products[i].getID().equals(id)){
+                System.out.println("Can't be add a product with the same id");
+                encontrado=true;
+            }
+            i++;
+        }
+        if(id!=null && name!=null && typeEvent!=null && price!=null){
 
+            if(Events.check_min_time(expiration_day, typeEvent)) {
+                if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
+                    TypeEvent typeEvent1 = switch (typeEvent) {
+                        case "FOOD" -> TypeEvent.FOOD;
+                        case "MEETING" -> TypeEvent.MEETING;
+                        default -> throw new IllegalStateException("Unexpected value: " + typeEvent);
+                    };
+                    double price1 = Double.parseDouble(price);
+                    Events product = new Events(id, name, price1, expiration_day, num_person, typeEvent1);
+                    products[num_products] = product;
+                    num_products++;
+                    System.out.println(product.toString());
+                    System.out.println("prod add: ok");
+                }
+            } else {
+                System.err.println("The product can't be add.");
+            }
+        } else {
+            System.err.println("The product can't be add.");
+        }
     }
 
 
