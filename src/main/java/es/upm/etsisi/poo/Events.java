@@ -37,7 +37,8 @@ public class Events extends Product {
             System.out.println("The date can't be before today");
             return false;
         }
-        double daysBetween= ChronoUnit.DAYS.between(today,eventDate);
+        double daysBetween= ChronoUnit.HOURS.between(today.atStartOfDay(),eventDate.atStartOfDay())/24.0;
+
         if(typeEvent.getMinDaysBefore()>daysBetween){
                 System.err.println("The minimum planning time for "+typeEvent+" is "+typeEvent.getMinDaysBefore()+" days.");
                 return false;
