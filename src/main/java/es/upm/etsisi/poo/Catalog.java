@@ -70,15 +70,14 @@ public class Catalog {
             i++;
         }
         if(id!=null && name!=null && typeEvent!=null && price!=null){
-
             if(Events.check_min_time(expiration_day, typeEvent)) {
                 if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
                     double priceDouble = Double.parseDouble(price);
                     int num_personInt = Integer.parseInt(num_person);
-                    Events product = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
-                    products[num_products] = product;
+                    Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
+                    products[num_products] = productEvent;
                     num_products++;
-                    System.out.println(product.toString());
+                    System.out.println(productEvent.toString());
                     System.out.println("prod add: ok");
                 }
             } else {
