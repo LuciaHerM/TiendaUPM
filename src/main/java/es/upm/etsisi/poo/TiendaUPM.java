@@ -368,6 +368,29 @@ public class TiendaUPM {
     private void prodRemove(String id) {
         catalog.remove(id);
     }
+    /**
+     * Añade un producto de tipo food llamando al metodo dentro de catalogo
+     * @param id es el id del producto
+     * @param name es el nombre del producto
+     * @param price es el precio del producto
+     * @param expiration_day es el dia que se quiere la comida
+     * @param num_person es el numero de personas para las que se quire la comida
+     */
+    private void prodAddFood(String id, String name, String price, String expiration_day, String num_person){
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
+    }
+
+    /**
+     * Añade un producto de tipo reunion llamando al metodo dentro de catalogo
+     * @param id es el id del producto
+     * @param name es el nombre del producto
+     * @param price es el precio del producto
+     * @param expiration_day es el dia que se quiere la reunion
+     * @param num_person es el numero de personas que van a acceder a la reunion
+     */
+    private void prodAddMeeting(String id, String name, String price, String expiration_day, String num_person){
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
+    }
 
     /**
      * Resetea el ticket en curso.
@@ -442,14 +465,6 @@ public class TiendaUPM {
      */
     private void ticketPrint() {
         System.out.println(ticketActive.ToString());
-    }
-
-    private void prodAddFood(String id, String name, String price, String expiration_day, String num_person){
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
-    }
-
-    private void prodAddMeeting(String id, String name, String price, String expiration_day, String num_person){
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
     }
 
     /**
