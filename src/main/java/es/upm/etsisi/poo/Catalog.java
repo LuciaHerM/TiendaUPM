@@ -73,13 +73,9 @@ public class Catalog {
 
             if(Events.check_min_time(expiration_day, typeEvent)) {
                 if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
-                    TypeEvent typeEvent1 = switch (typeEvent) {
-                        case "FOOD" -> TypeEvent.FOOD;
-                        case "MEETING" -> TypeEvent.MEETING;
-                        default -> throw new IllegalStateException("Unexpected value: " + typeEvent);
-                    };
-                    double price1 = Double.parseDouble(price);
-                    Events product = new Events(id, name, price1, expiration_day, num_person, typeEvent1);
+                    double priceDouble = Double.parseDouble(price);
+                    int num_personInt = Integer.parseInt(num_person);
+                    Events product = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
                     products[num_products] = product;
                     num_products++;
                     System.out.println(product.toString());
