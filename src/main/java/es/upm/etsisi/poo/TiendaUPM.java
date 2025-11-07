@@ -218,6 +218,10 @@ public class TiendaUPM {
      * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
      * si existe, devuelve un error, y no lo añade,
      * si no existe lo crea y añade a la ArrayList de clientes
+     * @param name nombre del cliente
+     * @param DNI DNI del cliente
+     * @param email email del cliente
+     * @param cashId id del cajero
      */
     private void clientAdd(String name, String DNI, String email, String cashId) {
         boolean encuentraDNIEnClientList = false;
@@ -240,6 +244,7 @@ public class TiendaUPM {
     /**
      * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
      * si existe, lo elimina, y si no devuelve un error.
+     * @param DNI DNI del cliente a eliminar
      */
     private void clientRemove(String DNI){
         boolean encontrarEnListaEliminar = false;
@@ -265,7 +270,7 @@ public class TiendaUPM {
     }
     /**
      * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
-     * un cajero y o añade a el arrayList de cajeros
+     * un cajero y o añade al arrayList de cajeros
      */
     private void cashAdd(String name, String email, String id){
         boolean encontrado = false;
@@ -284,8 +289,8 @@ public class TiendaUPM {
         }
     }
     /**
-     busca el mayor id para crear un nuevo el cua sera mayorId + 1 el cual sabemos
-     que no va a exitir
+     * Busca el mayor id para crear un nuevo el cual será mayorId + 1 el cual sabemos
+     * que no va a exitir
      */
     private void cashAdd(String name, String email){
         int nuevoId = 0 ;
@@ -299,8 +304,8 @@ public class TiendaUPM {
         cashers.add(cash);
     }
     /**
-     Busca el id dentro del arrayList de elementos y si lo encuentra elimina el cajero , en cambio
-     si no lo encuentra dispara un mensaje de error de que el id no es correcto .
+     * Busca el ID dentro del arrayList de elementos y si lo encuentra elimina el cajero, en cambio,
+     * si no lo encuentra dispara un mensaje de error de que el ID no es correcto.
      */
     private void cashRemove(String id){
         boolean encontrado = false;
@@ -322,7 +327,7 @@ public class TiendaUPM {
 
     }
     /**
-     * R ealiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
+     * Realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
      */
     private void cashList(){
         for(int i = 0 ; i < cashers.size();i++){
@@ -335,7 +340,7 @@ public class TiendaUPM {
     private void cashTickets(String id){;}
 
     /**
-     * Añade un nuevo producto al catalogo de la tienda.
+     * Añade un nuevo producto al catálogo de la tienda.
      */
     private void prodAdd(String id, String name, String category, String price) {
         catalog.add(id,name,category,price);
@@ -379,7 +384,6 @@ public class TiendaUPM {
 
     /**
     *  Añade una cantidad específica de un producto al ticket.
-     *
      * @param prodId    Identificador del producto.
      * @param quantity  Cantidad de unidades a agregar.
      */
