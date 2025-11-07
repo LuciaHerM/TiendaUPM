@@ -59,6 +59,35 @@ public class Catalog {
         }
     }
 
+    public void addEvent(String id, String name, String price, String expiration_day, String num_person, TypeEvent typeEvent){
+        int i=0;
+        boolean encontrado=false;
+        while(!encontrado && i< num_products){
+            if(products[i].getID().equals(id)){
+                System.out.println("Can't be add a product with the same id");
+                encontrado=true;
+            }
+            i++;
+        }
+        if(id!=null && name!=null && typeEvent!=null && price!=null){
+            if(Events.check_min_time(expiration_day, typeEvent)) {
+                if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
+                    double priceDouble = Double.parseDouble(price);
+                    int num_personInt = Integer.parseInt(num_person);
+                    Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
+                    products[num_products] = productEvent;
+                    num_products++;
+                    System.out.println(productEvent.toString());
+                    System.out.println("prod add: ok");
+                }
+            } else {
+                System.err.println("The product can't be add.");
+            }
+        } else {
+            System.err.println("The product can't be add.");
+        }
+    }
+
 
     /**
      * Muestra el catálogo de productos actualmente registrados.

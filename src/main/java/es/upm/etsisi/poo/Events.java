@@ -24,7 +24,7 @@ public class Events extends Product {
         }
     }
 
-    private static boolean check_min_time(String date, TypeEvent typeEvent){
+    public static boolean check_min_time(String date, TypeEvent typeEvent){
         LocalDate eventDate;
         try{
             eventDate=LocalDate.parse(date);
