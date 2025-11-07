@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo;
 
+import java.util.Arrays;
+
 public class Catalog {
 
     private static Product[] products;
@@ -93,6 +95,7 @@ public class Catalog {
      * Muestra el catálogo de productos actualmente registrados.
      */
     public void list() {
+        Arrays.sort(products);
         System.out.println("Catalog:");
         for(int i=0;i<num_products;i++){
             System.out.println(" "+products[i].toString());

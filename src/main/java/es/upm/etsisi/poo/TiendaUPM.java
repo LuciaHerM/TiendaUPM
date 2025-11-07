@@ -4,6 +4,7 @@ package es.upm.etsisi.poo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -94,7 +95,7 @@ public class TiendaUPM {
                         clientRemove(comand[2]);
                         break;
                     case "list":
-                        cashList();
+                        clientList();
                         break;
                     default:
                         unknownCommand();
@@ -125,7 +126,18 @@ public class TiendaUPM {
             case "prod":
                 switch (comand[1]) {
                     case "add":
-                        prodAdd(comand[2], comand[3], comand[4], comand[5]);
+                        if(comand.length==5)
+                            prodAdd(comand[2], comand[3], comand[4]);
+                        else if(comand.length==7)
+                            prodAddPer(comand[2], comand[3], comand[4],comand[5],comand[6]);
+                        else{
+                            if(comand[2].charAt(0)=='"'){
+                                prodAddPer(comand[2], comand[3], comand[4],comand[5]);
+                            }else {
+                                prodAdd(comand[2], comand[3], comand[4], comand[5]);
+                            }
+
+                        }
                         break;
                     case "list":
                         prodList();
@@ -134,10 +146,16 @@ public class TiendaUPM {
                         prodUpdate(comand[2], comand[3], comand[4]);
                         break;
                     case "addFood":
-                        prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        if(comand.length==7)
+                            prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        else
+                            prodAddFood(comand[2],comand[3],comand[4],comand[5]);
                         break;
                     case "addMeeting":
-                        prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        if(comand.length==7)
+                            prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        else
+                            prodAddMeeting(comand[2],comand[3],comand[4],comand[5]);
                         break;
                     case "remove":
                         prodRemove(comand[2]);
@@ -220,6 +238,10 @@ public class TiendaUPM {
      * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
      * si existe, devuelve un error, y no lo añade,
      * si no existe lo crea y añade a la ArrayList de clientes
+     * @param name nombre del cliente
+     * @param DNI DNI del cliente
+     * @param email email del cliente
+     * @param cashId id del cajero
      */
     private void clientAdd(String name, String DNI, String email, String cashId) {
         boolean encuentraDNIEnClientList = false;
@@ -242,6 +264,7 @@ public class TiendaUPM {
     /**
      * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
      * si existe, lo elimina, y si no devuelve un error.
+     * @param DNI DNI del cliente a eliminar
      */
     private void clientRemove(String DNI){
         boolean encontrarEnListaEliminar = false;
@@ -261,13 +284,14 @@ public class TiendaUPM {
      * Este método recorre la lista de los clientes, y los va printeando en orden
      */
     private void clientList(){
+        clients.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
         for (Client client : clients) {
             System.out.println(client.toString());
         }
     }
     /**
      * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
-     * un cajero y o añade a el arrayList de cajeros
+     * un cajero y o añade al arrayList de cajeros
      */
     private void cashAdd(String name, String email, String id){
         boolean encontrado = false;
@@ -286,8 +310,8 @@ public class TiendaUPM {
         }
     }
     /**
-     busca el mayor id para crear un nuevo el cua sera mayorId + 1 el cual sabemos
-     que no va a exitir
+     * Busca el mayor id para crear un nuevo el cual será mayorId + 1 el cual sabemos
+     * que no va a exitir
      */
     private void cashAdd(String name, String email){
         int nuevoId = 0 ;
@@ -301,8 +325,8 @@ public class TiendaUPM {
         cashers.add(cash);
     }
     /**
-     Busca el id dentro del arrayList de elementos y si lo encuentra elimina el cajero , en cambio
-     si no lo encuentra dispara un mensaje de error de que el id no es correcto .
+     * Busca el ID dentro del arrayList de elementos y si lo encuentra elimina el cajero, en cambio,
+     * si no lo encuentra dispara un mensaje de error de que el ID no es correcto.
      */
     private void cashRemove(String id){
         boolean encontrado = false;
@@ -324,9 +348,10 @@ public class TiendaUPM {
 
     }
     /**
-     realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
+     * Realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
      */
     private void cashList(){
+        cashers.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
         for(int i = 0 ; i < cashers.size();i++){
             System.out.println(cashers.get(i).toString());
         }
@@ -334,14 +359,40 @@ public class TiendaUPM {
     /**
      *
      */
-    private void cashTickets(String id){;}
+    private void cashTickets(String id){
+        Cash cajero=null;
+        for(Cash cash:cashers){
+            if(cash.getId().equals(id)){
+                cajero=cash;
+            }
+        }
+        if(cajero!=null){
+            cajero.ticketListCash();
+        }else{
+            System.out.println("The casher was not found");
+        }
+    }
 
     /**
-     * Añade un nuevo producto al catalogo de la tienda.
+     * Añade un nuevo producto al catálogo de la tienda.
      */
     private void prodAdd(String id, String name, String category, String price) {
         catalog.add(id,name,category,price);
     }
+
+    private void prodAdd(String name, String category, String price) {
+        String id="";
+        catalog.add(id,name,category,price);
+    }
+
+
+    private void prodAddPer(String id, String name, String category, String price, String pers) {
+
+   }
+
+    private void prodAddPer(String name, String category, String price, String pers) {
+
+   }
 
     /**
      * Muestra el catálogo de productos actualmente registrados.
@@ -363,6 +414,41 @@ public class TiendaUPM {
     private void prodRemove(String id) {
         catalog.remove(id);
     }
+    /**
+     * Añade un producto de tipo food llamando al metodo dentro de catalogo
+     * @param id es el id del producto
+     * @param name es el nombre del producto
+     * @param price es el precio del producto
+     * @param expiration_day es el dia que se quiere la comida
+     * @param num_person es el numero de personas para las que se quire la comida
+     */
+    private void prodAddFood(String id, String name, String price, String expiration_day, String num_person){
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
+    }
+
+
+    private void prodAddFood(String name, String price, String expiration_day, String num_person) {
+        String id="";
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
+    }
+
+
+    /**
+     * Añade un producto de tipo reunion llamando al metodo dentro de catalogo
+     * @param id es el id del producto
+     * @param name es el nombre del producto
+     * @param price es el precio del producto
+     * @param expiration_day es el dia que se quiere la reunion
+     * @param num_person es el numero de personas que van a acceder a la reunion
+     */
+    private void prodAddMeeting(String id, String name, String price, String expiration_day, String num_person){
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
+    }
+    private void prodAddMeeting(String name, String price, String expiration_day, String num_person){
+        String id="";
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
+    }
+
 
     /**
      * Resetea el ticket en curso.
@@ -381,7 +467,6 @@ public class TiendaUPM {
 
     /**
     *  Añade una cantidad específica de un producto al ticket.
-     *
      * @param prodId    Identificador del producto.
      * @param quantity  Cantidad de unidades a agregar.
      */
@@ -438,14 +523,6 @@ public class TiendaUPM {
      */
     private void ticketPrint() {
         System.out.println(ticketActive.ToString());
-    }
-
-    private void prodAddFood(String id, String name, String price, String expiration_day, String num_person){
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
-    }
-
-    private void prodAddMeeting(String id, String name, String price, String expiration_day, String num_person){
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
     }
 
     /**
