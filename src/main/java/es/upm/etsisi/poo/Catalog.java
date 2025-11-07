@@ -171,4 +171,14 @@ public class Catalog {
         }
     }
 
+    public String crearId(){
+        int antId=Integer.parseInt(products[0].getID());
+        for (int i = 1 ; i < num_products ; i++){
+            int id=Integer.parseInt(products[i].getID());
+            if(antId<id){
+                antId=id;
+            }
+        }
+        return Integer.toString(antId+1);
+    }
 }
