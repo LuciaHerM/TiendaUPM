@@ -126,7 +126,18 @@ public class TiendaUPM {
             case "prod":
                 switch (comand[1]) {
                     case "add":
-                        prodAdd(comand[2], comand[3], comand[4], comand[5]);
+                        if(comand.length==5)
+                            prodAdd(comand[2], comand[3], comand[4]);
+                        else if(comand.length==7)
+                            prodAddPer(comand[2], comand[3], comand[4],comand[5],comand[6]);
+                        else{
+                            if(comand[2].charAt(0)=='"'){
+                                prodAddPer(comand[2], comand[3], comand[4],comand[5]);
+                            }else {
+                                prodAdd(comand[2], comand[3], comand[4], comand[5]);
+                            }
+
+                        }
                         break;
                     case "list":
                         prodList();
@@ -135,10 +146,16 @@ public class TiendaUPM {
                         prodUpdate(comand[2], comand[3], comand[4]);
                         break;
                     case "addFood":
-                        prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        if(comand.length==7)
+                            prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        else
+                            prodAddFood(comand[2],comand[3],comand[4],comand[5]);
                         break;
                     case "addMeeting":
-                        prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        if(comand.length==7)
+                            prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                        else
+                            prodAddMeeting(comand[2],comand[3],comand[4],comand[5]);
                         break;
                     case "remove":
                         prodRemove(comand[2]);
@@ -363,6 +380,20 @@ public class TiendaUPM {
         catalog.add(id,name,category,price);
     }
 
+    private void prodAdd(String name, String category, String price) {
+        String id="";
+        catalog.add(id,name,category,price);
+    }
+
+
+    private void prodAddPer(String id, String name, String category, String price, String pers) {
+
+   }
+
+    private void prodAddPer(String name, String category, String price, String pers) {
+
+   }
+
     /**
      * Muestra el catálogo de productos actualmente registrados.
      */
@@ -395,6 +426,13 @@ public class TiendaUPM {
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
     }
 
+
+    private void prodAddFood(String name, String price, String expiration_day, String num_person) {
+        String id="";
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
+    }
+
+
     /**
      * Añade un producto de tipo reunion llamando al metodo dentro de catalogo
      * @param id es el id del producto
@@ -404,6 +442,10 @@ public class TiendaUPM {
      * @param num_person es el numero de personas que van a acceder a la reunion
      */
     private void prodAddMeeting(String id, String name, String price, String expiration_day, String num_person){
+        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
+    }
+    private void prodAddMeeting(String name, String price, String expiration_day, String num_person){
+        String id="";
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
     }
 
