@@ -134,10 +134,10 @@ public class TiendaUPM {
                         prodUpdate(comand[2], comand[3], comand[4]);
                         break;
                     case "addFood":
-                        addFood(comand[2],comand[3],Double.parseDouble(comand[4]),comand[5], Integer.parseInt(comand[6]));
+                        prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6]);
                         break;
                     case "addMeeting":
-                        addMeeting(comand[2],comand[3],Double.parseDouble(comand[4]),comand[5], Integer.parseInt(comand[6]));
+                        prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6]);
                         break;
                     case "remove":
                         prodRemove(comand[2]);
@@ -440,11 +440,11 @@ public class TiendaUPM {
         System.out.println(ticketActive.ToString());
     }
 
-    private void addFood(String id, String name, Double price, String expiration_day, int num_person){
+    private void prodAddFood(String id, String name, String price, String expiration_day, String num_person){
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
     }
 
-    private void addMeeting(String id, String name, Double price, String expiration_day, int num_person){
+    private void prodAddMeeting(String id, String name, String price, String expiration_day, String num_person){
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
     }
 
