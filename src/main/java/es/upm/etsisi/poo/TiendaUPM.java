@@ -94,7 +94,7 @@ public class TiendaUPM {
                         clientRemove(comand[2]);
                         break;
                     case "list":
-                        cashList();
+                        clientList();
                         break;
                     default:
                         unknownCommand();
@@ -322,7 +322,7 @@ public class TiendaUPM {
 
     }
     /**
-     realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
+     * R ealiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
      */
     private void cashList(){
         for(int i = 0 ; i < cashers.size();i++){
