@@ -381,7 +381,7 @@ public class TiendaUPM {
     }
 
     private void prodAdd(String name, String category, String price) {
-        String id="";
+        String id=catalog.crearId();
         catalog.add(id,name,category,price);
     }
 
@@ -428,7 +428,7 @@ public class TiendaUPM {
 
 
     private void prodAddFood(String name, String price, String expiration_day, String num_person) {
-        String id="";
+        String id=catalog.crearId();
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
     }
 
@@ -445,7 +445,7 @@ public class TiendaUPM {
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
     }
     private void prodAddMeeting(String name, String price, String expiration_day, String num_person){
-        String id="";
+        String id=catalog.crearId();
         catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
     }
 
