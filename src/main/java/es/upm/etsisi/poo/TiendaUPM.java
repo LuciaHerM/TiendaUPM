@@ -4,6 +4,7 @@ package es.upm.etsisi.poo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -266,6 +267,7 @@ public class TiendaUPM {
      * Este método recorre la lista de los clientes, y los va printeando en orden
      */
     private void clientList(){
+        clients.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
         for (Client client : clients) {
             System.out.println(client.toString());
         }
@@ -332,6 +334,7 @@ public class TiendaUPM {
      * Realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
      */
     private void cashList(){
+        cashers.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
         for(int i = 0 ; i < cashers.size();i++){
             System.out.println(cashers.get(i).toString());
         }
@@ -339,7 +342,19 @@ public class TiendaUPM {
     /**
      *
      */
-    private void cashTickets(String id){;}
+    private void cashTickets(String id){
+        Cash cajero=null;
+        for(Cash cash:cashers){
+            if(cash.getId().equals(id)){
+                cajero=cash;
+            }
+        }
+        if(cajero!=null){
+            cajero.ticketListCash();
+        }else{
+            System.out.println("The casher was not found");
+        }
+    }
 
     /**
      * Añade un nuevo producto al catálogo de la tienda.
