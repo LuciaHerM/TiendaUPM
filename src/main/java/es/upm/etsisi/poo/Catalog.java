@@ -59,6 +59,10 @@ public class Catalog {
         }
     }
 
+    public void addEvent(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent){
+
+    }
+
 
     /**
      * Muestra el catálogo de productos actualmente registrados.
