@@ -3,9 +3,7 @@ package es.upm.etsisi.poo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +18,7 @@ public class TiendaUPM {
     private static Catalog catalog;
     private static ArrayList<Cash> cashers;
     private static ArrayList<Client> clients;
+    private static ArrayList<Ticket> ticketList;
 
     /**
      * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
@@ -45,11 +44,10 @@ public class TiendaUPM {
      */
     private void init() {
         System.out.println("Welcome to the ticket module App.");
-        ticketActive = new Ticket();
         catalog = new Catalog();
         cashers =new ArrayList<Cash>();
         clients =new ArrayList<Client>();
-        ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
+        ticketList = new ArrayList<Ticket>();
     }
 
     /**
@@ -168,7 +166,7 @@ public class TiendaUPM {
             case "ticket":
                 switch (comand[1]) {
                     case "new":
-                        ticketNew();
+                        ticketNew(comand[2],comand[3]);
                         break;
                     case "add":
                         ticketAdd(comand[2], comand[3]);
@@ -325,7 +323,7 @@ public class TiendaUPM {
         cashers.add(cash);
     }
     /**
-     * Busca el ID dentro del arrayList de elementos y si lo encuentra elimina el cajero, en cambio,
+     * Busca el ID dentro del arrayList de elementos y si lo encuentra elimina el cajero , junto con sus tickets asociados , en cambio
      * si no lo encuentra dispara un mensaje de error de que el ID no es correcto.
      */
     private void cashRemove(String id){
@@ -340,6 +338,10 @@ public class TiendaUPM {
             }
         }
         if(encontrado){
+            List<Ticket> ticketsCajero = cashers.get(i).getCashTickets();
+            for(int j = 0 ; j<ticketsCajero.size();j++ ){
+                ticketList.remove(ticketsCajero.get(i));
+            }
             cashers.remove(i);
         }
         else {
@@ -371,6 +373,13 @@ public class TiendaUPM {
         }else{
             System.out.println("The casher was not found");
         }
+    }
+    private void ticketList(){
+        ticketList.sort(Comparator.comparing((ticket -> ticket.getCajero().getId())));
+        for (int i = 0 ; i<ticketList.size();i++){
+            System.out.println(ticketList.get(i).toString());
+        }
+
     }
 
     /**
@@ -451,11 +460,36 @@ public class TiendaUPM {
 
 
     /**
-     * Resetea el ticket en curso.
+     * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
+     * ls cuales los busca en la lista de cajeros y clientes y si los encuentra crea un ticket con esos parametros .
      */
-    private void ticketNew() {
-        ticketActive =new Ticket();
-        System.out.println("ticket new: ok");
+    private void ticketNew(String cashId, String clientId) {
+        Cash cajero = null;
+        Client cliente = null;
+
+        for(int i = 0 ; i < cashers.size();i++){
+            if(cashId.equals(cashers.get(i).getId())){
+                cajero=cashers.get(i);
+            }
+        }
+        for(int i = 0 ; i < clients.size();i++){
+            if(cashId.equals(clients.get(i).getDNI())){
+                cliente=clients.get(i);
+            }
+        }
+        if(cajero!=null){
+            if(cliente!=null){
+                ticketActive=new Ticket(cajero,cliente);
+                System.out.println("ticket new: ok");
+            }
+            else {
+                System.err.println("El dni del cliente introducido no se encuentra en nuestra base de datos .");
+            }
+        }
+        else {
+            System.err.println("El id del cajero no se encuntra en nuestra base de datos .");
+        }
+
     }
     /*
     Haces un bucle while para encontrar en el array de productos el ID que nos pasan por parámetro
@@ -519,10 +553,13 @@ public class TiendaUPM {
     }
 
     /**
-     *  Imprime el ticket actual.
+     *  Imprime el ticket actual y guarda ticket .
      */
     private void ticketPrint() {
         System.out.println(ticketActive.ToString());
+        ticketList.add(ticketActive);
+        ticketActive.getCajero().ticketAddCash(ticketActive);
+        ticketActive.getCliente().ticketAddClients(ticketActive);
     }
 
     /**
