@@ -359,7 +359,7 @@ public class TiendaUPM {
         }
     }
     /**
-     *
+     te busca el cajero y posteriormente te imprime los tickets del cajero .
      */
     private void cashTickets(String id){
         Cash cajero=null;
@@ -368,8 +368,9 @@ public class TiendaUPM {
                 cajero=cash;
             }
         }
-        if(cajero!=null){
-            cajero.ticketListCash();
+        if(cajero!=null){for (int i = 0 ; i<ticketList.size();i++){
+            System.out.println(cajero.getCashTickets().get(i).toString());
+        }
         }else{
             System.out.println("The casher was not found");
         }
