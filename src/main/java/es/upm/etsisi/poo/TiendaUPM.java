@@ -87,7 +87,7 @@ public class TiendaUPM {
             case "client":
                 switch (comand[1]) {
                     case "add":
-                        clientAdd(comand[2], comand[3], comand[4], comand[5]);
+                        clientAdd(comand[2], comand[3], comand[4], comand[5], cashers);
                         break;
                     case "remove":
                         clientRemove(comand[2]);
@@ -104,11 +104,11 @@ public class TiendaUPM {
                 switch (comand[1]) {
                     case "add":
                         if (comand.length == 5) {
-                            cashAdd(comand[2], comand[3], comand[4]);
-                        } else { cashAdd(comand[2], comand[3]);}
+                            cashAdd(comand[2], comand[3], comand[4], cashers);
+                        } else { cashAdd(comand[2], comand[2], comand[3], cashers);}
                         break;
                     case "remove":
-                        cashRemove(comand[1]);
+                        cashRemove(comand[1], cashers);
                         break;
                     case "list":
                         cashList();
@@ -236,12 +236,14 @@ public class TiendaUPM {
      * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
      * si existe, devuelve un error, y no lo añade,
      * si no existe lo crea y añade a la ArrayList de clientes
-     * @param name nombre del cliente
-     * @param DNI DNI del cliente
-     * @param email email del cliente
-     * @param cashId id del cajero
+     *
+     * @param name    nombre del cliente
+     * @param DNI     DNI del cliente
+     * @param email   email del cliente
+     * @param cashId  id del cajero
+     * @param cashers
      */
-    private void clientAdd(String name, String DNI, String email, String cashId) {
+    private void clientAdd(String name, String DNI, String email, String cashId, ArrayList<Cash> cashers) {
         boolean encuentraDNIEnClientList = false;
         int cont = 0;
         while (!encuentraDNIEnClientList && cont < clients.size()){
@@ -311,26 +313,26 @@ public class TiendaUPM {
      * Busca el mayor id para crear un nuevo el cual será mayorId + 1 el cual sabemos
      * que no va a exitir
      */
-    private void cashAdd(String name, String email){
+    private void cashAdd(String s, String name, String email, ArrayList<Cash> cashers){
         int nuevoId = 0 ;
         int maximo = 0;
-        for (int i = 0 ; i < cashers.size() ; i++){
-            if ( maximo < Integer.parseInt(cashers.get(i).getId())){
-                maximo = Integer.parseInt(cashers.get(i).getId());
+        for (int i = 0; i < this.cashers.size() ; i++){
+            if ( maximo < Integer.parseInt(this.cashers.get(i).getId())){
+                maximo = Integer.parseInt(this.cashers.get(i).getId());
             }
         }
         Cash cash = new Cash(String.valueOf(maximo+1),name,email);
-        cashers.add(cash);
+        this.cashers.add(cash);
     }
     /**
      * Busca el ID dentro del arrayList de elementos y si lo encuentra elimina el cajero , junto con sus tickets asociados , en cambio
      * si no lo encuentra dispara un mensaje de error de que el ID no es correcto.
      */
-    private void cashRemove(String id){
+    private void cashRemove(String id, ArrayList<Cash> cashers){
         boolean encontrado = false;
         int i =0;
-        while(i < cashers.size()&&!encontrado){
-            if (cashers.get(i).getId().equals(id)) {
+        while(i < this.cashers.size()&&!encontrado){
+            if (this.cashers.get(i).getId().equals(id)) {
                 encontrado = true;
             }
             else {
@@ -338,11 +340,11 @@ public class TiendaUPM {
             }
         }
         if(encontrado){
-            List<Ticket> ticketsCajero = cashers.get(i).getCashTickets();
+            List<Ticket> ticketsCajero = this.cashers.get(i).getCashTickets();
             for(int j = 0 ; j<ticketsCajero.size();j++ ){
                 ticketList.remove(ticketsCajero.get(i));
             }
-            cashers.remove(i);
+            this.cashers.remove(i);
         }
         else {
             System.err.println("El id introducido no se encuentra en la base de datos del sistema");
@@ -359,9 +361,9 @@ public class TiendaUPM {
         }
     }
     /**
-     te busca el cajero y posteriormente te imprime los tickets del cajero .
+     * Te busca el cajero y posteriormente te imprime los tickets del cajero .
      */
-    private void cashTickets(String id){
+    private void cashTickets(String id, ArrayList<Cash> cashers){
         Cash cajero=null;
         for(Cash cash:cashers){
             if(cash.getId().equals(id)){
@@ -529,6 +531,7 @@ public class TiendaUPM {
 
     /**
      * Elimina un producto del ticket.
+     *
      * @param prodId    Identificador del producto.
      */
     private void ticketRemove(String prodId) {
