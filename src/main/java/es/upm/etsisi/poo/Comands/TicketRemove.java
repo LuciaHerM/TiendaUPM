@@ -4,12 +4,11 @@ import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.Catalog;
 
 public class TicketRemove extends ComandTicket{
-    @Override
     /**
      * Elimina un producto del ticket.
      * @param prodId    Identificador del producto.
      */
-    public void apply(String prodId) {
+    public void apply(String prodId, Catalog catalog, Ticket ticketActive) {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i< catalog.length()){
@@ -22,7 +21,7 @@ public class TicketRemove extends ComandTicket{
         }
         if(encontrado) {
             ticketActive.RemoveProduct(catalog.find(i));
-            ticketPrint();
+            System.out.println(ticketActive.ToString());
             System.out.println("ticket remove: ok");
         }else{
             System.err.println("This product can't be found");
