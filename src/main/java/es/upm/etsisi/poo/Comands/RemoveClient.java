@@ -5,6 +5,13 @@ import es.upm.etsisi.poo.Client;
 import java.util.ArrayList;
 
 public class RemoveClient extends ComandClient {
+    private String DNI;
+    private ArrayList<Client> clients;
+    public RemoveClient(String DNI, ArrayList<Client> clients) {
+        this.DNI = DNI;
+        this.clients = clients;
+    }
+
     public void apply(String DNI, ArrayList<Client> clients) {
         boolean encontrarEnListaEliminar = false;
         int contador = 0;
