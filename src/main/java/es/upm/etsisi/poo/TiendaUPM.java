@@ -529,7 +529,6 @@ public class TiendaUPM {
 
     /**
      * Elimina un producto del ticket.
-     *
      * @param prodId    Identificador del producto.
      */
     private void ticketRemove(String prodId) {
