@@ -8,7 +8,15 @@ import es.upm.etsisi.poo.Cash;
     */
 public class ComandCashList extends ComandCash {
     es.upm.etsisi.poo.Cash casher;
-    public void apply(ArrayList<Cash> cashers) {
+    private ArrayList<Cash> cashers;
+
+    public ComandCashList(ArrayList<Cash> cashers) {
+        this.cashers = cashers;
+    }
+    /**
+     * Realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
+     */
+    public void apply() {
         cashers.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
         for(int i = 0 ; i < cashers.size();i++){
             System.out.println(cashers.get(i).toString());

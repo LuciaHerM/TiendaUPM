@@ -2,16 +2,33 @@ package es.upm.etsisi.poo.Comands;
 
 import java.util.ArrayList;
 import es.upm.etsisi.poo.Cash;
-import es.upm.etsisi.poo.Ticket;
+
 
 
 public class ComandCashAdd extends ComandCash {
-    es.upm.etsisi.poo.Cash casher;
+    private String name;
+    private String email;
+    private String id;
+    private ArrayList<Cash> cashers;
+
+
+    public ComandCashAdd(String name, String email, String id, ArrayList<Cash> cashers) {
+        this.name = name;
+        this.email = email;
+        this.id = id;
+        this.cashers = cashers;
+    }
+    public ComandCashAdd(String name, String email, ArrayList<Cash> cashers) {
+        this.name = name;
+        this.email = email;
+        this.id = generarIDCash();
+        this.cashers = cashers;
+    }
     /**
      * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
      * un cajero y o añade al arrayList de cajeros
      */
-    public void apply(String name, String email, String id, ArrayList<Cash> cashers){
+    public void apply(){
         boolean encontrado = false;
         int i = 0 ;
         while (!encontrado&&i<cashers.size()) {
@@ -31,15 +48,16 @@ public class ComandCashAdd extends ComandCash {
      * Busca el mayor id para crear un nuevo el cual será mayorId + 1 el cual sabemos
      * que no va a exitir
      */
-    public void apply(String name, String email, ArrayList<Cash> cashers){
-        int nuevoId = 0 ;
+    private String generarIDCash(){
+        String nuevoId = "";
         int maximo = 0;
         for (int i = 0 ; i < cashers.size() ; i++){
             if ( maximo < Integer.parseInt(cashers.get(i).getId())){
                 maximo = Integer.parseInt(cashers.get(i).getId());
             }
         }
-        Cash cash = new Cash(String.valueOf(maximo+1),name,email);
-        cashers.add(cash);
+        nuevoId = String.valueOf(maximo + 1);
+
+        return nuevoId;
     }
 }
