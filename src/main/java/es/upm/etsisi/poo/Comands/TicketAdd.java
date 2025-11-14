@@ -4,12 +4,21 @@ import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.Catalog;
 
 public class TicketAdd extends ComandTicket{
+
+    private String prodId;
+    private String quantity;
+    private Catalog catalog;
+    private Ticket ticketActive;
+    public TicketAdd(String prodId, String quantity, Catalog catalog, Ticket ticketActive){
+        this.prodId=prodId;
+        this.quantity=quantity;
+        this.catalog=catalog;
+        this.ticketActive=ticketActive;
+    }
     /**
      *  Añade una cantidad específica de un producto al ticket.
-     * @param prodId    Identificador del producto.
-     * @param quantity  Cantidad de unidades a agregar.
      */
-    public void apply(String prodId, String quantity, Catalog catalog, Ticket ticketActive) {
+    public void apply() {
         int cont = 0;
         boolean encontrado = false;
         while (cont < catalog.length() && !encontrado){
