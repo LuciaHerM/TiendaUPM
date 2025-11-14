@@ -7,12 +7,11 @@ import es.upm.etsisi.poo.Ticket;
 
 public class ComandCashTickets extends ComandCash {
 
-    es.upm.etsisi.poo.Cash casher;
     private String id;
     private ArrayList<Cash> cashers;
     private ArrayList<Ticket> ticketList;
 
-    public ComandCashTickets(Cash casher, String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList) {
+    public ComandCashTickets(String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList) {
         this.id = id;
         this.cashers = cashers;
         this.ticketList = ticketList;

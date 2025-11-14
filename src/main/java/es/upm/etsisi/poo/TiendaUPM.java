@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo;
 
 
+import es.upm.etsisi.poo.Comands.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -83,20 +84,18 @@ public class TiendaUPM {
      */
     private boolean gestionComandos(String[] comand){
         boolean continuar=true;
+        Comands comad = null;
         switch (comand[0]) {
             case "client":
                 switch (comand[1]) {
                     case "add":
-                        clientAdd(comand[2], comand[3], comand[4], comand[5], cashers);
+                        comad= new AddClient(comand[2], comand[3], comand[4], comand[5], clients);
                         break;
                     case "remove":
-                        clientRemove(comand[2]);
+                        comad = new RemoveClient(comand[2], clients);
                         break;
                     case "list":
-                        clientList();
-                        break;
-                    default:
-                        unknownCommand();
+                        comad = new ListClient(clients);
                         break;
                 }
                 break;
@@ -104,20 +103,17 @@ public class TiendaUPM {
                 switch (comand[1]) {
                     case "add":
                         if (comand.length == 5) {
-                            cashAdd(comand[2], comand[3], comand[4], cashers);
-                        } else { cashAdd(comand[2], comand[2], comand[3], cashers);}
+                            comad = new ComandCashAdd(comand[2], comand[3], comand[4], cashers);
+                        } else { comad = new ComandCashAdd(comand[2], comand[2], comand[3], cashers);}
                         break;
                     case "remove":
-                        cashRemove(comand[1], cashers);
+                        comad = new ComandCashRemove(comand[1], cashers, ticketList);
                         break;
                     case "list":
-                        cashList();
+                        comad = new ComandCashList(cashers);
                         break;
                     case "tickets":
-                        cashTickets(comand[2]);
-                        break;
-                    default:
-                        unknownCommand();
+                        comad = new ComandCashTickets(comand[2], cashers,ticketList);
                         break;
                 }
                 break;
@@ -125,466 +121,76 @@ public class TiendaUPM {
                 switch (comand[1]) {
                     case "add":
                         if(comand.length==5)
-                            prodAdd(comand[2], comand[3], comand[4]);
+                            comad = new prodAdd(comand[2], comand[3], comand[4], catalog);
                         else if(comand.length==7)
-                            prodAddPer(comand[2], comand[3], comand[4],comand[5],comand[6]);
+                            comad = new prodAddPer(comand[2], comand[3], comand[4],comand[5],comand[6], catalog);
                         else{
                             if(comand[2].charAt(0)=='"'){
-                                prodAddPer(comand[2], comand[3], comand[4],comand[5]);
+                                comad = new prodAdd(comand[2], comand[3], comand[4],comand[5], catalog);
                             }else {
-                                prodAdd(comand[2], comand[3], comand[4], comand[5]);
+                                comad = new prodAddPer(comand[2], comand[3], comand[4], comand[5],catalog);
                             }
 
                         }
                         break;
                     case "list":
-                        prodList();
+                        comad = new prodList(catalog);
                         break;
                     case "update":
-                        prodUpdate(comand[2], comand[3], comand[4]);
+                        comad = new prodUpdate(comand[2], comand[3], comand[4], catalog);
                         break;
                     case "addFood":
                         if(comand.length==7)
-                            prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                            comad = new prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6], catalog);
                         else
-                            prodAddFood(comand[2],comand[3],comand[4],comand[5]);
+                            comad = new prodAddFood(comand[2],comand[3],comand[4],comand[5], catalog);
                         break;
                     case "addMeeting":
                         if(comand.length==7)
-                            prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6]);
+                            comad = new prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6], catalog);
                         else
-                            prodAddMeeting(comand[2],comand[3],comand[4],comand[5]);
+                            comad = new prodAddMeeting(comand[2],comand[3],comand[4],comand[5], catalog);
                         break;
                     case "remove":
-                        prodRemove(comand[2]);
-                        break;
-                    default:
-                        unknownCommand();
+                        comad = new prodRemove(comand[2], catalog);
                         break;
                 }
                 break;
             case "ticket":
                 switch (comand[1]) {
                     case "new":
-                        ticketNew(comand[2],comand[3]);
+                        comad = new TicketNew(comand[2],comand[3], catalog, cashers, clients, ticketActive);
                         break;
                     case "add":
-                        ticketAdd(comand[2], comand[3]);
+                        comad = new TicketAdd(comand[2], comand[3], catalog, ticketActive);
                         break;
                     case "remove":
-                        ticketRemove(comand[2]);
+                        comad = new TicketRemove(comand[2], catalog, ticketActive);
                         break;
                     case "print":
-                        ticketPrint();
+                        comad = new TicketPrint(ticketActive, ticketList);
                         break;
                     case "list":
-                        break;
-                    default:
-                        unknownCommand();
                         break;
                 }
                 break;
             case "echo":
-                echo(comand);
+                comad = new ComandEcho(comand);
                 break;
             case "help":
-                printHelp();
+                comad = new ComandsExit();
                 break;
             case "exit":
                 continuar = false;
-                exitProgram();
+                comad = new ComandsExit();
                 break;
             default:
-                unknownCommand();
+                comad = new UnknownComand();
                 break;
         }
+        comad.apply();
         System.out.println();
         return continuar;
-    }
-
-
-    /**
-     * Imprime los posibles comandos de la app.
-     */
-    private void printHelp() {
-        System.out.println("Commands:\n" +
-                "client add \"<nombre>\" <DNI> <email> <cashId>\n" +
-                "client remove <DNI>\n" +
-                "client list ( incluye el dato del cash que lo creo y ordenados por nombre)\n" +
-                "cash add [<id>] \"<nombre>\"<email>\n" +
-                "cash remove <id>\n" +
-                "cash list\n" +
-                "cash tickets <id>\n" +
-                "prod add <id> \"<name>\" <category> <price>\n" +
-                "prod list\n" +
-                "prod update <id> NAME|CATEGORY|PRICE <value>\n" +
-                "prod addFood [<id>] \"< name>\" <price> <expiration: yyyy-MM-dd> <max_people>\n" +
-                "prod addMeeting [<id>] \"<name>\" <price> < expiration: yyyy-MM-dd> <max_people>\n" +
-                "prod remove <id>\n" +
-                "ticket new [<id>] <cashId> <userId>\n" +
-                "ticket add <ticketId> <cashId> <prodId> <amount> [--p<txt> --p<txt>]\n" +
-                "ticket remove <ticketId><cashId> <prodId>\n" +
-                "ticket print <ticketId> <cashId>\n" +
-                "ticket list\n" +
-                "echo \"<texto>\"\n" +
-                "help\n" +
-                "exit\n\n" +
-                "Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n" +
-                "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.");
-    }
-    /**
-     * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
-     * si existe, devuelve un error, y no lo añade,
-     * si no existe lo crea y añade a la ArrayList de clientes
-     *
-     * @param name    nombre del cliente
-     * @param DNI     DNI del cliente
-     * @param email   email del cliente
-     * @param cashId  id del cajero
-     * @param cashers
-     */
-    private void clientAdd(String name, String DNI, String email, String cashId, ArrayList<Cash> cashers) {
-        boolean encuentraDNIEnClientList = false;
-        int cont = 0;
-        while (!encuentraDNIEnClientList && cont < clients.size()){
-            if (clients.get(cont).getDNI().equals(DNI)){
-                encuentraDNIEnClientList = true;
-            } else {
-                cont++;
-            }
-        }
-        if (!encuentraDNIEnClientList) {
-            Client client = new Client(name, DNI, email, cashId);
-            clients.add(client);
-        }
-        if (encuentraDNIEnClientList){
-            System.err.println("Ya existe un cliente con dicho DNI");
-        }
-    }
-    /**
-     * Recorre la ArrayList para ver si hay un cliente con el DNI que nos pasa,
-     * si existe, lo elimina, y si no devuelve un error.
-     * @param DNI DNI del cliente a eliminar
-     */
-    private void clientRemove(String DNI){
-        boolean encontrarEnListaEliminar = false;
-        int contador = 0;
-        while (!encontrarEnListaEliminar && contador < clients.size()){
-            if (clients.get(contador).getDNI().equals(DNI)){
-                encontrarEnListaEliminar = true;
-            } else { contador++;}
-        }
-        if (encontrarEnListaEliminar){
-            clients.remove(clients.get(contador));
-        } else {
-            System.err.println("No existe dicho cliente, por tanto no se puede eliminar");
-        }
-    }
-    /**
-     * Este método recorre la lista de los clientes, y los va printeando en orden
-     */
-    private void clientList(){
-        clients.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
-        for (Client client : clients) {
-            System.out.println(client.toString());
-        }
-    }
-    /**
-     * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
-     * un cajero y o añade al arrayList de cajeros
-     */
-    private void cashAdd(String name, String email, String id){
-        boolean encontrado = false;
-        int i = 0 ;
-        while (!encontrado&&i<cashers.size()) {
-            if (cashers.get(i).getId().equals(id)) {
-               encontrado = true;
-            }
-            i++;
-        }
-        if(!encontrado) {
-            Cash cash = new Cash(id, name, email);
-            cashers.add(cash);
-        }else {
-            System.err.println("Ya existe un cajero con el mismo Id en la base de datos");
-        }
-    }
-    /**
-     * Busca el mayor id para crear un nuevo el cual será mayorId + 1 el cual sabemos
-     * que no va a exitir
-     */
-    private void cashAdd(String s, String name, String email, ArrayList<Cash> cashers){
-        int nuevoId = 0 ;
-        int maximo = 0;
-        for (int i = 0; i < this.cashers.size() ; i++){
-            if ( maximo < Integer.parseInt(this.cashers.get(i).getId())){
-                maximo = Integer.parseInt(this.cashers.get(i).getId());
-            }
-        }
-        Cash cash = new Cash(String.valueOf(maximo+1),name,email);
-        this.cashers.add(cash);
-    }
-    /**
-     * Busca el ID dentro del arrayList de elementos y si lo encuentra elimina el cajero , junto con sus tickets asociados , en cambio
-     * si no lo encuentra dispara un mensaje de error de que el ID no es correcto.
-     */
-    private void cashRemove(String id, ArrayList<Cash> cashers){
-        boolean encontrado = false;
-        int i =0;
-        while(i < this.cashers.size()&&!encontrado){
-            if (this.cashers.get(i).getId().equals(id)) {
-                encontrado = true;
-            }
-            else {
-                i++;
-            }
-        }
-        if(encontrado){
-            List<Ticket> ticketsCajero = this.cashers.get(i).getCashTickets();
-            for(int j = 0 ; j<ticketsCajero.size();j++ ){
-                ticketList.remove(ticketsCajero.get(i));
-            }
-            this.cashers.remove(i);
-        }
-        else {
-            System.err.println("El id introducido no se encuentra en la base de datos del sistema");
-        }
-
-    }
-    /**
-     * Realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
-     */
-    private void cashList(){
-        cashers.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
-        for(int i = 0 ; i < cashers.size();i++){
-            System.out.println(cashers.get(i).toString());
-        }
-    }
-    /**
-     * Te busca el cajero y posteriormente te imprime los tickets del cajero .
-     */
-    private void cashTickets(String id, ArrayList<Cash> cashers){
-        Cash cajero=null;
-        for(Cash cash:cashers){
-            if(cash.getId().equals(id)){
-                cajero=cash;
-            }
-        }
-        if(cajero!=null){for (int i = 0 ; i<ticketList.size();i++){
-            System.out.println(cajero.getCashTickets().get(i).toString());
-        }
-        }else{
-            System.out.println("The casher was not found");
-        }
-    }
-    private void ticketList(){
-        ticketList.sort(Comparator.comparing((ticket -> ticket.getCajero().getId())));
-        for (int i = 0 ; i<ticketList.size();i++){
-            System.out.println(ticketList.get(i).toString());
-        }
-
-    }
-
-    /**
-     * Añade un nuevo producto al catálogo de la tienda.
-     */
-    private void prodAdd(String id, String name, String category, String price) {
-        catalog.add(id,name,category,price);
-    }
-
-    private void prodAdd(String name, String category, String price) {
-        String id=catalog.crearId();
-        catalog.add(id,name,category,price);
-    }
-
-
-    private void prodAddPer(String id, String name, String category, String price, String pers) {
-
-   }
-
-    private void prodAddPer(String name, String category, String price, String pers) {
-
-   }
-
-    /**
-     * Muestra el catálogo de productos actualmente registrados.
-     */
-    private void prodList() {
-        catalog.list();
-    }
-
-    /**
-     * Permite modificar un atributo de un producto.
-     */
-    private void prodUpdate(String id, String change, String value) {
-        catalog.update(id,change,value);
-    }
-
-    /**
-     * Elimina un producto del catálogo.
-     */
-    private void prodRemove(String id) {
-        catalog.remove(id);
-    }
-    /**
-     * Añade un producto de tipo food llamando al metodo dentro de catalogo
-     * @param id es el id del producto
-     * @param name es el nombre del producto
-     * @param price es el precio del producto
-     * @param expiration_day es el dia que se quiere la comida
-     * @param num_person es el numero de personas para las que se quire la comida
-     */
-    private void prodAddFood(String id, String name, String price, String expiration_day, String num_person){
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
-    }
-
-
-    private void prodAddFood(String name, String price, String expiration_day, String num_person) {
-        String id=catalog.crearId();
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.FOOD);
-    }
-
-
-    /**
-     * Añade un producto de tipo reunion llamando al metodo dentro de catalogo
-     * @param id es el id del producto
-     * @param name es el nombre del producto
-     * @param price es el precio del producto
-     * @param expiration_day es el dia que se quiere la reunion
-     * @param num_person es el numero de personas que van a acceder a la reunion
-     */
-    private void prodAddMeeting(String id, String name, String price, String expiration_day, String num_person){
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
-    }
-    private void prodAddMeeting(String name, String price, String expiration_day, String num_person){
-        String id=catalog.crearId();
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
-    }
-
-
-    /**
-     * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
-     * ls cuales los busca en la lista de cajeros y clientes y si los encuentra crea un ticket con esos parametros .
-     */
-    private void ticketNew(String cashId, String clientId) {
-        Cash cajero = null;
-        Client cliente = null;
-
-        for(int i = 0 ; i < cashers.size();i++){
-            if(cashId.equals(cashers.get(i).getId())){
-                cajero=cashers.get(i);
-            }
-        }
-        for(int i = 0 ; i < clients.size();i++){
-            if(cashId.equals(clients.get(i).getDNI())){
-                cliente=clients.get(i);
-            }
-        }
-        if(cajero!=null){
-            if(cliente!=null){
-                ticketActive=new Ticket(cajero,cliente);
-                System.out.println("ticket new: ok");
-            }
-            else {
-                System.err.println("El dni del cliente introducido no se encuentra en nuestra base de datos .");
-            }
-        }
-        else {
-            System.err.println("El id del cajero no se encuntra en nuestra base de datos .");
-        }
-
-    }
-    /*
-    Haces un bucle while para encontrar en el array de productos el ID que nos pasan por parámetro
-    //después, cuando lo encuentras te sales del bucle, si no lo encuentra y acaba el array de productos,
-    //se sale del bucle, y no añade nada. En caso de que lo encuentre, entra en un bucle, para añadir el
-    // producto las veces que se mandan en el String quantity(Argumento). Se usa un Integer.parseInt, para
-    // convertir el Str a int, para poder iterar en el bucle.
-     */
-
-    /**
-    *  Añade una cantidad específica de un producto al ticket.
-     * @param prodId    Identificador del producto.
-     * @param quantity  Cantidad de unidades a agregar.
-     */
-    private void ticketAdd(String prodId, String quantity) {
-       int cont = 0;
-       boolean encontrado = false;
-       while (cont < catalog.length() && !encontrado){
-           if (catalog.find(cont)!=null && catalog.find(cont).getID().equals(prodId)){
-               encontrado = true;
-           }
-           else {
-               cont++;
-           }
-       }
-       if (encontrado) {
-           for (int i = 0; i < Integer.parseInt(quantity); i++) {
-               ticketActive.AddProduct(catalog.find(cont));
-           }
-           ticketPrint();
-           System.out.println("ticket add: ok");
-       } else {
-           System.err.println("The product was not found");
-       }
-    }
-
-    /**
-     * Elimina un producto del ticket.
-     *
-     * @param prodId    Identificador del producto.
-     */
-    private void ticketRemove(String prodId) {
-        int i=0;
-        boolean encontrado=false;
-        while(!encontrado && i< catalog.length()){
-            if(catalog.find(i)!=null && catalog.find(i).getID().equals(prodId)){
-                encontrado=true;
-            }
-            else{
-                i++;
-            }
-        }
-        if(encontrado) {
-            ticketActive.RemoveProduct(catalog.find(i));
-            ticketPrint();
-            System.out.println("ticket remove: ok");
-        }else{
-            System.err.println("This product can't be found");
-        }
-
-    }
-
-    /**
-     *  Imprime el ticket actual y guarda ticket .
-     */
-    private void ticketPrint() {
-        System.out.println(ticketActive.ToString());
-        ticketList.add(ticketActive);
-        ticketActive.getCajero().ticketAddCash(ticketActive);
-        ticketActive.getCliente().ticketAddClients(ticketActive);
-    }
-
-    /**
-     * Imprime el texto del parametro.
-     * @param texto Array de String del texto a mostrar.
-     */
-    private void echo(String[] texto) {
-        System.out.println(texto[0] + " \"" + texto[1] + "\"");
-    }
-
-    /**
-     * Imprime un mensaje al cerrar la app.
-     */
-    private static void exitProgram() {
-        System.out.println("Closing application.");
-    }
-
-    /**
-     * Imprime un mensaje cuando el usuario introduce un comando desconocido.
-     */
-    private static void unknownCommand() {
-        System.out.println("Command not found");
     }
 
     /**

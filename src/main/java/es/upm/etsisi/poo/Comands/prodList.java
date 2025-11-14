@@ -4,7 +4,7 @@ import es.upm.etsisi.poo.Catalog;
 
 public class prodList extends Product{
     private Catalog catalog;
-    public void prodList(Catalog catalog){
+    public prodList(Catalog catalog){
         this.catalog=catalog;
     }
     /**

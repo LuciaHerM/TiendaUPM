@@ -9,7 +9,7 @@ public class prodUpdate extends Product{
     private Catalog catalog;
 
     // Constructor
-    public void ProdAddPer(String id, String change, String value, Catalog catalog) {
+    public prodUpdate(String id, String change, String value, Catalog catalog) {
         this.id = id;
         this.change = change;
         this.value = value;

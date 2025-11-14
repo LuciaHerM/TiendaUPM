@@ -12,7 +12,7 @@ public class prodAddFood extends Product{
     private Catalog catalog;
 
     // Constructor con todos los parámetros
-    public void ProdAddPer(String id, String name, String price, String expiration_day, String num_person, Catalog catalog) {
+    public prodAddFood(String id, String name, String price, String expiration_day, String num_person, Catalog catalog) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -20,7 +20,7 @@ public class prodAddFood extends Product{
         this.num_person = num_person;
         this.catalog = catalog;
     }
-    public void ProdAddPer(String name, String price, String expiration_day, String num_person, Catalog catalog) {
+    public prodAddFood(String name, String price, String expiration_day, String num_person, Catalog catalog) {
         this.id = catalog.crearId();
         this.name = name;
         this.price = price;

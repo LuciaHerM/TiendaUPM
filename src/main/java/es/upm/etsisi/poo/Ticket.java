@@ -13,26 +13,16 @@ public class Ticket {
     private static final int MAX_CART_PRODUCTS = 100;
     private int productNumber;
     private Double totalDiscount;
-    private Cash cajero ;
-    private Client cliente ;
 
 
     /**
      * Constructor de la clase Ticket, que inicializa las variables privadas.
      */
-    public Ticket(Cash cajero , Client cliente){
+    public Ticket(){
         this.cart = new Product[MAX_CART_PRODUCTS];
         this.totalPrice = 0.0;
         this.productNumber = 0;
         this.totalDiscount = 0.0;
-        this.cajero=cajero;
-        this.cliente=cliente;
-    }
-     public Cash getCajero(){
-        return cajero;
-     }
-    public Client getCliente(){
-        return cliente;
     }
 
 

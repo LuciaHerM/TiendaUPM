@@ -5,7 +5,7 @@ import es.upm.etsisi.poo.Catalog;
 public class prodRemove extends Product{
     private String id;
     private Catalog catalog;
-    public void ProdAddPer(String id, Catalog catalog) {
+    public prodRemove(String id, Catalog catalog) {
         this.id = id;
         this.catalog = catalog;
     }
