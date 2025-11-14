@@ -14,11 +14,11 @@ public class TiendaUPM {
 
 
     private static Scanner sc;
-    private  Ticket ticketActive;
-    private  Catalog catalog;
-    private  ArrayList<Cash> cashers;
-    private  ArrayList<Client> clients;
-    private  ArrayList<Ticket> ticketList;
+    private Ticket ticketActive;
+    private Catalog catalog;
+    private ArrayList<Cash> cashers;
+    private ArrayList<Client> clients;
+    private ArrayList<Ticket> ticketList;
 
     /**
      * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
