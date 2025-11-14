@@ -4,6 +4,14 @@ import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.Catalog;
 
 public class TicketRemove extends ComandTicket{
+    private String prodId;
+    private Catalog catalog;
+    private Ticket ticketActive;
+    public TicketRemove(String prodId, Catalog catalog, Ticket ticketActive){
+        this.catalog=catalog;
+        this.prodId=prodId;
+        this.ticketActive=ticketActive;
+    }
     /**
      * Elimina un producto del ticket.
      * @param prodId    Identificador del producto.

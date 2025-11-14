@@ -10,8 +10,18 @@ import java.util.List;
     * si no lo encuentra dispara un mensaje de error de que el ID no es correcto.
     */
 public class ComandCashRemove extends ComandCash {
-    es.upm.etsisi.poo.Cash casher;
-    public void apply(String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList){
+    private String id;
+    private ArrayList<Cash> cashers;
+    private ArrayList<Ticket> ticketList;
+
+    public ComandCashRemove(String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList) {
+        this.id = id;
+        this.cashers = cashers;
+        this.ticketList = ticketList;
+    }
+
+        es.upm.etsisi.poo.Cash casher;
+    public void apply(){
         boolean encontrado = false;
         int i =0;
         while(i < cashers.size()&&!encontrado){

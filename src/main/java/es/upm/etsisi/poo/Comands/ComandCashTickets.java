@@ -8,10 +8,20 @@ import es.upm.etsisi.poo.Ticket;
 public class ComandCashTickets extends ComandCash {
 
     es.upm.etsisi.poo.Cash casher;
+    private String id;
+    private ArrayList<Cash> cashers;
+    private ArrayList<Ticket> ticketList;
+
+    public ComandCashTickets(Cash casher, String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList) {
+        this.id = id;
+        this.cashers = cashers;
+        this.ticketList = ticketList;
+    }
+
     /**
      * Te busca el cajero y posteriormente te imprime los tickets del cajero.
      */
-    public void apply(String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList) {
+    public void apply() {
         es.upm.etsisi.poo.Cash cajero = null;
         for (es.upm.etsisi.poo.Cash cash : cashers) {
             if (cash.getId().equals(id)) {
