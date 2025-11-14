@@ -4,19 +4,38 @@ import es.upm.etsisi.poo.Catalog;
 import es.upm.etsisi.poo.TypeEvent;
 
 public class prodAddMeeting extends Product {
+    private String id;
+    private String name;
+    private String price;
+    private String expiration_day;
+    private String num_person;
+    private Catalog catalog;
+
+    // CONSTRUCTOR con todos los parámetros
+    public void ProdAddPer(String id, String name, String price, String expiration_day, String num_person, Catalog catalog) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.expiration_day = expiration_day;
+        this.num_person = num_person;
+        this.catalog = catalog;
+    }
+
+    // CONSTRUCTOR sin ID
+    public void ProdAddPer(String name, String price, String expiration_day, String num_person, Catalog catalog) {
+        this.id = catalog.crearId();
+        this.name = name;
+        this.price = price;
+        this.expiration_day = expiration_day;
+        this.num_person = num_person;
+        this.catalog = catalog;
+    }
     /**
      * Añade un producto de tipo reunion llamando al metodo dentro de catalogo
-     * @param id es el id del producto
-     * @param name es el nombre del producto
-     * @param price es el precio del producto
-     * @param expiration_day es el dia que se quiere la reunion
-     * @param num_person es el numero de personas que van a acceder a la reunion
+
      */
-    public void apply(String id, String name, String price, String expiration_day, String num_person, Catalog catalog) {
+    public void apply() {
         catalog.addEvent(id, name,price,expiration_day,num_person, TypeEvent.MEETING);
     }
-    public void apply(String name, String price, String expiration_day, String num_person,Catalog catalog) {
-        String id=catalog.crearId();
-        catalog.addEvent(id, name,price,expiration_day,num_person,TypeEvent.MEETING);
-    }
+
 }
