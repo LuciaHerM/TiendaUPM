@@ -5,6 +5,20 @@ import es.upm.etsisi.poo.Client;
 import java.util.ArrayList;
 
 public class AddClient extends ComandClient {
+
+    private String name;
+    private String DNI;
+    private String email;
+    private String cashId;
+    private ArrayList<Client> clients;
+
+    public AddClient(String name, String DNI, String email, String cashId, ArrayList<Client> clients) {
+        this.name = name;
+        this.DNI = DNI;
+        this.email = email;
+        this.cashId = cashId;
+        this.clients = clients;
+    }
     public void apply (String name, String DNI, String email, String cashId, ArrayList<Client> clients){
         boolean encuentraDNIEnClientList = false;
         int cont = 0;
