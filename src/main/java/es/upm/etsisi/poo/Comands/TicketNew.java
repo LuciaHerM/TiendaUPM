@@ -1,15 +1,18 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Cash;
+import es.upm.etsisi.poo.Catalog;
 import es.upm.etsisi.poo.Client;
 import es.upm.etsisi.poo.Ticket;
+
+import java.util.ArrayList;
 
 public  class TicketNew extends ComandTicket{
     /**
      * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
      * ls cuales los busca en la lista de cajeros y clientes y si los encuentra crea un ticket con esos parametros .
      */
-    public void apply(String cashId, String clientId) {
+    public void apply(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients, Ticket ticketActive) {
         Cash cajero = null;
         Client cliente = null;
 
