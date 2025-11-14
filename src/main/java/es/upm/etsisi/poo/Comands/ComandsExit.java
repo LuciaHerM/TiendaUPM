@@ -1,6 +1,6 @@
 package es.upm.etsisi.poo.Comands;
 
-public class ClientExit extends Comands{
+public class ComandsExit extends Comands{
 
     @Override
     public void apply(){
