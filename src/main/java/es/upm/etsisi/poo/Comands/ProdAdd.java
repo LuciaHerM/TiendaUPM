@@ -2,7 +2,7 @@ package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
 
-public class prodAdd extends Product {
+public class ProdAdd extends Product {
     private String id;
     private String name;
     private String category;
@@ -10,14 +10,14 @@ public class prodAdd extends Product {
     private Catalog catalog;
 
     // Constructor
-    public prodAdd(String id, String name, String category, String price, Catalog catalog) {
+    public ProdAdd(String id, String name, String category, String price, Catalog catalog) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.catalog = catalog;
     }
-    public prodAdd(String name, String category, String price, Catalog catalog) {
+    public ProdAdd(String name, String category, String price, Catalog catalog) {
         this.id = catalog.crearId();
         this.name = name;
         this.category = category;

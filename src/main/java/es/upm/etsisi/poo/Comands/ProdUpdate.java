@@ -2,14 +2,14 @@ package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
 
-public class prodUpdate extends Product{
+public class ProdUpdate extends Product{
     private String id;
     private String change;
     private String value;
     private Catalog catalog;
 
     // Constructor
-    public prodUpdate(String id, String change, String value, Catalog catalog) {
+    public ProdUpdate(String id, String change, String value, Catalog catalog) {
         this.id = id;
         this.change = change;
         this.value = value;

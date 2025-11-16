@@ -2,9 +2,9 @@ package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
 
-public class prodList extends Product{
+public class ProdList extends Product{
     private Catalog catalog;
-    public prodList(Catalog catalog){
+    public ProdList(Catalog catalog){
         this.catalog=catalog;
     }
     /**

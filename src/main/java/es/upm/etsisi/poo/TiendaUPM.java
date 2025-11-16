@@ -121,38 +121,38 @@ public class TiendaUPM {
                 switch (comand[1]) {
                     case "add":
                         if(comand.length==5)
-                            comad = new prodAdd(comand[2], comand[3], comand[4], catalog);
+                            comad = new ProdAdd(comand[2], comand[3], comand[4], catalog);
                         else if(comand.length==7)
-                            comad = new prodAddPer(comand[2], comand[3], comand[4],comand[5],comand[6], catalog);
+                            comad = new ProdAddPer(comand[2], comand[3], comand[4],comand[5],comand[6], catalog);
                         else{
                             if(comand[2].charAt(0)=='"'){
-                                comad = new prodAdd(comand[2], comand[3], comand[4],comand[5], catalog);
+                                comad = new ProdAdd(comand[2], comand[3], comand[4],comand[5], catalog);
                             }else {
-                                comad = new prodAddPer(comand[2], comand[3], comand[4], comand[5],catalog);
+                                comad = new ProdAddPer(comand[2], comand[3], comand[4], comand[5],catalog);
                             }
 
                         }
                         break;
                     case "list":
-                        comad = new prodList(catalog);
+                        comad = new ProdList(catalog);
                         break;
                     case "update":
-                        comad = new prodUpdate(comand[2], comand[3], comand[4], catalog);
+                        comad = new ProdUpdate(comand[2], comand[3], comand[4], catalog);
                         break;
                     case "addFood":
                         if(comand.length==7)
-                            comad = new prodAddFood(comand[2],comand[3],comand[4],comand[5],comand[6], catalog);
+                            comad = new ProdAddFood(comand[2],comand[3],comand[4],comand[5],comand[6], catalog);
                         else
-                            comad = new prodAddFood(comand[2],comand[3],comand[4],comand[5], catalog);
+                            comad = new ProdAddFood(comand[2],comand[3],comand[4],comand[5], catalog);
                         break;
                     case "addMeeting":
                         if(comand.length==7)
-                            comad = new prodAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6], catalog);
+                            comad = new ProdAddMeeting(comand[2],comand[3],comand[4],comand[5],comand[6], catalog);
                         else
-                            comad = new prodAddMeeting(comand[2],comand[3],comand[4],comand[5], catalog);
+                            comad = new ProdAddMeeting(comand[2],comand[3],comand[4],comand[5], catalog);
                         break;
                     case "remove":
-                        comad = new prodRemove(comand[2], catalog);
+                        comad = new ProdRemove(comand[2], catalog);
                         break;
                 }
                 break;
