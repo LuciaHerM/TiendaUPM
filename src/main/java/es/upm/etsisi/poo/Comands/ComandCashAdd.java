@@ -21,8 +21,8 @@ public class ComandCashAdd extends ComandCash {
     public ComandCashAdd(String name, String email, ArrayList<Cash> cashers) {
         this.name = name;
         this.email = email;
-        this.id = generarIDCash();
         this.cashers = cashers;
+        this.id = generarIDCash();
     }
     /**
      * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
@@ -31,33 +31,40 @@ public class ComandCashAdd extends ComandCash {
     public void apply(){
         boolean encontrado = false;
         int i = 0 ;
-        while (!encontrado&&i<cashers.size()) {
-            if (cashers.get(i).getId().equals(id)) {
-                encontrado = true;
+        if(this.id !=  null && id.matches("^UW\\d{7}$")) {
+            while (!encontrado && i < cashers.size()) {
+                if (cashers.get(i).getId().equals(id)) {
+                    encontrado = true;
+                }
+                i++;
             }
-            i++;
+            if (!encontrado) {
+                Cash cash = new Cash(id, name, email);
+                cashers.add(cash);
+            } else {
+                System.err.println("Ya existe un cajero con el mismo Id en la base de datos");
+            }
         }
-        if(!encontrado) {
-            Cash cash = new Cash(id, name, email);
-            cashers.add(cash);
-        }else {
-            System.err.println("Ya existe un cajero con el mismo Id en la base de datos");
+        else {
+            System.err.println("El formato del id no es el correcto : UWxxxxxxx (x un digito 0-9) .");
         }
+
+
     }
     /**
      * Busca el mayor id para crear un nuevo el cual será mayorId + 1 el cual sabemos
      * que no va a exitir
      */
     private String generarIDCash(){
-        String nuevoId = "";
-        int maximo = 0;
-        for (int i = 0 ; i < cashers.size() ; i++){
-            if ( maximo < Integer.parseInt(cashers.get(i).getId())){
-                maximo = Integer.parseInt(cashers.get(i).getId());
+        int max = 0;
+        for (int i = 0; i < cashers.size(); i++) {
+            String id = cashers.get(i).getId();
+            int num = Integer.parseInt(id.substring(2));
+            if (num > max) {
+                max = num;
             }
         }
-        nuevoId = String.valueOf(maximo + 1);
-
-        return nuevoId;
+        int nuevo = max + 1;
+        return "UW" + String.format("%07d", nuevo);
     }
 }

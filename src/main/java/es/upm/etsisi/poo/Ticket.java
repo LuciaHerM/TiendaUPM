@@ -8,6 +8,7 @@ import java.util.Comparator;
  * imprimir el ticket a traves de sus metodos.
  */
 public class Ticket {
+
     private Product[] cart;
     private Double totalPrice;
     private static final int MAX_CART_PRODUCTS = 100;
