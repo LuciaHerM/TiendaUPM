@@ -4,7 +4,7 @@ import es.upm.etsisi.poo.Catalog;
 
 import es.upm.etsisi.poo.Catalog;
 
-public class prodAddPer extends Product {
+public class ProdAddPer extends Product {
     private String id;
     private String name;
     private String category;
@@ -13,7 +13,7 @@ public class prodAddPer extends Product {
     private Catalog catalog;
 
     // Constructor
-    public prodAddPer(String id, String name, String category, String price, String pers, Catalog catalog) {
+    public ProdAddPer(String id, String name, String category, String price, String pers, Catalog catalog) {
         this.id = id;
         this.name = name;
         this.category = category;
