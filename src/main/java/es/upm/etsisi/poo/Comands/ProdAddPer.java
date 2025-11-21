@@ -21,7 +21,7 @@ public class ProdAddPer extends Product {
         this.pers = pers;
         this.catalog=catalog;
     }
-    public prodAddPer(String name, String category, String price, String pers , Catalog catalog) {
+    public ProdAddPer(String name, String category, String price, String pers , Catalog catalog) {
         this.id = catalog.crearId();
         this.name = name;
         this.category = category;
