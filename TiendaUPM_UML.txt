@@ -3,7 +3,7 @@ title "Diagrama de Clases - TiendaUPM"
 
 package Comands {
     abstract class Comands {
-        + apply(args : String[])
+        + apply()
     }
     abstract class ComandCash
     abstract class ComandClient
