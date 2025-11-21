@@ -5,7 +5,7 @@ public class Product {
     public static String name;
     public static Category category;
     public static Double price;
-    public static int max_pers;
+    public static int max_pers=0;
     public Product(String id, String name, Category category, Double price) {
         this.id = id;
         this.name = name;
@@ -23,6 +23,9 @@ public class Product {
         }else {
             System.out.println("It's not possible to insert that maximon personalization. ");
         }
+    }
+
+    public Product() {
     }
 
     public String getID() {

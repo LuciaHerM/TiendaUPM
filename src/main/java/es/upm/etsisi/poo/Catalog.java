@@ -60,6 +60,38 @@ public class Catalog {
             System.err.println("The product can't be add.");
         }
     }
+    public void addPer(String id, String name, String category, String price, String pers) {
+        int i=0;
+        boolean encontrado=false;
+        while(!encontrado && i< num_products){
+            if(products[i].getID().equals(id)){
+                System.out.println("Can't be add a product with the same id");
+                encontrado=true;
+            }
+            i++;
+        }
+        if(id!=null && name!=null && category!=null && price!=null) {
+            if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
+                Category category1 = switch (category) {
+                    case "MERCH" -> Category.MERCH;
+                    case "STATIONERY" -> Category.STATIONERY;
+                    case "CLOTHES" -> Category.CLOTHES;
+                    case "BOOK" -> Category.BOOK;
+                    case "ELECTRONICS" -> Category.ELECTRONICS;
+                    default -> throw new IllegalStateException("Unexpected value: " + category);
+                };
+                double price1 = Double.parseDouble(price);
+                int pers1 = Integer.parseInt(pers);
+                Product product = new Product(id, name, category1, price1, pers1);
+                products[num_products] = product;
+                num_products++;
+                System.out.println(product.toString());
+                System.out.println("prod add: ok");
+            }
+        } else {
+            System.err.println("The product can't be add.");
+        }
+    }
 
     public void addEvent(String id, String name, String price, String expiration_day, String num_person, TypeEvent typeEvent){
         int i=0;
