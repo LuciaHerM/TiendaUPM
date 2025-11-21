@@ -25,6 +25,9 @@ public class Product {
         }
     }
 
+    public Product() {
+    }
+
     public String getID() {
         return id;
     }

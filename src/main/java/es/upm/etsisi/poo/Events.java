@@ -10,6 +10,7 @@ public class Events extends Product {
     private static TypeEvent typeEvent;
 
     public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
+        super();
         Events.id=id;
         Events.name=name;
         Events.price=price;

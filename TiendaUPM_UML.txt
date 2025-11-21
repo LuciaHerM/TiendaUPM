@@ -1,18 +1,81 @@
 @startuml
 title "Diagrama de Clases - TiendaUPM"
 
+package Comands {
+    abstract class Comands {
+        + apply(args : String[])
+    }
+    abstract class ComandCash
+    abstract class ComandClient
+    abstract class ComandTicket
+    abstract class Product
+    class AddClient
+    class ComandCashAdd
+    class ComandCashList
+    class ComandCashRemove
+    class ComandCashTickets
+    class ListClient
+    class prodAdd
+    class prodAddFood
+    class prodAddMeeting
+    class prodAddPer
+    class prodList
+    class prodRemove
+    class prodUpdate
+    class RemoveClient
+    class TicketAdd
+    class TicketNew
+    class TicketPrint
+    class TicketRemove
+    class ComandEcho
+    class ComandHelp
+    class ComandsExit
+    class UnknownComand
+}
+Comands <|.. ComandCash
+Comands <|.. ComandClient
+Comands <|.. ComandTicket
+Comands <|.. Product
+Comands <|.. ComandEcho
+Comands <|.. ComandHelp
+Comands <|.. ComandsExit
+Comands <|.. UnknownComand
+
+ComandClient <|.. AddClient
+ComandClient <|.. ListClient
+ComandClient <|.. RemoveClient
+
+ComandCash <|.. ComandCashAdd
+ComandCash <|.. ComandCashList
+ComandCash <|.. ComandCashRemove
+ComandCash <|.. ComandCashTickets
+
+Product <|.. prodAdd
+Product <|.. prodAddFood
+Product <|.. prodAddMeeting
+Product <|.. prodAddPer
+Product <|.. prodList
+Product <|.. prodRemove
+Product <|.. prodUpdate
+
+
+ComandTicket <|.. TicketAdd
+ComandTicket <|.. TicketNew
+ComandTicket <|.. TicketPrint
+ComandTicket <|.. TicketRemove
+
+
 '====================================================
-' Enumeraciones (actualizadas)
+' ENUMERACIONES
 '====================================================
 enum Category {
+  + MERCH
+  + STATIONERY
+  + CLOTHES
+  + BOOK
+  + ELECTRONICS
+  --
   - descuento : double
-  --
-  + MERCH(0.00)
-  + STATIONERY(0.05)
-  + CLOTHES(0.07)
-  + BOOK(0.10)
-  + ELECTRONICS(0.03)
-  --
   + getDescuento() : double
 }
 
@@ -25,49 +88,38 @@ enum TicketStatus {
 enum TypeEvent {
   COMIDA
   REUNION
+  --
+  - minDaysBefore : double
+  + getMinDaysBefore() : double
 }
 
 '====================================================
-' Clases principales
+' TIENDA Y ESTRUCTURA BASE
 '====================================================
-
-
 class TiendaUPM {
-  - static sc : Scanner
-  - static ticketActive : Ticket
-  - static catalog : Catalog
-  - static cashList : ArrayList<Cash>
-  - static clientList : ArrayList<Client>
-  - static ticketList : ArrayList<Ticket>
+  - sc : Scanner
+  - ticketActive : Ticket
+  - catalog : Catalog
+  - cashers : ArrayList<Cash>
+  - clients : ArrayList<Client>
+  - ticketList : ArrayList<Ticket>
   --
   + main(args : String[]) : void
   - init() : void
   - start() : void
   - gestionComandos(comand : String[]) : boolean
-  - printHelp() : void
-  - clientAdd(name : String, dni : String, email : String, cashId : String) : void
-  - clientRemove(dni : String) : void
-  - clientList() : void
-  - cashAdd(name : String, email : String, id : String) : void
-  - cashAdd(name : String, email : String) : void
-  - cashRemove(id : String) : void
-  - cashList() : void
-  - cashTickets(id : String) : void
-  - prodAdd(id : String, name : String, category : String, price : String) : void
-  - prodList() : void
-  - prodUpdate(id : String, change : String, value : String) : void
-  - prodRemove(id : String) : void
-  - ticketNew() : void
-  - ticketAdd(prodId : String, quantity : String) : void
-  - ticketRemove(prodId : String) : void
-  - ticketPrint() : void
-  - echo(texto : String[]) : void
   - end() : void
-  - exitProgram() : void
-  - unknownCommand() : void
 }
 
+TiendaUPM --> Catalog
+TiendaUPM --> Cash : contiene >
+TiendaUPM --> Client : contiene >
+TiendaUPM --> Ticket : contiene >
+TiendaUPM --> Comands : utiliza >
 
+'====================================================
+' CATALOGO Y PRODUCTOS
+'====================================================
 class Catalog {
   - products : Product[]
   - final MAX_NUM_PRODUCTS : int
@@ -76,107 +128,110 @@ class Catalog {
   + length() : int
   + find(id : int) : Product
   + add(id : String, name : String, category : String, price : String) : void
+  + addPer(id : String, name : String, category : String, price : String, pers : String) : void
+  + addEvent(id : String, name : String, price : String, expiration_day : String, num_person : String, typeEvent : TypeEvent) : void
   + list() : void
   + update(id : String, change : String, value : String) : void
   + remove(id : String) : void
+  + crearId() : String
 }
 
-
 class Product {
-  - static id : String
-  - static name : String
-  - static category : Category
-  - static price : Double
+  - id : String
+  - name : String
+  - category : Category
+  - price : Double
+  - max_pers : int
   + Product(id : String, name : String, category : Category, price : Double)
-  + Product()
+  + Product(id : String, name : String, category : Category, price : Double, max_pers : int)
   + getID() : String
-  + setId(id : String) : void
+  + setId(id : String)
   + getName() : String
-  + setName(name : String) : void
+  + setName(name : String)
   + getCategory() : Category
-  + setCategory(category : Category) : void
+  + setCategory(category : Category)
   + getPrice() : Double
-  + setPrice(price : Double) : void
+  + setPrice(price : Double)
   + toString() : String
 }
 
 class Events extends Product {
-  - type : TypeEvent
-  - expirationDate : LocalDate
-  - maxPeople : int
-  + validateTimeConstraints() : boolean
+  - expirationDate : String
+  - final MAX_PARTICIPANTS=100
+  - num_person : int
+  - typeEvent : TypeEvent
+  + Events(id : String, name : String, price : Double, expiration_day : String, num_person : int, typeEvent : TypeEvent)
+  + check_min_time(date : String, typeEvent : TypeEvent) : boolean
+  + getExpiration_day() : String
+  + setExpiration_day(expiration_day : String)
+  + getNum_person() : int
+  + setNum_person(num_person : int)
 }
 
-class PersonalizedProduct extends Product {
-  - maxPersonalizations : int
-  - texts : List<String>
-  + addTextCustomization(text : String) : void
-  + calculatePrice() : double
-}
+Catalog --> Product : gestiona >
 
+'====================================================
+' TICKETS
+'====================================================
 class Ticket {
   - cart : Product[]
   - totalPrice : Double
   - totalDiscount : Double
   - final MAX_CART_PRODUCTS : int
   - productNumber : int
-  + Ticket()
   + AddProduct(producto : Product) : void
   + RemoveProduct(producto : Product) : void
   + RemoveAll() : void
   + ToString() : String
 }
+
+Ticket --> Product
+Ticket --> TicketStatus
+
 '====================================================
-' Usuarios y Cajeros
+' USUARIOS
 '====================================================
 abstract class User {
  - name : String
  - email : String
- + User(name : String, email : String) : void
+ +  User(name : String, email : String)
  + getName() : String
  + getEmail() : String
 }
 
 class Client extends User {
   - dni : String
-  - cashCreator : Cash
-  - tickets : List<Ticket>
-  + addTicket(ticket : Ticket) : void
-  + listTickets() : List<Ticket>
+  - cashId : Cash
+  - clientTickets : List<Ticket>
+  + Client (name : String, DNI : String, email : String, cashId : String)
+  + getDNI() : String
+  + getCashId() : String
+  + toString() : String
+  + getClientTickets() :  List<Ticket>
+  + setClientTickets(clientTickets : List<Ticket>)
+  + ticketAddClients(ticket : Ticket)
+  + ticketListClientes
 }
 
 class Cash extends User {
   - id : String
-  - tickets : List<Ticket>
-  + createTicket(user : Client) : Ticket
-  + removeTicket(ticketId : String) : void
-  + listTickets() : List<Ticket>
+  - cashTickets : List<Ticket>
+  + Cash (id : String, name : String, email : String)
+  + getId() : String
+  + toString() : String
+  + getCashTickets() : List<Ticket>
+  + setCashTickets(cashTickets : List<Ticket>)
+  + ticketAddCash(ticket Ticket)
+  + ticketListCash()
 }
-
-'====================================================
-' Relaciones entre clases
-'====================================================
-
-TiendaUPM --> Catalog
-TiendaUPM --> Cash : contiene
-TiendaUPM --> Client : contiene
-TiendaUPM --> Ticket : contiene
-
-Catalog --> Product : gestiona >
-Ticket --> Product : incluye >
-
-Client --> Ticket : posee >
-Cash --> Ticket : crea >
-Client --> Cash : creado por >
-
-Product <|-- Events
-Product <|-- PersonalizedProduct
 
 User <|-- Client
 User <|-- Cash
 
-Product --> Category : usa >
-Events --> TypeEvent : usa >
-Ticket --> TicketStatus : tiene estado >
+Client --> Ticket : posee >
+Cash --> Ticket : crea >
+Client --> Cash : creado_por >
 
+Product --> Category
+Events --> TypeEvent
 @enduml
