@@ -1,7 +1,10 @@
 package es.upm.etsisi.poo.Comands;
 
+import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.Catalog;
+
+import java.util.ArrayList;
 
 public class TicketRemove extends ComandTicket{
     private String prodId;
@@ -11,6 +14,33 @@ public class TicketRemove extends ComandTicket{
         this.catalog=catalog;
         this.prodId=prodId;
         this.ticketActive=ticketActive;
+    }
+    public TicketRemove(String ticketId, String cashId, String prodId, Catalog catalog, ArrayList<Ticket> ticketList, ArrayList<Cash> cashList){
+        this.catalog=catalog;
+        this.prodId=prodId;
+        boolean encontrado=false;
+        int count=0;
+        while (count<cashList.size()&&!encontrado){
+            if(cashList.get(count).getId().equals(cashId)){
+                encontrado=true;
+                Cash cash=cashList.get(count);
+            }
+            count++;
+        }if(!encontrado){
+            System.out.println("That CashId doesn't exist.");
+        }
+        count=0;
+        encontrado=false;
+        while(count<ticketList.size()&&!encontrado){
+            if (ticketList.get(count).equals(ticketId)){
+                encontrado=true;
+                ticketActive=ticketList.get(count);
+            }
+            count++;
+        }
+        if (!encontrado){
+            System.out.println("That TicketId doesn't exist.");
+        }
     }
     /**
      * Elimina un producto del ticket.

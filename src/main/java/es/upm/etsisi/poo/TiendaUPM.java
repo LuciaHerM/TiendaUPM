@@ -165,7 +165,12 @@ public class TiendaUPM {
                         comad = new TicketAdd(comand[2], comand[3], catalog, ticketActive);
                         break;
                     case "remove":
-                        comad = new TicketRemove(comand[2], catalog, ticketActive);
+                        if(comand.length==3){
+                            comad = new TicketRemove(comand[2], catalog, ticketActive);
+                        } else if (comand.length==5) {
+                            comad = new TicketRemove(comand[2],comand[3],comand[4], catalog, ticketList, cashers);
+
+                        }
                         break;
                     case "print":
                         comad = new TicketPrint(ticketActive, ticketList);
