@@ -10,7 +10,7 @@ public class ProdList extends Product{
     /**
      * Muestra el catálogo de productos actualmente registrados.
      */
-    public void apply(Catalog catalog) {
+    public void apply() {
         catalog.list();
     }
 }

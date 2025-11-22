@@ -127,7 +127,6 @@ public class Catalog {
      * Muestra el catálogo de productos actualmente registrados.
      */
     public void list() {
-        Arrays.sort(products);
         System.out.println("Catalog:");
         for(int i=0;i<num_products;i++){
             System.out.println(" "+products[i].toString());
@@ -207,11 +206,14 @@ public class Catalog {
     }
 
     public String crearId(){
-        int antId=Integer.parseInt(products[0].getID());
-        for (int i = 1 ; i < num_products ; i++){
-            int id=Integer.parseInt(products[i].getID());
-            if(antId<id){
-                antId=id;
+        int antId=0;
+        if(products[0]!=null) {
+            antId = Integer.parseInt(products[0].getID());
+            for (int i = 1; i < num_products; i++) {
+                int id = Integer.parseInt(products[i].getID());
+                if (antId < id) {
+                    antId = id;
+                }
             }
         }
         return Integer.toString(antId+1);

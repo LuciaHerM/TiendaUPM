@@ -126,9 +126,9 @@ public class TiendaUPM {
                             comad = new ProdAddPer(comand[2], comand[3], comand[4],comand[5],comand[6], catalog);
                         else{
                             if(comand[2].charAt(0)=='"'){
-                                comad = new ProdAdd(comand[2], comand[3], comand[4],comand[5], catalog);
+                                comad = new ProdAddPer(comand[2], comand[3], comand[4],comand[5], catalog);
                             }else {
-                                comad = new ProdAddPer(comand[2], comand[3], comand[4], comand[5],catalog);
+                                comad = new ProdAdd(comand[2], comand[3], comand[4], comand[5],catalog);
                             }
 
                         }
