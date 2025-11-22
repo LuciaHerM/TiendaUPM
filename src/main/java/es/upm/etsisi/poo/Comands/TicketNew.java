@@ -4,22 +4,39 @@ import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Catalog;
 import es.upm.etsisi.poo.Client;
 import es.upm.etsisi.poo.Ticket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 import java.util.ArrayList;
 
 public  class TicketNew extends ComandTicket{
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
+    private static final Random random = new Random();
     private Catalog catalog;
     private String cashId;
     private ArrayList<Cash> cashers;
     private ArrayList<Client> clients;
     private String clientId;
+    private String ticketId;
+    ArrayList<Ticket> ticketsList;
 
-    public TicketNew(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients, Ticket ticketActive){
+    public TicketNew(String ticketId,String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsListString ){
         this.cashId=cashId;
         this.cashers=cashers;
         this.clients=clients;
         this.clientId = clientId;
         this.catalog=catalog;
+        this.ticketId=ticketId;
+    }
+
+    public TicketNew(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsList){
+        this.cashId=cashId;
+        this.cashers=cashers;
+        this.clients=clients;
+        this.clientId = clientId;
+        this.catalog=catalog;
+        this.ticketId=generarIdTicket(ticketsList);
     }
     /**
      * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
@@ -45,13 +62,45 @@ public  class TicketNew extends ComandTicket{
         if(cash == null) {
             System.err.println("El id del cajero no se encuntra en nuestra base de datos.");
         }
-        if(client == null) {
+        else if(client == null) {
             System.err.println("El dni del cliente introducido no se encuentra en nuestra base de datos.");
         }
         // Ticket no gurarda al cajero ni el cliente
-        Ticket ticket = new Ticket();
-        client.ticketAddClients(ticket);
-        cash.ticketAddCash(ticket);
-        System.out.println("ticket new: ok");
+        else {
+            if (!existeId(ticketId, ticketsList)&&formatoIDCorrecto(ticketId)) {
+                Ticket ticket = new Ticket(clientId);
+                client.ticketAddClients(ticket);
+                cash.ticketAddCash(ticket);
+                System.out.println("ticket new: ok");
+            } else {
+                System.err.println("El id del ticket no es correcto bien por que ya esiste un ticket con el mismo id o bien porque el formato no es correcto :  YY-MM-dd-HH:mm-#####" );
+            }
+        }
+    }
+    public String generarIdTicket(ArrayList<Ticket> ticketsExistentes) {
+
+        String fecha = LocalDateTime.now().format(FORMAT);
+        String id;
+
+        do {
+            int rnd = 10000 + random.nextInt(90000); // 5 dígitos aleatorios
+            id = fecha + "-" + rnd;
+        } while (existeId(id, ticketsExistentes));
+
+        return id;
+    }
+
+    private boolean existeId(String id, ArrayList<Ticket> tickets) {
+        for (Ticket t : tickets) {
+            if (t.getTicketId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean formatoIDCorrecto(String id) {
+        String fecha = "\\d{2}-\\d{2}-\\d{2}-\\d{2}:\\d{2}";
+        String apertura = fecha + "-\\d{5}";
+        return id.matches(apertura);
     }
 }

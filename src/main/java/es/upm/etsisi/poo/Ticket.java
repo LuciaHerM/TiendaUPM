@@ -14,18 +14,26 @@ public class Ticket {
     private static final int MAX_CART_PRODUCTS = 100;
     private int productNumber;
     private Double totalDiscount;
+    private String ticketId;
 
 
     /**
      * Constructor de la clase Ticket, que inicializa las variables privadas.
      */
-    public Ticket(){
+    public Ticket(String ticketId){
         this.cart = new Product[MAX_CART_PRODUCTS];
         this.totalPrice = 0.0;
         this.productNumber = 0;
         this.totalDiscount = 0.0;
+        this.ticketId=ticketId;
     }
 
+    public String getTicketId(){
+        return ticketId;
+    }
+    public String setTicketId(String ticketId){
+        return this.ticketId;
+    }
 
     /**
      * Añade el producto al array de productos, cart. El producto se inserta en la siguiente posición libre del array.

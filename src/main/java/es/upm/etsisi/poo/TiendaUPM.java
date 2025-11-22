@@ -159,7 +159,12 @@ public class TiendaUPM {
             case "ticket":
                 switch (comand[1]) {
                     case "new":
-                        comad = new TicketNew(comand[2],comand[3], catalog, cashers, clients, ticketActive);
+                        if (comand.length == 4) {
+                            comad = new TicketNew(comand[2], comand[3], catalog, cashers, clients, ticketList);
+                        }
+                        else if(comand.length == 5){
+                            comad = new TicketNew(comand[2], comand[3],comand[4], catalog, cashers, clients, ticketList);
+                        }
                         break;
                     case "add":
                         comad = new TicketAdd(comand[2], comand[3], catalog, ticketActive);
