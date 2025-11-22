@@ -181,6 +181,7 @@ public class TiendaUPM {
                         comad = new TicketPrint(ticketActive, ticketList);
                         break;
                     case "list":
+                        comad = new TicketList(ticketList);
                         break;
                 }
                 break;

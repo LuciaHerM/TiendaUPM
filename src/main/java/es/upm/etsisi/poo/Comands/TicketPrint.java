@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Ticket;
+import es.upm.etsisi.poo.TicketStatus;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -15,8 +16,9 @@ public class TicketPrint extends ComandTicket{
     /**
      *  Imprime el ticket actual y guarda ticket .
      */
-    public void apply(Ticket ticketActive, ArrayList<Ticket> ticketList) {
+    public void apply() {
         System.out.println(ticketActive.ToString());
+        ticketActive.setStatus(TicketStatus.CERRADO);
         ticketList.add(ticketActive);
     }
 }

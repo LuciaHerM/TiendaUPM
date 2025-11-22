@@ -2,6 +2,7 @@ package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.Catalog;
+import es.upm.etsisi.poo.TicketStatus;
 
 import java.util.ArrayList;
 
@@ -24,24 +25,30 @@ public class TicketAdd extends ComandTicket{
      *  Añade una cantidad específica de un producto al ticket.
      */
     public void apply() {
-        int cont = 0;
-        boolean encontrado = false;
-        while (cont < catalog.length() && !encontrado){
-            if (catalog.find(cont)!=null && catalog.find(cont).getID().equals(prodId)){
-                encontrado = true;
+        if(ticketActive.getStatus()!=TicketStatus.CERRADO) {
+            int cont = 0;
+            boolean encontrado = false;
+            while (cont < catalog.length() && !encontrado) {
+                if (catalog.find(cont) != null && catalog.find(cont).getID().equals(prodId)) {
+                    encontrado = true;
+                } else {
+                    cont++;
+                }
             }
-            else {
-                cont++;
+            if (encontrado) {
+                if (ticketActive.getStatus() != TicketStatus.ACTIVO) {
+                    ticketActive.setStatus(TicketStatus.ACTIVO);
+                }
+                for (int i = 0; i < Integer.parseInt(quantity); i++) {
+                    ticketActive.AddProduct(catalog.find(cont));
+                }
+                System.out.println(ticketActive.toString());
+                System.out.println("ticket add: ok");
+            } else {
+                System.err.println("The product was not found");
             }
-        }
-        if (encontrado) {
-            for (int i = 0; i < Integer.parseInt(quantity); i++) {
-                ticketActive.AddProduct(catalog.find(cont));
-            }
-            System.out.println(ticketActive.toString());
-            System.out.println("ticket add: ok");
         } else {
-            System.err.println("The product was not found");
+            System.err.println("The ticket was closed");
         }
     }
     /*public Ticket seleccinarTicket(ArrayList<Ticket> ticketsList ,String ticketId ){

@@ -15,6 +15,7 @@ public class Ticket {
     private int productNumber;
     private Double totalDiscount;
     private String ticketId;
+    private TicketStatus status;
 
 
     /**
@@ -26,6 +27,7 @@ public class Ticket {
         this.productNumber = 0;
         this.totalDiscount = 0.0;
         this.ticketId=ticketId;
+        this.status=TicketStatus.VACIO;
     }
 
     public String getTicketId(){
@@ -33,6 +35,14 @@ public class Ticket {
     }
     public String setTicketId(String ticketId){
         return this.ticketId;
+    }
+
+    public TicketStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TicketStatus status) {
+        this.status = status;
     }
 
     /**
