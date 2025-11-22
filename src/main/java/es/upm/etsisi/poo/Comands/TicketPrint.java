@@ -18,7 +18,5 @@ public class TicketPrint extends ComandTicket{
     public void apply(Ticket ticketActive, ArrayList<Ticket> ticketList) {
         System.out.println(ticketActive.ToString());
         ticketList.add(ticketActive);
-        ticketActive.getCajero().ticketAddCash(ticketActive);
-        ticketActive.getCliente().ticketAddClients(ticketActive);
     }
 }

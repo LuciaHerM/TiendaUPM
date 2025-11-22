@@ -19,8 +19,6 @@ public class ComandCashRemove extends ComandCash {
         this.cashers = cashers;
         this.ticketList = ticketList;
     }
-
-        es.upm.etsisi.poo.Cash casher;
     public void apply(){
         boolean encontrado = false;
         int i =0;
