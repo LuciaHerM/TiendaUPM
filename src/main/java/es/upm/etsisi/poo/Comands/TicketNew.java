@@ -91,12 +91,13 @@ public  class TicketNew extends ComandTicket{
     }
 
     private boolean existeId(String id, ArrayList<Ticket> tickets) {
+        boolean r = false;
         for (Ticket t : tickets) {
             if (t.getTicketId().equals(id)) {
-                return true;
+                r = true;
             }
         }
-        return false;
+        return r;
     }
     private boolean formatoIDCorrecto(String id) {
         String fecha = "\\d{2}-\\d{2}-\\d{2}-\\d{2}:\\d{2}";

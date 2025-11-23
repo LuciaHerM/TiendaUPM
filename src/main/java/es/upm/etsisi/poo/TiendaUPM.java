@@ -167,7 +167,11 @@ public class TiendaUPM {
                         }
                         break;
                     case "add":
-                        comad = new TicketAdd(comand[2], comand[3], catalog, ticketActive);
+                        if(comand.length ==  6) {
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],catalog, ticketList,cashers);
+                        } else if (comand.length == 7) {
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],comand[6],catalog, ticketList,cashers);
+                        }
                         break;
                     case "remove":
                         if(comand.length==3){
