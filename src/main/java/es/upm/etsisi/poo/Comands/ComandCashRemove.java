@@ -36,6 +36,7 @@ public class ComandCashRemove extends ComandCash {
                 ticketList.remove(ticketsCajero.get(i));
             }
             cashers.remove(i);
+            System.out.println("cash remove: ok");
         }
         else {
             System.err.println("El id introducido no se encuentra en la base de datos del sistema");

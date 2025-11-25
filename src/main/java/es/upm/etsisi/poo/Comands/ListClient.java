@@ -16,5 +16,9 @@ public class ListClient extends ComandClient {
         for (Client client : clients) {
             System.out.println(client.toString());
         }
+        if(clients.isEmpty()){
+            System.out.println("The client list is empty.");
+        }
+        System.out.println("client list: ok");
     }
 }

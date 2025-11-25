@@ -21,5 +21,9 @@ public class ComandCashList extends ComandCash {
         for(int i = 0 ; i < cashers.size();i++){
             System.out.println(cashers.get(i).toString());
         }
+        if(cashers.isEmpty()){
+            System.out.println("The cash list is empty");
+        }
+        System.out.println("cash list: ok");
     }
 }
