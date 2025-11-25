@@ -4,22 +4,19 @@ import java.time.temporal.ChronoUnit;
 
 
 public class Events extends Product {
-    private static String expiration_day;
-    private static final int MAX_PARTICIPANTS=100;
-    private static int num_person;
-    private static TypeEvent typeEvent;
+    private String expiration_day;
+    private final int MAX_PARTICIPANTS=100;
+    private int num_person;
+    private TypeEvent typeEvent;
 
     public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
-        super();
-        Events.id=id;
-        Events.name=name;
-        Events.price=price;
-        Events.typeEvent=typeEvent;
+        super(id, name, price);
+        this.typeEvent=typeEvent;
         if(check_min_time(expiration_day, typeEvent)){
-            Events.expiration_day=expiration_day;
+            this.expiration_day=expiration_day;
         }
         if(num_person<=MAX_PARTICIPANTS){
-            Events.num_person=num_person;
+            this.num_person=num_person;
         }else{
             System.err.println("The number of people is surpasses the maximon of people accepted ");
         }
@@ -47,19 +44,19 @@ public class Events extends Product {
         return true;
     }
 
-    public static String getExpiration_day() {
-        return expiration_day;
+    public String getExpiration_day() {
+        return this.expiration_day;
     }
 
-    public static void setExpiration_day(String expiration_day) {
-        Events.expiration_day = expiration_day;
+    public void setExpiration_day(String expiration_day) {
+        this.expiration_day = expiration_day;
     }
 
-    public static int getNum_person() {
-        return num_person;
+    public int getNum_person() {
+        return this.num_person;
     }
 
-    public static void setNum_person(int num_person) {
-        Events.num_person = num_person;
+    public void setNum_person(int num_person) {
+        this.num_person = num_person;
     }
 }
