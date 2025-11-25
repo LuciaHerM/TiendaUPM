@@ -11,7 +11,7 @@ public class ListClient extends ComandClient {
         this.clients = clients;
     }
 
-    public void apply(ArrayList<Client> clients) {
+    public void apply() {
         clients.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
         for (Client client : clients) {
             System.out.println(client.toString());

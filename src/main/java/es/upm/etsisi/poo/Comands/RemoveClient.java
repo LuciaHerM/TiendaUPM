@@ -12,7 +12,7 @@ public class RemoveClient extends ComandClient {
         this.clients = clients;
     }
 
-    public void apply(String DNI, ArrayList<Client> clients) {
+    public void apply() {
         boolean encontrarEnListaEliminar = false;
         int contador = 0;
         while (!encontrarEnListaEliminar && contador < clients.size()) {
