@@ -17,17 +17,18 @@ public class TicketAdd extends ComandTicket{
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
-        this.ticketActual = seleccinarTicket(ticketsList, ticketId);
-        this.personalizaciones = personalizacion.split("--p");
         this.casher = seleccinarCash(cashers,cashId) ;
+        this.ticketActual = seleccinarTicket(casher.getCashTickets(), ticketId);
+        this.personalizaciones = personalizacion.split("--p");
     }
     public TicketAdd(String ticketId,String cashId,String prodId, String quantity, Catalog catalog,ArrayList<Ticket> ticketsList,ArrayList<Cash> cashers){
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
-        this.ticketActual = seleccinarTicket(ticketsList, ticketId);
-        this.personalizaciones = null;
         this.casher = seleccinarCash(cashers,cashId) ;
+        this.ticketActual = seleccinarTicket(casher.getCashTickets(), ticketId);
+        this.personalizaciones = null;
+
     }
     /**
      *  Añade una cantidad específica de un producto al ticket.
