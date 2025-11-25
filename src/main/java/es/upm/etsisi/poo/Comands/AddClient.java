@@ -19,7 +19,7 @@ public class AddClient extends ComandClient {
         this.cashId = cashId;
         this.clients = clients;
     }
-    public void apply (String name, String DNI, String email, String cashId, ArrayList<Client> clients){
+    public void apply (){
         boolean encuentraDNIEnClientList = false;
         int cont = 0;
         while (!encuentraDNIEnClientList && cont < clients.size()){
@@ -32,6 +32,7 @@ public class AddClient extends ComandClient {
         if (!encuentraDNIEnClientList) {
             Client client = new Client(name, DNI, email, cashId);
             clients.add(client);
+            System.out.println("client add: ok");
         }
         if (encuentraDNIEnClientList){
             System.err.println("Ya existe un cliente con dicho DNI");

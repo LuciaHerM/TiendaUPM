@@ -41,6 +41,8 @@ public class ComandCashAdd extends ComandCash {
             if (!encontrado) {
                 Cash cash = new Cash(id, name, email);
                 cashers.add(cash);
+                System.out.println(cash.toString());
+                System.out.println("cash add: ok");
             } else {
                 System.err.println("Ya existe un cajero con el mismo Id en la base de datos");
             }

@@ -12,7 +12,7 @@ public class RemoveClient extends ComandClient {
         this.clients = clients;
     }
 
-    public void apply(String DNI, ArrayList<Client> clients) {
+    public void apply() {
         boolean encontrarEnListaEliminar = false;
         int contador = 0;
         while (!encontrarEnListaEliminar && contador < clients.size()) {
@@ -24,6 +24,7 @@ public class RemoveClient extends ComandClient {
         }
         if (encontrarEnListaEliminar) {
             clients.remove(clients.get(contador));
+            System.out.println("client remove: ok");
         } else {
             System.err.println("No existe dicho cliente, por tanto no se puede eliminar");
         }

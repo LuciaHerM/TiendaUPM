@@ -5,16 +5,15 @@ import java.util.List;
 
 public class Client extends User{
 
-    private static String DNI;
-    private static String cashId;
-    private static List<Ticket> clientTickets;
+    private String DNI;
+    private String cashId;
+    private List<Ticket> clientTickets;
 
     public Client (String name, String DNI, String email, String cashId){
-        Client.name=name;
-        Client.DNI=DNI;
-        Client.email=email;
-        Client.cashId=cashId;
-        Client.clientTickets = new ArrayList<>();
+        super(name, email);
+        this.DNI=DNI;
+        this.cashId=cashId;
+        this.clientTickets = new ArrayList<>();
     }
 
     public String getDNI() {
@@ -35,7 +34,7 @@ public class Client extends User{
     }
 
     public void setClientTickets(List<Ticket> clientTickets) {
-        Client.clientTickets = clientTickets;
+        this.clientTickets = clientTickets;
     }
     /**
      * Si no está ya el ticket en el ArrayList, lo añade
