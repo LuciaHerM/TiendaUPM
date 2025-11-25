@@ -49,7 +49,7 @@ public class Client extends User{
     /**
      * Este método recorre printeando todos los tickets del cliente
      */
-    public void ticketListClientes(){
+    public void ticketListClients(){
         for (int i = 0; i < clientTickets.size(); i++) System.out.println(clientTickets.get(i).toString());
     }
 }
