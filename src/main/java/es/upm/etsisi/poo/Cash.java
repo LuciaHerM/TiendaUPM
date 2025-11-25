@@ -6,7 +6,7 @@ import java.util.List;
 public class Cash extends User{
 
     private String id;
-    private List<Ticket> cashTickets;
+    private ArrayList<Ticket> cashTickets;
 
     public Cash (String id, String name, String email){
         super(name, email);
@@ -22,11 +22,11 @@ public class Cash extends User{
     public String toString() {
         return "{class:Cash, id:"+id+", name:'"+name+"', email:"+ email+"}";    }
 
-    public List<Ticket> getCashTickets() {
+    public ArrayList<Ticket> getCashTickets() {
         return cashTickets;
     }
 
-    public void setCashTickets(List<Ticket> cashTickets) {
+    public void setCashTickets(ArrayList<Ticket> cashTickets) {
         this.cashTickets = cashTickets;
     }
 

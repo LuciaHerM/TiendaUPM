@@ -44,6 +44,22 @@ public class Ticket {
     public void setStatus(TicketStatus status) {
         this.status = status;
     }
+    /**
+     * mira si hay un objeto del tipo evento dentro del ticket igual
+     * para evitar que se introsuccan dos iguales
+     * @param product producto que se quiere comprovar si ya esta en el ticket
+     */
+    public boolean reunionYaIntroducida(Product product){
+        boolean encontrada = false ;
+        int i = 0 ;
+        while (i<productNumber&&!encontrada){
+            if(cart[i].getID().equals(product.getID())){
+                encontrada=true;
+            }
+            i++;
+        }
+        return encontrada;
+    }
 
     /**
      * Añade el producto al array de productos, cart. El producto se inserta en la siguiente posición libre del array.

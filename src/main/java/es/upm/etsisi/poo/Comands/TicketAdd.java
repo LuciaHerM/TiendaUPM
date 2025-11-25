@@ -1,9 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
-import es.upm.etsisi.poo.Cash;
-import es.upm.etsisi.poo.Ticket;
-import es.upm.etsisi.poo.Catalog;
-import es.upm.etsisi.poo.TicketStatus;
+import es.upm.etsisi.poo.*;
+import es.upm.etsisi.poo.Product;
 
 import java.util.ArrayList;
 
@@ -12,7 +10,7 @@ public class TicketAdd extends ComandTicket{
     private String prodId;
     private String quantity;
     private Catalog catalog;
-    private Ticket ticketActive;
+    private Ticket ticketActual;
     private String ticketId;
     private String[] personalizaciones ;
     private Cash casher;
@@ -20,24 +18,25 @@ public class TicketAdd extends ComandTicket{
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
-        this.ticketActive = seleccinarTicket(ticketsList, ticketId);
-        this.personalizaciones = personalizacion.split("--p");
         this.casher = seleccinarCash(cashers,cashId) ;
+        this.ticketActual = seleccinarTicket(casher.getCashTickets(), ticketId);
+        this.personalizaciones = personalizacion.split("--p");
     }
     public TicketAdd(String ticketId,String cashId,String prodId, String quantity, Catalog catalog,ArrayList<Ticket> ticketsList,ArrayList<Cash> cashers){
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
-        this.ticketActive = seleccinarTicket(ticketsList, ticketId);
-        this.personalizaciones = null;
         this.casher = seleccinarCash(cashers,cashId) ;
+        this.ticketActual = seleccinarTicket(casher.getCashTickets(), ticketId);
+        this.personalizaciones = null;
+
     }
     /**
      *  Añade una cantidad específica de un producto al ticket.
      */
     public void apply() {
-        if(ticketActive!=null) {
-            if (ticketActive.getStatus() != TicketStatus.CERRADO) {
+        if(ticketActual !=null) {
+            if (ticketActual.getStatus() != TicketStatus.CERRADO) {
                 int cont = 0;
                 boolean encontrado = false;
                 while (cont < catalog.length() && !encontrado) {
@@ -47,14 +46,19 @@ public class TicketAdd extends ComandTicket{
                         cont++;
                     }
                 }
+                Product p = catalog.find(cont);
+                if(encontrado&&(p instanceof Events)&&ticketActual.reunionYaIntroducida(p)){
+                    encontrado=false;
+                    System.err.println("no puedes introducir dos venetos iguales en el mismo ticket");
+                }
                 if (encontrado) {
-                    if (ticketActive.getStatus() != TicketStatus.ACTIVO) {
-                        ticketActive.setStatus(TicketStatus.ACTIVO);
+                    if (ticketActual.getStatus() != TicketStatus.ACTIVO) {
+                        ticketActual.setStatus(TicketStatus.ACTIVO);
                     }
                     for (int i = 0; i < Integer.parseInt(quantity); i++) {
-                        ticketActive.AddProduct(catalog.find(cont));
+                        ticketActual.AddProduct(p);
                     }
-                    System.out.println(ticketActive.toString());
+                    System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 } else {
                     System.err.println("The product was not found");
@@ -67,7 +71,7 @@ public class TicketAdd extends ComandTicket{
             System.err.println("No hay un ticket con el id introducido .");
         }
     }
-    public Ticket seleccinarTicket(ArrayList<Ticket> ticketsList ,String ticketId ){
+    private Ticket seleccinarTicket(ArrayList<Ticket> ticketsList ,String ticketId ){
         Ticket ticketActual = null;
         for (int i = 0; i < ticketsList.size(); i++) {
             if ( ticketsList.get(i).getTicketId().equals(ticketId)) {
@@ -76,7 +80,7 @@ public class TicketAdd extends ComandTicket{
         }
         return ticketActual;
     }
-    public Cash seleccinarCash(ArrayList<Cash> cashers ,String cashId ){
+    private Cash seleccinarCash(ArrayList<Cash> cashers ,String cashId ){
         Cash casherActual = null;
         for (int i = 0; i < cashers.size(); i++) {
             if ( cashers.get(i).getId().equals(cashId)) {
