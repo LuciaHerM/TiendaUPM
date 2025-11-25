@@ -19,7 +19,7 @@ public class AddClient extends ComandClient {
         this.cashId = cashId;
         this.clients = clients;
     }
-    public void apply (String name, String DNI, String email, String cashId, ArrayList<Client> clients){
+    public void apply (){
         boolean encuentraDNIEnClientList = false;
         int cont = 0;
         while (!encuentraDNIEnClientList && cont < clients.size()){

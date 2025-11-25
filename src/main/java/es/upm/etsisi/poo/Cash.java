@@ -5,14 +5,13 @@ import java.util.List;
 
 public class Cash extends User{
 
-    private static String id;
-    private static List<Ticket> cashTickets;
+    private String id;
+    private List<Ticket> cashTickets;
 
-    public  Cash (String id, String name, String email){
-        Cash.id=id;
-        Cash.name=name;
-        Cash.email=email;
-        Cash.cashTickets = new ArrayList<>();
+    public Cash (String id, String name, String email){
+        super(name, email);
+        this.id=id;
+        this.cashTickets = new ArrayList<>();
     }
 
     public String getId() {
@@ -28,7 +27,7 @@ public class Cash extends User{
     }
 
     public void setCashTickets(List<Ticket> cashTickets) {
-        Cash.cashTickets = cashTickets;
+        this.cashTickets = cashTickets;
     }
 
     /**
