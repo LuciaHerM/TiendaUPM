@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.*;
+import es.upm.etsisi.poo.Product;
 
 import java.util.ArrayList;
 
@@ -45,12 +46,17 @@ public class TicketAdd extends ComandTicket{
                         cont++;
                     }
                 }
+                Product p = catalog.find(cont);
+                if(encontrado&&(p instanceof Events)&&ticketActual.reunionYaIntroducida(p)){
+                    encontrado=false;
+                    System.err.println("no puedes introducir dos venetos iguales en el mismo ticket");
+                }
                 if (encontrado) {
                     if (ticketActual.getStatus() != TicketStatus.ACTIVO) {
                         ticketActual.setStatus(TicketStatus.ACTIVO);
                     }
                     for (int i = 0; i < Integer.parseInt(quantity); i++) {
-                        ticketActual.AddProduct(catalog.find(cont));
+                        ticketActual.AddProduct(p);
                     }
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
