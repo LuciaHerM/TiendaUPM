@@ -28,6 +28,7 @@ public  class TicketNew extends ComandTicket{
         this.clientId = clientId;
         this.catalog=catalog;
         this.ticketId=ticketId;
+        this.ticketsList=ticketsListString;
     }
 
     public TicketNew(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsList){
@@ -36,6 +37,7 @@ public  class TicketNew extends ComandTicket{
         this.clients=clients;
         this.clientId = clientId;
         this.catalog=catalog;
+        this.ticketsList=ticketsList;
         this.ticketId=generarIdTicket(ticketsList);
     }
     /**
