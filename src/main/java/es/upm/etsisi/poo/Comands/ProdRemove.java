@@ -12,7 +12,7 @@ public class ProdRemove extends Product{
     /**
      * Elimina un producto del catálogo.
      */
-    public void apply(String id, Catalog catalog) {
+    public void apply() {
         catalog.remove(id);
     }
 }

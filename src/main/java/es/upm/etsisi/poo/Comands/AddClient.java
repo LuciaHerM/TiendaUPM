@@ -32,6 +32,7 @@ public class AddClient extends ComandClient {
         if (!encuentraDNIEnClientList) {
             Client client = new Client(name, DNI, email, cashId);
             clients.add(client);
+            System.out.println(client.toString());
             System.out.println("client add: ok");
         }
         if (encuentraDNIEnClientList){

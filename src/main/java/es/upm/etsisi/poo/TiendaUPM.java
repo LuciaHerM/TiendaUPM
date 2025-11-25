@@ -63,17 +63,19 @@ public class TiendaUPM {
             Pattern pattern = Pattern.compile("\"([^\"]*(?:\"[^\"]*)*)\"|(\\S+)");
             Matcher matcher = pattern.matcher(comando);
 
-            String[] comand = new String[10];
-            int i=0;
+            ArrayList<String> comand = new ArrayList<String>();
             while (matcher.find()) {
                 if (matcher.group(1) != null) {
-                    comand[i] = matcher.group(1); // valor dentro de comillas
+                    comand.add(matcher.group(1)); // valor dentro de comillas
                 } else {
-                    comand[i] = matcher.group(2); // palabra normal
+                    comand.add(matcher.group(2)); // palabra normal
                 }
-                i++;
             }
-            continuar=gestionComandos(comand);
+            String[] comands = new String[comand.size()];
+            for(int i=0;i<comand.size();i++){
+                comands[i]=comand.get(i);
+            }
+            continuar=gestionComandos(comands);
         }
     }
 
@@ -104,10 +106,10 @@ public class TiendaUPM {
                     case "add":
                         if (comand.length == 5) {
                             comad = new ComandCashAdd(comand[2], comand[3], comand[4], cashers);
-                        } else { comad = new ComandCashAdd(comand[2], comand[2], comand[3], cashers);}
+                        } else { comad = new ComandCashAdd(comand[2], comand[3], cashers);}
                         break;
                     case "remove":
-                        comad = new ComandCashRemove(comand[1], cashers, ticketList);
+                        comad = new ComandCashRemove(comand[2], cashers, ticketList);
                         break;
                     case "list":
                         comad = new ComandCashList(cashers);

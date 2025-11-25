@@ -12,7 +12,7 @@ public class ComandCashAdd extends ComandCash {
     private ArrayList<Cash> cashers;
 
 
-    public ComandCashAdd(String name, String email, String id, ArrayList<Cash> cashers) {
+    public ComandCashAdd(String id, String name, String email, ArrayList<Cash> cashers) {
         this.name = name;
         this.email = email;
         this.id = id;
