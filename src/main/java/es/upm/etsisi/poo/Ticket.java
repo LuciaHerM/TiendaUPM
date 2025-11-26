@@ -1,7 +1,6 @@
 package es.upm.etsisi.poo;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * La clase Ticket representa un ticket de compra en la app. Permite gestionar los productos, los descuentos e
@@ -109,7 +108,7 @@ public class Ticket {
      * el precio total. El metodo utiliza un for para contar el número de productos por categoria y poder aplicar el posible descuento.
      * @return  Cadena con el contenido del ticket.
      */
-    public String ToString(){
+    public String toString(){
         int numMerch=0;
         int numStationery=0;
         int numClothes=0;

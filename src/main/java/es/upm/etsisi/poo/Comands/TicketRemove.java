@@ -37,7 +37,7 @@ public class TicketRemove extends ComandTicket{
             }
             if (encontrado) {
                 ticketActive.RemoveProduct(catalog.find(i));
-                System.out.println(ticketActive.ToString());
+                System.out.println(ticketActive.toString());
                 System.out.println("ticket remove: ok");
             } else {
                 System.err.println("This product can't be found");

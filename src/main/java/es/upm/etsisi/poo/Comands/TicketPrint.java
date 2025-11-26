@@ -4,7 +4,6 @@ import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.TicketStatus;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TicketPrint extends ComandTicket{
@@ -26,7 +25,7 @@ public class TicketPrint extends ComandTicket{
      */
     public void apply() {
         if(ticketActive!=null) {
-            System.out.println(ticketActive.ToString());
+            System.out.println(ticketActive.toString());
             ticketActive.setStatus(TicketStatus.CERRADO);
         }else{
             System.out.println("The id of the ticket is not correct");

@@ -66,7 +66,7 @@ public class TicketAdd extends ComandTicket{
                     for (int i = 0; i < Integer.parseInt(quantity); i++) {
                         ticketActual.AddProduct(p);
                     }
-                    System.out.println(ticketActual.ToString());
+                    System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 } else {
                     System.err.println("The product was not found");

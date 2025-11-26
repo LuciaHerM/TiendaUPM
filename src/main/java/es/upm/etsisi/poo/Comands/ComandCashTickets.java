@@ -29,7 +29,7 @@ public class ComandCashTickets extends ComandCash {
             ArrayList<Ticket> ticketList = cajero.getCashTickets();
             for (int i = 0; i < ticketList.size(); i++) {
                 Ticket ticket = ticketList.get(i);
-                System.out.println(ticket.ToString());
+                System.out.println(ticket.toString());
             }
             if(ticketList.isEmpty()){
                 System.out.println("The cash don't have tickets created");
