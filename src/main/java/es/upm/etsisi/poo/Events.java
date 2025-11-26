@@ -62,14 +62,6 @@ public class Events extends Product {
 
     @Override
     public String toString() {
-        return "Events{" +
-                "expiration_day='" + expiration_day + '\'' +
-                ", MAX_PARTICIPANTS=" + MAX_PARTICIPANTS +
-                ", num_person=" + num_person +
-                ", typeEvent=" + typeEvent +
-                ", id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+        return "{class:Events, id:" + id + ", name:'" + name  + "expiration_day:" + expiration_day + ", num_person:" + num_person + ", typeEvent:" + typeEvent + ", price:" + price + "}";
     }
 }
