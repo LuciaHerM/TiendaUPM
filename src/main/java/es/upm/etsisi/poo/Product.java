@@ -51,11 +51,11 @@ public class Product {
                 this.price += this.price*0.1* personalizaciones.length;
             }
             else {
-                System.err.println("no puedes introducir esa cantidad de personalizaciones .");
+                System.out.println("no puedes introducir esa cantidad de personalizaciones .");
             }
         }
         else {
-            System.err.println("no puedes introducir personalizaciones a un producto no personalizable .");
+            System.out.println("no puedes introducir personalizaciones a un producto no personalizable .");
         }
     }
 

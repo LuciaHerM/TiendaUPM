@@ -40,10 +40,10 @@ public class TicketRemove extends ComandTicket{
                 System.out.println(ticketActive.toString());
                 System.out.println("ticket remove: ok");
             } else {
-                System.err.println("This product can't be found");
+                System.out.println("This product can't be found");
             }
         } else {
-            System.err.println("The ticket was closed");
+            System.out.println("The ticket was closed");
         }
 
     }

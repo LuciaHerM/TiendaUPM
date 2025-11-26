@@ -26,7 +26,7 @@ public class RemoveClient extends ComandClient {
             clients.remove(clients.get(contador));
             System.out.println("client remove: ok");
         } else {
-            System.err.println("No existe dicho cliente, por tanto no se puede eliminar");
+            System.out.println("No existe dicho cliente, por tanto no se puede eliminar");
         }
     }
 }

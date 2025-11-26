@@ -62,10 +62,10 @@ public  class TicketNew extends ComandTicket{
         }
 
         if(cash == null) {
-            System.err.println("El id del cajero no se encuentra en nuestra base de datos.");
+            System.out.println("El id del cajero no se encuentra en nuestra base de datos.");
         }
         else if(client == null) {
-            System.err.println("El dni del cliente introducido no se encuentra en nuestra base de datos.");
+            System.out.println("El dni del cliente introducido no se encuentra en nuestra base de datos.");
         }
         // Ticket no guarda al cajero ni el cliente
         else {
@@ -75,7 +75,7 @@ public  class TicketNew extends ComandTicket{
                 cash.ticketAddCash(ticket);
                 System.out.println("ticket new: ok");
             } else {
-                System.err.println("El id del ticket no es correcto bien por que ya esiste un ticket con el mismo id o bien porque el formato no es correcto :  YY-MM-dd-HH:mm-#####" );
+                System.out.println("El id del ticket no es correcto bien por que ya esiste un ticket con el mismo id o bien porque el formato no es correcto :  YY-MM-dd-HH:mm-#####" );
             }
         }
     }

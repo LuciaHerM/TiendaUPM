@@ -70,7 +70,7 @@ public class Ticket {
             productNumber++;
             //Arrays.sort(cart,Comparator.comparing(Product::getName));
         }else{
-            System.err.println("Intentas introducir más productos al Ticket.");
+            System.out.println("Intentas introducir más productos al Ticket.");
         }
     }
 

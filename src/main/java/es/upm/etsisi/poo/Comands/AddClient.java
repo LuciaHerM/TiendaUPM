@@ -36,7 +36,7 @@ public class AddClient extends ComandClient {
             System.out.println("client add: ok");
         }
         if (encuentraDNIEnClientList){
-            System.err.println("Ya existe un cliente con dicho DNI");
+            System.out.println("Ya existe un cliente con dicho DNI");
         }
     }
 }

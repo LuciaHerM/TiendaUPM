@@ -44,11 +44,11 @@ public class ComandCashAdd extends ComandCash {
                 System.out.println(cash.toString());
                 System.out.println("cash add: ok");
             } else {
-                System.err.println("Ya existe un cajero con el mismo Id en la base de datos");
+                System.out.println("Ya existe un cajero con el mismo Id en la base de datos");
             }
         }
         else {
-            System.err.println("El formato del id no es el correcto : UWxxxxxxx (x un digito 0-9) .");
+            System.out.println("El formato del id no es el correcto : UWxxxxxxx (x un digito 0-9) .");
         }
 
 

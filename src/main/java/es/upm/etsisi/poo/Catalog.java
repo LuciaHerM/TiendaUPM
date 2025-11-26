@@ -57,7 +57,7 @@ public class Catalog {
                 System.out.println("prod add: ok");
             }
         } else {
-            System.err.println("The product can't be add.");
+            System.out.println("The product can't be add.");
         }
     }
     public void addPer(String id, String name, String category, String price, String pers) {
@@ -89,7 +89,7 @@ public class Catalog {
                 System.out.println("prod add: ok");
             }
         } else {
-            System.err.println("The product can't be add.");
+            System.out.println("The product can't be add.");
         }
     }
 
@@ -115,10 +115,10 @@ public class Catalog {
                     System.out.println("prod add: ok");
                 }
             } else {
-                System.err.println("The product can't be add.");
+                System.out.println("The product can't be add.");
             }
         } else {
-            System.err.println("The product can't be add.");
+            System.out.println("The product can't be add.");
         }
     }
 

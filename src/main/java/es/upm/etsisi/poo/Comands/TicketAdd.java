@@ -57,7 +57,7 @@ public class TicketAdd extends ComandTicket{
                 }
                 if(encontrado&&(p instanceof Events)&&ticketActual.reunionYaIntroducida(p)){
                     encontrado=false;
-                    System.err.println("no puedes introducir dos enetos iguales en el mismo ticket");
+                    System.out.println("no puedes introducir dos enetos iguales en el mismo ticket");
                 }
                 if (encontrado) {
                     if (ticketActual.getStatus() != TicketStatus.ACTIVO) {
@@ -69,14 +69,14 @@ public class TicketAdd extends ComandTicket{
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 } else {
-                    System.err.println("The product was not found");
+                    System.out.println("The product was not found");
                 }
             } else {
-                System.err.println("The ticket was closed");
+                System.out.println("The ticket was closed");
             }
         }
         else {
-            System.err.println("No hay un ticket con el id introducido .");
+            System.out.println("No hay un ticket con el id introducido .");
         }
     }
 

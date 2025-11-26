@@ -18,7 +18,7 @@ public class Events extends Product {
         if(num_person<=MAX_PARTICIPANTS){
             this.num_person=num_person;
         }else{
-            System.err.println("The number of people is surpasses the maximon of people accepted ");
+            System.out.println("The number of people is surpasses the maximon of people accepted ");
         }
     }
 
@@ -38,7 +38,7 @@ public class Events extends Product {
         double daysBetween= ChronoUnit.HOURS.between(today.atStartOfDay(),eventDate.atStartOfDay())/24.0;
 
         if(typeEvent.getMinDaysBefore()>daysBetween){
-                System.err.println("The minimum planning time for "+typeEvent+" is "+typeEvent.getMinDaysBefore()+" days.");
+                System.out.println("The minimum planning time for "+typeEvent+" is "+typeEvent.getMinDaysBefore()+" days.");
                 return false;
         }
         return true;
