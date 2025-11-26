@@ -36,7 +36,7 @@ public class TicketAdd extends ComandTicket{
      *  Añade una cantidad específica de un producto al ticket.
      */
     public void apply() {
-        Ticket ticketActual = encontrarTicket();
+        Ticket ticketActual = seleccinarTicket();
         if(ticketActual !=null) {
             if (ticketActual.getStatus() != TicketStatus.CERRADO) {
                 int cont = 0;
@@ -74,27 +74,8 @@ public class TicketAdd extends ComandTicket{
         }
     }
 
-    private Ticket encontrarTicket() {
-        ArrayList<Ticket> tickets = casher.getCashTickets();
-        Ticket ticket = null;
-        boolean encontrado=false;
-        int i=0;
-        while (!encontrado && i<tickets.size()){
-            if(tickets.get(i).getTicketId().equals(ticketId)){
-                ticket=tickets.get(i);
-            }else{
-                i++;
-            }
-        }
-        if(encontrado) {
-            return ticket;
-        }else {
-            System.out.println("No se encontro ticket con ese id");
-            return null;
-        }
-    }
-
-    private Ticket seleccinarTicket(ArrayList<Ticket> ticketsList ,String ticketId ){
+    private Ticket seleccinarTicket(){
+        ArrayList<Ticket> ticketsList = casher.getCashTickets();
         Ticket ticketActual = null;
         for (int i = 0; i < ticketsList.size(); i++) {
             if ( ticketsList.get(i).getTicketId().equals(ticketId)) {
