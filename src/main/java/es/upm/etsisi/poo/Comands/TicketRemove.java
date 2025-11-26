@@ -12,18 +12,19 @@ public class TicketRemove extends ComandTicket{
     private String cashId;
     private String prodId;
     private Catalog catalog;
-    private Ticket ticketActive;
-    public TicketRemove(String ticketId, String cashId, String prodId, Catalog catalog, ArrayList<Ticket> ticketList, ArrayList<Cash> cashList, Ticket ticketActive){
+    private ArrayList<Cash> cashers;
+    public TicketRemove(String ticketId, String cashId, String prodId, Catalog catalog,ArrayList<Cash> cashList){
         this.catalog=catalog;
         this.ticketId=ticketId;
         this.ticketId=cashId;
         this.prodId=prodId;
-        this.ticketActive=ticketActive;
+        this.cashers=cashList;
     }
     /**
      * Elimina un producto del ticket.
      */
     public void apply() {
+        Ticket ticketActive = encontrarTicket();
         if(ticketActive.getStatus()!= TicketStatus.CERRADO) {
             int i = 0;
             boolean encontrado = false;
@@ -45,5 +46,30 @@ public class TicketRemove extends ComandTicket{
             System.err.println("The ticket was closed");
         }
 
+    }
+    private Ticket encontrarTicket() {
+        Cash casher = null;
+        for (int i = 0; i < cashers.size(); i++) {
+            if ( cashers.get(i).getId().equals(cashId)) {
+                casher = cashers.get(i);
+            }
+        }
+        ArrayList<Ticket> tickets = casher.getCashTickets();
+        Ticket ticket = null;
+        boolean encontrado=false;
+        int i=0;
+        while (!encontrado && i<tickets.size()){
+            if(tickets.get(i).getTicketId().equals(ticketId)){
+                ticket=tickets.get(i);
+            }else{
+                i++;
+            }
+        }
+        if(encontrado) {
+            return ticket;
+        }else {
+            System.out.println("No se encontro ticket con ese id");
+            return null;
+        }
     }
 }

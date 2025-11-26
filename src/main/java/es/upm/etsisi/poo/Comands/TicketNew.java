@@ -19,29 +19,26 @@ public  class TicketNew extends ComandTicket{
     private ArrayList<Client> clients;
     private String clientId;
     private String ticketId;
-    ArrayList<Ticket> ticketsList;
-    private Ticket ticketActive;
+    private ArrayList<Ticket> ticketsList;
 
-    public TicketNew(String ticketId,String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsListString, Ticket ticketActive){
+    public TicketNew(String ticketId,String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients){
         this.cashId=cashId;
         this.cashers=cashers;
         this.clients=clients;
         this.clientId=clientId;
         this.catalog=catalog;
         this.ticketId=ticketId;
-        this.ticketsList=ticketsListString;
-        this.ticketActive=ticketActive;
+        this.ticketsList=listTicketCash();
     }
 
-    public TicketNew(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsList, Ticket ticketActive){
+    public TicketNew(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients){
         this.cashId=cashId;
         this.cashers=cashers;
         this.clients=clients;
         this.clientId=clientId;
         this.catalog=catalog;
-        this.ticketsList=ticketsList;
         this.ticketId=generarIdTicket(ticketsList);
-        this.ticketActive=ticketActive;
+        this.ticketsList=listTicketCash();
     }
     /**
      * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
@@ -76,8 +73,6 @@ public  class TicketNew extends ComandTicket{
                 Ticket ticket = new Ticket(clientId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
-                ticketsList.add(ticket);
-                ticketActive=ticket;
                 System.out.println("ticket new: ok");
             } else {
                 System.err.println("El id del ticket no es correcto bien por que ya esiste un ticket con el mismo id o bien porque el formato no es correcto :  YY-MM-dd-HH:mm-#####" );
@@ -110,5 +105,14 @@ public  class TicketNew extends ComandTicket{
         String fecha = "\\d{2}-\\d{2}-\\d{2}-\\d{2}:\\d{2}";
         String apertura = fecha + "-\\d{5}";
         return id.matches(apertura);
+    }
+    private ArrayList<Ticket> listTicketCash() {
+        Cash cajero = null;
+        for (es.upm.etsisi.poo.Cash cash : cashers) {
+            if (cash.getId().equals(cashId)) {
+                cajero = cash;
+            }
+        }
+        return cajero.getCashTickets();
     }
 }

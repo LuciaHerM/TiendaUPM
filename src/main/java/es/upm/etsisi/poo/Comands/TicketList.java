@@ -6,10 +6,8 @@ import java.util.ArrayList;
 
 public class TicketList extends ComandTicket{
 
-    private ArrayList<Ticket> tickets;
     private ArrayList<Cash> cashers;
-    public TicketList(ArrayList<Ticket> tickets, ArrayList<Cash> cashers) {
-        this.tickets = tickets;
+    public TicketList(ArrayList<Cash> cashers) {
         this.cashers=cashers;
     }
     public void apply() {

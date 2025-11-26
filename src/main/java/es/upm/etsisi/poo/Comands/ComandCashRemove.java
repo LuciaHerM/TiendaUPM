@@ -12,12 +12,10 @@ import java.util.List;
 public class ComandCashRemove extends ComandCash {
     private String id;
     private ArrayList<Cash> cashers;
-    private ArrayList<Ticket> ticketList;
 
-    public ComandCashRemove(String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList) {
+    public ComandCashRemove(String id, ArrayList<Cash> cashers) {
         this.id = id;
         this.cashers = cashers;
-        this.ticketList = ticketList;
     }
     public void apply(){
         boolean encontrado = false;
@@ -31,10 +29,6 @@ public class ComandCashRemove extends ComandCash {
             }
         }
         if(encontrado){
-            List<Ticket> ticketsCajero = cashers.get(i).getCashTickets();
-            for(int j = 0 ; j<ticketsCajero.size();j++ ){
-                ticketList.remove(ticketsCajero.get(i));
-            }
             cashers.remove(i);
             System.out.println("cash remove: ok");
         }

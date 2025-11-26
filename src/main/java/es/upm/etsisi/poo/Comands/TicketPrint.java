@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class TicketPrint extends ComandTicket{
     private Ticket ticketActive;
     private ArrayList<Ticket> ticketList;
-    public TicketPrint(Ticket ticketActive, ArrayList<Ticket> ticketList){
+    public TicketPrint(String ticketId, String cashId){
         this.ticketActive=ticketActive;
         this.ticketList=ticketList;
     }

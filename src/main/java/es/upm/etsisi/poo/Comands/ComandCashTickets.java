@@ -9,12 +9,10 @@ public class ComandCashTickets extends ComandCash {
 
     private String id;
     private ArrayList<Cash> cashers;
-    private ArrayList<Ticket> ticketList;
 
-    public ComandCashTickets(String id, ArrayList<Cash> cashers, ArrayList<Ticket> ticketList) {
+    public ComandCashTickets(String id, ArrayList<Cash> cashers) {
         this.id = id;
         this.cashers = cashers;
-        this.ticketList = ticketList;
     }
 
     /**
@@ -28,8 +26,9 @@ public class ComandCashTickets extends ComandCash {
             }
         }
         if (cajero != null) {
+            ArrayList<Ticket> ticketList = cajero.getCashTickets();
             for (int i = 0; i < ticketList.size(); i++) {
-                System.out.println(cajero.getCashTickets().get(i).toString());
+                System.out.println(ticketList.get(i).toString());
             }
             if(ticketList.isEmpty()){
                 System.out.println("The cash don't have tickets created");

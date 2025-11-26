@@ -15,11 +15,9 @@ public class TiendaUPM {
 
 
     private static Scanner sc;
-    private Ticket ticketActive;
     private Catalog catalog;
     private ArrayList<Cash> cashers;
     private ArrayList<Client> clients;
-    private ArrayList<Ticket> ticketList;
 
     /**
      * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
@@ -48,7 +46,6 @@ public class TiendaUPM {
         catalog = new Catalog();
         cashers =new ArrayList<Cash>();
         clients =new ArrayList<Client>();
-        ticketList = new ArrayList<Ticket>();
     }
 
     /**
@@ -74,9 +71,6 @@ public class TiendaUPM {
             String[] comands = new String[comand.size()];
             for(int i=0;i<comand.size();i++){
                 comands[i]=comand.get(i);
-            }
-            if(!ticketList.isEmpty()) {
-                ticketActive=ticketList.get(ticketList.size()-1);
             }
             continuar=gestionComandos(comands);
         }
@@ -112,13 +106,13 @@ public class TiendaUPM {
                         } else { comad = new ComandCashAdd(comand[2], comand[3], cashers);}
                         break;
                     case "remove":
-                        comad = new ComandCashRemove(comand[2], cashers, ticketList);
+                        comad = new ComandCashRemove(comand[2], cashers);
                         break;
                     case "list":
                         comad = new ComandCashList(cashers);
                         break;
                     case "tickets":
-                        comad = new ComandCashTickets(comand[2], cashers,ticketList);
+                        comad = new ComandCashTickets(comand[2], cashers);
                         break;
                 }
                 break;
@@ -165,27 +159,27 @@ public class TiendaUPM {
                 switch (comand[1]) {
                     case "new":
                         if (comand.length == 4) {
-                            comad = new TicketNew(comand[2], comand[3], catalog, cashers, clients, ticketList, ticketActive);
+                            comad = new TicketNew(comand[2], comand[3], catalog, cashers, clients);
                         }
                         else if(comand.length == 5){
-                            comad = new TicketNew(comand[2], comand[3],comand[4], catalog, cashers, clients, ticketList, ticketActive);
+                            comad = new TicketNew(comand[2], comand[3],comand[4], catalog, cashers, clients);
                         }
                         break;
                     case "add":
                         if(comand.length ==  6) {
-                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5], catalog, ticketList, cashers, ticketActive);
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5], catalog, cashers);
                         } else if (comand.length == 7) {
-                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],comand[6],catalog, ticketList, cashers, ticketActive);
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],comand[6],catalog, cashers);
                         }
                         break;
                     case "remove":
-                        comad = new TicketRemove(comand[2],comand[3],comand[4], catalog, ticketList, cashers, ticketActive);
+                        comad = new TicketRemove(comand[2],comand[3],comand[4], catalog, cashers);
                         break;
                     case "print":
-                        comad = new TicketPrint(ticketActive, ticketList);
+                        comad = new TicketPrint(comand[2], comand[3]);
                         break;
                     case "list":
-                        comad = new TicketList(ticketList, cashers);
+                        comad = new TicketList(cashers);
                         break;
                 }
                 break;
