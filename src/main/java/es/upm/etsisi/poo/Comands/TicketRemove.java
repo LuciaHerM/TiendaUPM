@@ -45,9 +45,8 @@ public class TicketRemove extends ComandTicket{
     }
     /**
      * Elimina un producto del ticket.
-     * @param prodId    Identificador del producto.
      */
-    public void apply(String prodId, Catalog catalog, Ticket ticketActive) {
+    public void apply() {
         if(ticketActive.getStatus()!= TicketStatus.CERRADO) {
             int i = 0;
             boolean encontrado = false;

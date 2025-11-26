@@ -11,7 +11,7 @@ public class TicketList extends ComandTicket{
         this.tickets = tickets;
     }
     private ArrayList<Cash> cashers;
-    public void apply(ArrayList<Ticket> tickets, ArrayList<Cash> cashers) {
+    public void apply() {
         for (Cash casher : cashers) {
             System.out.println(casher.getCashTickets().toString());
         }

@@ -20,8 +20,9 @@ public  class TicketNew extends ComandTicket{
     private String clientId;
     private String ticketId;
     ArrayList<Ticket> ticketsList;
+    private Ticket ticketActive;
 
-    public TicketNew(String ticketId,String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsListString ){
+    public TicketNew(String ticketId,String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsListString, Ticket ticketActive){
         this.cashId=cashId;
         this.cashers=cashers;
         this.clients=clients;
@@ -29,9 +30,10 @@ public  class TicketNew extends ComandTicket{
         this.catalog=catalog;
         this.ticketId=ticketId;
         this.ticketsList=ticketsListString;
+        this.ticketActive=ticketActive;
     }
 
-    public TicketNew(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsList){
+    public TicketNew(String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients,ArrayList<Ticket> ticketsList, Ticket ticketActive){
         this.cashId=cashId;
         this.cashers=cashers;
         this.clients=clients;
@@ -39,6 +41,7 @@ public  class TicketNew extends ComandTicket{
         this.catalog=catalog;
         this.ticketsList=ticketsList;
         this.ticketId=generarIdTicket(ticketsList);
+        this.ticketActive=ticketActive;
     }
     /**
      * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
@@ -62,17 +65,18 @@ public  class TicketNew extends ComandTicket{
         }
 
         if(cash == null) {
-            System.err.println("El id del cajero no se encuntra en nuestra base de datos.");
+            System.err.println("El id del cajero no se encuentra en nuestra base de datos.");
         }
         else if(client == null) {
             System.err.println("El dni del cliente introducido no se encuentra en nuestra base de datos.");
         }
-        // Ticket no gurarda al cajero ni el cliente
+        // Ticket no guarda al cajero ni el cliente
         else {
             if (!existeId(ticketId, ticketsList)&&formatoIDCorrecto(ticketId)) {
                 Ticket ticket = new Ticket(clientId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
+                ticketActive=ticket;
                 System.out.println("ticket new: ok");
             } else {
                 System.err.println("El id del ticket no es correcto bien por que ya esiste un ticket con el mismo id o bien porque el formato no es correcto :  YY-MM-dd-HH:mm-#####" );
