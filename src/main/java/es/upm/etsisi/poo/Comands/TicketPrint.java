@@ -3,10 +3,14 @@ package es.upm.etsisi.poo.Comands;
 import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.TicketStatus;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TicketPrint extends ComandTicket{
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
     private Ticket ticketActive;
     private ArrayList<Ticket> ticketList;
     private String ticketId;
@@ -26,6 +30,7 @@ public class TicketPrint extends ComandTicket{
     public void apply() {
         if(ticketActive!=null) {
             System.out.println(ticketActive.toString());
+            ticketActive.setTicketId(ticketActive.getTicketId()+"-"+LocalDateTime.now().format(FORMAT));
             ticketActive.setStatus(TicketStatus.CERRADO);
         }else{
             System.out.println("The id of the ticket is not correct");
