@@ -48,10 +48,16 @@ public class TicketAdd extends ComandTicket{
                         cont++;
                     }
                 }
-                Product p = catalog.find(cont);
+                Product p ;
+                if(personalizaciones!=null){
+                    p=catalog.find(cont).clone();
+                    p.setPersonalizaciones(personalizaciones);              }
+                else {
+                    p=catalog.find(cont);
+                }
                 if(encontrado&&(p instanceof Events)&&ticketActual.reunionYaIntroducida(p)){
                     encontrado=false;
-                    System.err.println("no puedes introducir dos venetos iguales en el mismo ticket");
+                    System.err.println("no puedes introducir dos enetos iguales en el mismo ticket");
                 }
                 if (encontrado) {
                     if (ticketActual.getStatus() != TicketStatus.ACTIVO) {
