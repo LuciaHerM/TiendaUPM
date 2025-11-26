@@ -15,13 +15,13 @@ public class TicketAdd extends ComandTicket{
     private Cash casher;
 
 
-    public TicketAdd(String ticketId,String cashId , String prodId, String quantity, String personalizacion , Catalog catalog,ArrayList<Cash> cashers){
+    public TicketAdd(String ticketId,String cashId , String prodId, String quantity, String[] personalizacion , Catalog catalog,ArrayList<Cash> cashers){
         this.ticketId=ticketId;
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
         this.casher = seleccinarCash(cashers,cashId) ;
-        this.personalizaciones = personalizacion.split("--p");
+        this.personalizaciones = personalizacion;
     }
     public TicketAdd(String ticketId,String cashId,String prodId, String quantity, Catalog catalog,ArrayList<Cash> cashers){
         this.ticketId=ticketId;

@@ -37,8 +37,8 @@ public  class TicketNew extends ComandTicket{
         this.clients=clients;
         this.clientId=clientId;
         this.catalog=catalog;
-        this.ticketId=generarIdTicket(ticketsList);
         this.ticketsList=listTicketCash();
+        this.ticketId=generarIdTicket(ticketsList);
     }
     /**
      * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
@@ -69,7 +69,7 @@ public  class TicketNew extends ComandTicket{
         }
         // Ticket no guarda al cajero ni el cliente
         else {
-            if (!existeId(ticketId, ticketsList)) {
+            if (ticketsList!=null && !existeId(ticketId, ticketsList)) {
                 Ticket ticket = new Ticket(clientId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);

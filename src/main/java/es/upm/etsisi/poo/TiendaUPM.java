@@ -168,15 +168,15 @@ public class TiendaUPM {
                     case "add":
                         if(comand.length ==  6) {
                             comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5], catalog, cashers);
-                        } else if (comand.length == 7) {
-                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],comand[6],catalog, cashers);
+                        } else{
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],Arrays.copyOfRange(comand, 6, comand.length-1),catalog, cashers);
                         }
                         break;
                     case "remove":
                         comad = new TicketRemove(comand[2],comand[3],comand[4], catalog, cashers);
                         break;
                     case "print":
-                        comad = new TicketPrint(comand[2], comand[3]);
+                        comad = new TicketPrint(comand[2], comand[3], cashers);
                         break;
                     case "list":
                         comad = new TicketList(cashers);

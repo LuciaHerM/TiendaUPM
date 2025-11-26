@@ -25,7 +25,7 @@ public class TicketRemove extends ComandTicket{
      */
     public void apply() {
         Ticket ticketActive = encontrarTicket();
-        if(ticketActive.getStatus()!= TicketStatus.CERRADO) {
+        if(ticketActive!= null && ticketActive.getStatus()!= TicketStatus.CERRADO) {
             int i = 0;
             boolean encontrado = false;
             while (!encontrado && i < catalog.length()) {
@@ -54,15 +54,18 @@ public class TicketRemove extends ComandTicket{
                 casher = cashers.get(i);
             }
         }
-        ArrayList<Ticket> tickets = casher.getCashTickets();
+
         Ticket ticket = null;
         boolean encontrado=false;
         int i=0;
-        while (!encontrado && i<tickets.size()){
-            if(tickets.get(i).getTicketId().equals(ticketId)){
-                ticket=tickets.get(i);
-            }else{
-                i++;
+        if(casher!=null) {
+            ArrayList<Ticket> tickets = casher.getCashTickets();
+            while (!encontrado && i < tickets.size()) {
+                if (tickets.get(i).getTicketId().equals(ticketId)) {
+                    ticket = tickets.get(i);
+                } else {
+                    i++;
+                }
             }
         }
         if(encontrado) {
