@@ -59,4 +59,17 @@ public class Events extends Product {
     public void setNum_person(int num_person) {
         this.num_person = num_person;
     }
+
+    @Override
+    public String toString() {
+        return "Events{" +
+                "expiration_day='" + expiration_day + '\'' +
+                ", MAX_PARTICIPANTS=" + MAX_PARTICIPANTS +
+                ", num_person=" + num_person +
+                ", typeEvent=" + typeEvent +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

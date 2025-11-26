@@ -109,74 +109,81 @@ public class Ticket {
      * @return  Cadena con el contenido del ticket.
      */
     public String toString(){
-        int numMerch=0;
-        int numStationery=0;
-        int numClothes=0;
-        int numBook=0;
-        int numElectronics=0;
-        Arrays.sort(cart, 0, productNumber, (p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
         StringBuilder str = new StringBuilder();
-        for(int i = 0 ; i < productNumber ; i++){
-            switch (cart[i].getCategory()){
-                case MERCH:
-                    numMerch++;
-                    break;
-                case STATIONERY:
-                    numStationery++;
-                    break;
-                case CLOTHES:
-                    numClothes++;
-                    break;
-                case BOOK:
-                    numBook++;
-                    break;
-                case ELECTRONICS:
-                    numElectronics++;
-                    break;
-            }
+        if(status.equals(TicketStatus.VACIO)){
+            str.append("The ticket is empty \n");
         }
-        for(int i = 0 ; i < productNumber ; i++){
-            Double productDiscount=0.0;
-            switch (cart[i].getCategory()){
-                case MERCH:
-                    if(numMerch>=2){
-                        productDiscount=Category.MERCH.getDescuento();
+        else {
+            int numMerch = 0;
+            int numStationery = 0;
+            int numClothes = 0;
+            int numBook = 0;
+            int numElectronics = 0;
+            Arrays.sort(cart, 0, productNumber, (p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
+            for (int i = 0; i < productNumber; i++) {
+                if(cart[i].category!=null) {
+                    switch (cart[i].getCategory()) {
+                        case MERCH:
+                            numMerch++;
+                            break;
+                        case STATIONERY:
+                            numStationery++;
+                            break;
+                        case CLOTHES:
+                            numClothes++;
+                            break;
+                        case BOOK:
+                            numBook++;
+                            break;
+                        case ELECTRONICS:
+                            numElectronics++;
+                            break;
                     }
-                    break;
-                case STATIONERY:
-                    if(numStationery>=2){
-                        productDiscount=Category.STATIONERY.getDescuento();
-                    }
-                    break;
-                case CLOTHES:
-                    if(numClothes>=2){
-                        productDiscount=Category.CLOTHES.getDescuento();
-                    }
-                    break;
-                case BOOK:
-                    if(numBook>=2){
-                        productDiscount=Category.BOOK.getDescuento();
-                    }
-                    break;
-                case ELECTRONICS:
-                    if(numElectronics>=2){
-                        productDiscount=Category.ELECTRONICS.getDescuento();
-                    }
-                    break;
+                }
             }
-            if(productDiscount==0.0){
-                str.append(cart[i].toString() + " \n");
+            for (int i = 0; i < productNumber; i++) {
+                Double productDiscount = 0.0;
+                if(cart[i].category!=null) {
+                    switch (cart[i].getCategory()) {
+                        case MERCH:
+                            if (numMerch >= 2) {
+                                productDiscount = Category.MERCH.getDescuento();
+                            }
+                            break;
+                        case STATIONERY:
+                            if (numStationery >= 2) {
+                                productDiscount = Category.STATIONERY.getDescuento();
+                            }
+                            break;
+                        case CLOTHES:
+                            if (numClothes >= 2) {
+                                productDiscount = Category.CLOTHES.getDescuento();
+                            }
+                            break;
+                        case BOOK:
+                            if (numBook >= 2) {
+                                productDiscount = Category.BOOK.getDescuento();
+                            }
+                            break;
+                        case ELECTRONICS:
+                            if (numElectronics >= 2) {
+                                productDiscount = Category.ELECTRONICS.getDescuento();
+                            }
+                            break;
+                    }
+                }
+                if (productDiscount == 0.0) {
+                    str.append(cart[i].toString() +"\n");
+                } else {
+                    str.append(cart[i].toString() + " **discount -" + (cart[i].getPrice() * productDiscount) +"\n");
+                }
+                totalPrice += cart[i].getPrice();
+                totalDiscount += cart[i].getPrice() * productDiscount;
             }
-            else {
-                str.append(cart[i].toString() + " **discount -"+(cart[i].getPrice()*productDiscount)+"\n");
-            }
-            totalPrice+=cart[i].getPrice();
-            totalDiscount+=cart[i].getPrice()*productDiscount;
-
+            str.append("Total price: " + totalPrice + "\n");
+            str.append("Total discount: " + totalDiscount + "\n");
+            str.append("Final Price: " + (totalPrice - totalDiscount) + "\n");
         }
-        str.append("Total price: "+totalPrice+"\n");
-        str.append("Total discount: "+totalDiscount+"\n");
-        str.append("Final Price: "+(totalPrice-totalDiscount)+"\n");
         str.append("ticket print: ok "+"\n");
 
         return str.toString();
