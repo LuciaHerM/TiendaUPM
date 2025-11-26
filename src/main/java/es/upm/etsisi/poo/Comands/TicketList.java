@@ -12,7 +12,9 @@ public class TicketList extends ComandTicket{
     }
     public void apply() {
         for (Cash casher : cashers) {
-            System.out.println(casher.getCashTickets().toString());
+            for (Ticket ticket : casher.getCashTickets()){
+                System.out.println(ticket.ToString());
+            }
         }
     }
 }
