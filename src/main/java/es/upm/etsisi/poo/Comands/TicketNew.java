@@ -26,7 +26,7 @@ public  class TicketNew extends ComandTicket{
         this.cashId=cashId;
         this.cashers=cashers;
         this.clients=clients;
-        this.clientId = clientId;
+        this.clientId=clientId;
         this.catalog=catalog;
         this.ticketId=ticketId;
         this.ticketsList=ticketsListString;
@@ -37,7 +37,7 @@ public  class TicketNew extends ComandTicket{
         this.cashId=cashId;
         this.cashers=cashers;
         this.clients=clients;
-        this.clientId = clientId;
+        this.clientId=clientId;
         this.catalog=catalog;
         this.ticketsList=ticketsList;
         this.ticketId=generarIdTicket(ticketsList);
@@ -72,10 +72,11 @@ public  class TicketNew extends ComandTicket{
         }
         // Ticket no guarda al cajero ni el cliente
         else {
-            if (!existeId(ticketId, ticketsList)&&formatoIDCorrecto(ticketId)) {
+            if (!existeId(ticketId, ticketsList)) {
                 Ticket ticket = new Ticket(clientId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
+                ticketsList.add(ticket);
                 ticketActive=ticket;
                 System.out.println("ticket new: ok");
             } else {

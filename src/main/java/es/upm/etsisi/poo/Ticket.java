@@ -69,7 +69,7 @@ public class Ticket {
         if(productNumber<MAX_CART_PRODUCTS) {
             cart[productNumber] = producto;
             productNumber++;
-            Arrays.sort(cart,Comparator.comparing(Product::getName));
+            //Arrays.sort(cart,Comparator.comparing(Product::getName));
         }else{
             System.err.println("Intentas introducir más productos al Ticket.");
         }

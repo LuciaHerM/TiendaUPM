@@ -31,6 +31,9 @@ public class ComandCashTickets extends ComandCash {
             for (int i = 0; i < ticketList.size(); i++) {
                 System.out.println(cajero.getCashTickets().get(i).toString());
             }
+            if(ticketList.isEmpty()){
+                System.out.println("The cash don't have tickets created");
+            }
             System.out.println("cash tickets: ok");
         } else {
             System.out.println("The casher was not found");

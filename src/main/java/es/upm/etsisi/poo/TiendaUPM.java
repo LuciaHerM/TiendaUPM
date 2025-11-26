@@ -75,6 +75,9 @@ public class TiendaUPM {
             for(int i=0;i<comand.size();i++){
                 comands[i]=comand.get(i);
             }
+            if(!ticketList.isEmpty()) {
+                ticketActive=ticketList.get(ticketList.size()-1);
+            }
             continuar=gestionComandos(comands);
         }
     }
@@ -170,24 +173,19 @@ public class TiendaUPM {
                         break;
                     case "add":
                         if(comand.length ==  6) {
-                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],catalog, ticketList,cashers);
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5], catalog, ticketList, cashers, ticketActive);
                         } else if (comand.length == 7) {
-                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],comand[6],catalog, ticketList,cashers);
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],comand[6],catalog, ticketList, cashers, ticketActive);
                         }
                         break;
                     case "remove":
-                        if(comand.length==3){
-                            comad = new TicketRemove(comand[2], catalog, ticketActive);
-                        } else if (comand.length==5) {
-                            comad = new TicketRemove(comand[2],comand[3],comand[4], catalog, ticketList, cashers);
-
-                        }
+                        comad = new TicketRemove(comand[2],comand[3],comand[4], catalog, ticketList, cashers, ticketActive);
                         break;
                     case "print":
                         comad = new TicketPrint(ticketActive, ticketList);
                         break;
                     case "list":
-                        comad = new TicketList(ticketList);
+                        comad = new TicketList(ticketList, cashers);
                         break;
                 }
                 break;

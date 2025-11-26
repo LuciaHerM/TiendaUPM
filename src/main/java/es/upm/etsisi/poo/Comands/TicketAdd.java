@@ -14,20 +14,23 @@ public class TicketAdd extends ComandTicket{
     private String ticketId;
     private String[] personalizaciones ;
     private Cash casher;
-    public TicketAdd(String ticketId,String cashId , String prodId, String quantity,String personalizacion , Catalog catalog,ArrayList<Ticket> ticketsList,ArrayList<Cash> cashers){
+
+    public TicketAdd(String ticketId,String cashId , String prodId, String quantity, String personalizacion , Catalog catalog,ArrayList<Ticket> ticketsList,ArrayList<Cash> cashers, Ticket ticketActive){
+        this.ticketId=ticketId;
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
         this.casher = seleccinarCash(cashers,cashId) ;
-        this.ticketActual = seleccinarTicket(casher.getCashTickets(), ticketId);
+        this.ticketActual = ticketActive;
         this.personalizaciones = personalizacion.split("--p");
     }
-    public TicketAdd(String ticketId,String cashId,String prodId, String quantity, Catalog catalog,ArrayList<Ticket> ticketsList,ArrayList<Cash> cashers){
+    public TicketAdd(String ticketId,String cashId,String prodId, String quantity, Catalog catalog,ArrayList<Ticket> ticketsList,ArrayList<Cash> cashers, Ticket ticketActive){
+        this.ticketId=ticketId;
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
         this.casher = seleccinarCash(cashers,cashId) ;
-        this.ticketActual = seleccinarTicket(casher.getCashTickets(), ticketId);
+        this.ticketActual = ticketActive;
         this.personalizaciones = null;
 
     }
