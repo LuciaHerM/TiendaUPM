@@ -20,7 +20,7 @@ public class TiendaUPM {
     private ArrayList<Client> clients;
 
     /**
-     * Es el método principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
+     * Es el metodo principal de ejecucion de la aplicación. Funciona tanto al proporcionar un archivo como argumento
      * (los comandos se leen desde él) o se utiliza la entrada estándar.
      *
      * @param args  Argumentos de la línea de comandos.
