@@ -13,7 +13,7 @@ public class TicketList extends ComandTicket{
     public void apply() {
         for (Cash casher : cashers) {
             for (Ticket ticket : casher.getCashTickets()){
-                System.out.println(ticket.toString());
+                System.out.println(ticket.ToString());
             }
         }
     }
