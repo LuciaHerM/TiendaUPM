@@ -111,6 +111,8 @@ public class Ticket {
     public String toString(){
         StringBuilder str = new StringBuilder();
         str.append("Ticket: " + ticketId + "\n");
+        totalPrice=0.0;
+        totalDiscount=0.0;
         if(!status.equals(TicketStatus.EMPTY)){
             int numMerch = 0;
             int numStationery = 0;
