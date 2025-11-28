@@ -97,7 +97,7 @@ public class Product {
             return "{class:Product, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + "}";
         }
         else {
-            return "{class:Product, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + ", personalizaciones:" + personalizacionesToString()+ "}";
+            return "{class:Product, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + ", maxPersonal: " + max_pers + ", personalizationList:[" + personalizacionesToString()+ "]}";
         }
     }
     @Override
