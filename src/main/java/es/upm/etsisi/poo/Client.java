@@ -24,11 +24,6 @@ public class Client extends User{
         return cashId;
     }
 
-    @Override
-    public String toString() {
-        return "{class:Cliente, name:'"+name+"', DNI:"+DNI+", email:"+ email+", cashId:"+ cashId+"}";
-    }
-
     public List<Ticket> getClientTickets() {
         return clientTickets;
     }
@@ -36,6 +31,12 @@ public class Client extends User{
     public void setClientTickets(List<Ticket> clientTickets) {
         this.clientTickets = clientTickets;
     }
+
+    @Override
+    public String toString() {
+        return "{class:Cliente, name:'"+name+"', DNI:"+DNI+", email:"+ email+", cashId:"+ cashId+"}";
+    }
+
     /**
      * Si no está ya el ticket en el ArrayList, lo añade
      * @param ticket Este es el ticket a añadir
