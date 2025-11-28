@@ -178,10 +178,10 @@ public class Ticket {
                 totalPrice += cart[i].getPrice();
                 totalDiscount += cart[i].getPrice() * productDiscount;
             }
-            str.append("Total price: " + totalPrice + "\n");
-            str.append("Total discount: " + totalDiscount + "\n");
-            str.append("Final Price: " + (totalPrice - totalDiscount) + "\n");
         }
+        str.append("Total price: " + totalPrice + "\n");
+        str.append("Total discount: " + totalDiscount + "\n");
+        str.append("Final Price: " + (totalPrice - totalDiscount) + "\n");
 
         return str.toString();
     }
