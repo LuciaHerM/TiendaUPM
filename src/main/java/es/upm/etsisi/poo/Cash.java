@@ -29,7 +29,7 @@ public class Cash extends User{
 
     @Override
     public String toString() {
-        return "{class:Cash, id:"+id+", name:'"+name+"', email:"+ email+"}";    }
+        return "Cash{identifier='" +id+"', name='"+name+"', email="+ email+"}";    }
 
 
     /**
