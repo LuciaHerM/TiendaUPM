@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 
 /**
@@ -175,7 +177,9 @@ public class Ticket {
                 if (productDiscount == 0.0) {
                     str.append(cart[i].toString() +"\n");
                 } else {
-                    str.append(cart[i].toString() + " **discount -" + (cart[i].getPrice() * productDiscount) +"\n");
+                    BigDecimal discount = new BigDecimal(Double.toString((cart[i].getPrice() * productDiscount)));
+                    discount = discount.setScale(2, RoundingMode.HALF_UP);
+                    str.append(cart[i].toString() + " **discount -" + discount +"\n");
                 }
                 totalPrice += cart[i].getPrice();
                 totalDiscount += cart[i].getPrice() * productDiscount;
