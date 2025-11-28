@@ -31,9 +31,9 @@ public class TicketPrint extends ComandTicket{
      */
     public void apply() {
         if(ticketActive!=null) {
+            ticketActive.setTicketId(ticketActive.getTicketId()+"-"+LocalDateTime.now().format(FORMAT));
             System.out.println(ticketActive.toString());
             System.out.println("ticket print: ok ");
-            ticketActive.setTicketId(ticketActive.getTicketId()+"-"+LocalDateTime.now().format(FORMAT));
             ticketActive.setStatus(TicketStatus.CLOSE);
         }else{
             System.out.println("The id of the ticket is not correct");

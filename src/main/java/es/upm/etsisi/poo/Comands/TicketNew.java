@@ -69,7 +69,7 @@ public  class TicketNew extends ComandTicket{
         }
         // Ticket no guarda al cajero ni el cliente
         else {
-            if (ticketsList!=null && !existeId(ticketId, ticketsList) && formatoIDCorrecto(ticketId)) {
+            if (ticketsList!=null && !existeId(ticketId, ticketsList)) {
                 Ticket ticket = new Ticket(ticketId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
