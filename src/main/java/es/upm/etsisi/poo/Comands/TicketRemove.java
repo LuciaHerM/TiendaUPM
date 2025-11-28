@@ -16,7 +16,7 @@ public class TicketRemove extends ComandTicket{
     public TicketRemove(String ticketId, String cashId, String prodId, Catalog catalog,ArrayList<Cash> cashList){
         this.catalog=catalog;
         this.ticketId=ticketId;
-        this.ticketId=cashId;
+        this.cashId=cashId;
         this.prodId=prodId;
         this.cashers=cashList;
     }
