@@ -169,7 +169,7 @@ public class TiendaUPM {
                         if(comand.length ==  6) {
                             comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5], catalog, cashers);
                         } else{
-                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],Arrays.copyOfRange(comand, 6, comand.length-1),catalog, cashers);
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],Arrays.copyOfRange(comand, 6, comand.length),catalog, cashers);
                         }
                         break;
                     case "remove":
