@@ -20,7 +20,7 @@ public class TicketAdd extends ComandTicket{
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
-        this.casher = seleccinarCash(cashers,cashId) ;
+        this.casher = selectCash(cashers,cashId) ;
         this.personalizaciones = new String[personalizacion.length];
         for (int i = 0; i < personalizaciones.length; i++) {
             this.personalizaciones[i] = personalizacion[i].replace("--p", "");
@@ -31,7 +31,7 @@ public class TicketAdd extends ComandTicket{
         this.prodId=prodId;
         this.quantity=quantity;
         this.catalog=catalog;
-        this.casher = seleccinarCash(cashers,cashId) ;
+        this.casher = selectCash(cashers,cashId) ;
         this.personalizaciones = null;
 
     }
@@ -43,10 +43,10 @@ public class TicketAdd extends ComandTicket{
         if(ticketActual !=null) {
             if (ticketActual.getStatus() != TicketStatus.CLOSE) {
                 int cont = 0;
-                boolean encontrado = false;
-                while (cont < catalog.length() && !encontrado) {
+                boolean find = false;
+                while (cont < catalog.length() && !find) {
                     if (catalog.find(cont) != null && catalog.find(cont).getID().equals(prodId)) {
-                        encontrado = true;
+                        find = true;
                     } else {
                         cont++;
                     }
@@ -58,11 +58,11 @@ public class TicketAdd extends ComandTicket{
                 else {
                     p=catalog.find(cont);
                 }
-                if(encontrado&&(p instanceof Events)&&ticketActual.reunionIntroduce(p)){
-                    encontrado=false;
-                    System.out.println("no puedes introducir dos enetos iguales en el mismo ticket");
+                if(find&&(p instanceof Events)&&ticketActual.reunionIntroduce(p)){
+                    find=false;
+                    System.out.println("There can't be two identical events.");
                 }
-                if (encontrado) {
+                if (find) {
                     if (ticketActual.getStatus() != TicketStatus.OPEN) {
                         ticketActual.setStatus(TicketStatus.OPEN);
                     }
@@ -79,7 +79,7 @@ public class TicketAdd extends ComandTicket{
             }
         }
         else {
-            System.out.println("No hay un ticket con el id introducido .");
+            System.out.println("The id can't be find.");
         }
     }
 
@@ -93,7 +93,7 @@ public class TicketAdd extends ComandTicket{
         }
         return ticketActual;
     }
-    private Cash seleccinarCash(ArrayList<Cash> cashers ,String cashId ){
+    private Cash selectCash(ArrayList<Cash> cashers , String cashId ){
         Cash casherActual = null;
         for (int i = 0; i < cashers.size(); i++) {
             if ( cashers.get(i).getId().equals(cashId)) {

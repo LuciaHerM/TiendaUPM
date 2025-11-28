@@ -6,7 +6,6 @@ import es.upm.etsisi.poo.TicketStatus;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TicketPrint extends ComandTicket{
@@ -23,7 +22,7 @@ public class TicketPrint extends ComandTicket{
         this.cashers=cashers;
         this.ticketList=listTicketCash();
         if(ticketList!=null) {
-            this.ticketActive = seleccinarTicket();
+            this.ticketActive = selectTicket();
         }
     }
     /**
@@ -41,21 +40,21 @@ public class TicketPrint extends ComandTicket{
     }
 
     private ArrayList<Ticket> listTicketCash() {
-        Cash cajero = null;
+        Cash casher = null;
         for (es.upm.etsisi.poo.Cash cash : cashers) {
             if (cash.getId().equals(cashId)) {
-                cajero = cash;
+                casher = cash;
             }
         }
-        if(cajero!=null) {
-            return cajero.getCashTickets();
+        if(casher!=null) {
+            return casher.getCashTickets();
         }
         else {
             return null;
         }
     }
 
-    private Ticket seleccinarTicket(){
+    private Ticket selectTicket(){
         Ticket ticketActual = null;
         for (int i = 0; i < ticketList.size(); i++) {
             if ( ticketList.get(i).getTicketId().equals(ticketId)) {

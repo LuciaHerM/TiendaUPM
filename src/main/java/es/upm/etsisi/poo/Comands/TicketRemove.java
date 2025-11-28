@@ -56,20 +56,20 @@ public class TicketRemove extends ComandTicket{
         }
 
         Ticket ticket = null;
-        boolean encontrado=false;
+        boolean find=false;
         int i=0;
         if(casher!=null) {
             ArrayList<Ticket> tickets = casher.getCashTickets();
-            while (!encontrado && i < tickets.size()) {
+            while (!find && i < tickets.size()) {
                 if (tickets.get(i).getTicketId().equals(ticketId)) {
                     ticket = tickets.get(i);
-                    encontrado = true;
+                    find = true;
                 } else {
                     i++;
                 }
             }
         }
-        if(encontrado) {
+        if(find) {
             return ticket;
         }else {
             System.out.println("That ticket id can't be found");

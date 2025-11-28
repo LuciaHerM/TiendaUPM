@@ -38,7 +38,7 @@ public  class TicketNew extends ComandTicket{
         this.clientId=clientId;
         this.catalog=catalog;
         this.ticketsList=listTicketCash();
-        this.ticketId=generarIdTicket(ticketsList);
+        this.ticketId=generateIdTicket(ticketsList);
     }
     /**
      * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
@@ -62,37 +62,37 @@ public  class TicketNew extends ComandTicket{
         }
 
         if(cash == null) {
-            System.out.println("El id del cajero no se encuentra en nuestra base de datos.");
+            System.out.println("The cash id can't be find.");
         }
         else if(client == null) {
-            System.out.println("El dni del cliente introducido no se encuentra en nuestra base de datos.");
+            System.out.println("The client id can't be find");
         }
         // Ticket no guarda al cajero ni el cliente
         else {
-            if (ticketsList!=null && !existeId(ticketId, ticketsList)) {
+            if (ticketsList!=null && !existId(ticketId, ticketsList)) {
                 Ticket ticket = new Ticket(ticketId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
                 System.out.println("ticket new: ok");
             } else {
-                System.out.println("El id del ticket no es correcto bien por que ya esiste un ticket con el mismo id o bien porque el formato no es correcto :  YY-MM-dd-HH:mm-#####" );
+                System.out.println("The ticket id is not correct because it does exist the ticket or because the format is not correct:  YY-MM-dd-HH:mm-#####" );
             }
         }
     }
-    public String generarIdTicket(ArrayList<Ticket> ticketsExistentes) {
+    public String generateIdTicket(ArrayList<Ticket> ticketsExisting) {
 
-        String fecha = LocalDateTime.now().format(FORMAT);
+        String date = LocalDateTime.now().format(FORMAT);
         String id;
 
         do {
             int rnd = 10000 + random.nextInt(90000); // 5 dígitos aleatorios
-            id = fecha + "-" + rnd;
-        } while (existeId(id, ticketsExistentes));
+            id = date + "-" + rnd;
+        } while (existId(id, ticketsExisting));
 
         return id;
     }
 
-    private boolean existeId(String id, ArrayList<Ticket> tickets) {
+    private boolean existId(String id, ArrayList<Ticket> tickets) {
         boolean r = false;
         for (Ticket t : tickets) {
             if (t.getTicketId().equals(id)) {
@@ -101,7 +101,7 @@ public  class TicketNew extends ComandTicket{
         }
         return r;
     }
-    private boolean formatoIDCorrecto(String id) {
+    private boolean correctFormat(String id) {
         String fecha = "\\d{2}-\\d{2}-\\d{2}-\\d{2}:\\d{2}";
         String apertura = fecha + "-\\d{5}";
         return id.matches(apertura);
