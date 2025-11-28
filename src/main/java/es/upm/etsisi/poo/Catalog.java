@@ -196,6 +196,7 @@ Catalog {
                 i++;
         }
         if(encontrado){
+            System.out.println(products[i].toString());
             for(int j=i;j<num_products;j++){
                 products[j]=products[j+1];
             }
