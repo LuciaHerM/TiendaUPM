@@ -33,7 +33,7 @@ public class ComandCashRemove extends ComandCash {
             System.out.println("cash remove: ok");
         }
         else {
-            System.out.println("El id introducido no se encuentra en la base de datos del sistema");
+            System.out.println("That id can't be find");
         }
 
     }

@@ -22,33 +22,34 @@ public class ComandCashAdd extends ComandCash {
         this.name = name;
         this.email = email;
         this.cashers = cashers;
-        this.id = generarIDCash();
+        this.id = generateIDCash();
     }
     /**
      * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
      * un cajero y o añade al arrayList de cajeros
      */
     public void apply(){
-        boolean encontrado = false;
+        boolean found = false;
         int i = 0 ;
         if(this.id !=  null && id.matches("^UW\\d{7}$")) {
-            while (!encontrado && i < cashers.size()) {
+            while (!found && i < cashers.size()) {
                 if (cashers.get(i).getId().equals(id)) {
-                    encontrado = true;
+                    found = true;
                 }
                 i++;
             }
-            if (!encontrado) {
-                Cash cash = new Cash(id, name, email);
+            if (!found) {
+                Cash cash = new Cash(id, name
+                        , email);
                 cashers.add(cash);
                 System.out.println(cash.toString());
                 System.out.println("cash add: ok");
             } else {
-                System.out.println("Ya existe un cajero con el mismo Id en la base de datos");
+                System.out.println("The id of the casher is already created");
             }
         }
         else {
-            System.out.println("El formato del id no es el correcto : UWxxxxxxx (x un digito 0-9) .");
+            System.out.println("The id format is not correct : UWxxxxxxx (x un digito 0-9) .");
         }
 
 
@@ -57,7 +58,7 @@ public class ComandCashAdd extends ComandCash {
      * Busca el mayor id para crear un nuevo el cual será mayorId + 1 el cual sabemos
      * que no va a exitir
      */
-    private String generarIDCash(){
+    private String generateIDCash(){
         int max = 0;
         for (int i = 0; i < cashers.size(); i++) {
             String id = cashers.get(i).getId();
@@ -66,7 +67,7 @@ public class ComandCashAdd extends ComandCash {
                 max = num;
             }
         }
-        int nuevo = max + 1;
-        return "UW" + String.format("%07d", nuevo);
+        int new_1 = max + 1;
+        return "UW" + String.format("%07d", new_1);
     }
 }
