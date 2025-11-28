@@ -187,7 +187,7 @@ public class TiendaUPM {
                 comad = new ComandEcho(comand);
                 break;
             case "help":
-                comad = new ComandsExit();
+                comad = new ComandHelp();
                 break;
             case "exit":
                 continuar = false;
