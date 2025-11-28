@@ -22,7 +22,9 @@ public class TicketPrint extends ComandTicket{
         this.cashId=cashId;
         this.cashers=cashers;
         this.ticketList=listTicketCash();
-        this.ticketActive=seleccinarTicket();
+        if(ticketList!=null) {
+            this.ticketActive = seleccinarTicket();
+        }
     }
     /**
      *  Imprime el ticket actual y guarda ticket .
@@ -45,7 +47,12 @@ public class TicketPrint extends ComandTicket{
                 cajero = cash;
             }
         }
-        return cajero.getCashTickets();
+        if(cajero!=null) {
+            return cajero.getCashTickets();
+        }
+        else {
+            return null;
+        }
     }
 
     private Ticket seleccinarTicket(){
