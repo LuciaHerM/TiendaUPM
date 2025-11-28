@@ -9,6 +9,6 @@ public class ComandEcho extends Comands{
     }
 
     public void apply(){
-        System.out.println(texto[0] + " \"" + texto[1] + "\"");
+        System.out.println("\"" + texto[1] + "\"");
     }
 }
