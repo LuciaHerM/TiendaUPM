@@ -26,7 +26,7 @@ public class Ticket {
         this.productNumber = 0;
         this.totalDiscount = 0.0;
         this.ticketId=ticketId;
-        this.status=TicketStatus.VACIO;
+        this.status=TicketStatus.EMPTY;
     }
 
     public String getTicketId(){
@@ -45,19 +45,19 @@ public class Ticket {
     }
     /**
      * mira si hay un objeto del tipo evento dentro del ticket igual
-     * para evitar que se introsuccan dos iguales
+     * para evitar que se introduzcan dos iguales
      * @param product producto que se quiere comprovar si ya esta en el ticket
      */
-    public boolean reunionYaIntroducida(Product product){
-        boolean encontrada = false ;
+    public boolean reunionIntroduce(Product product){
+        boolean found = false ;
         int i = 0 ;
-        while (i<productNumber&&!encontrada){
+        while (i<productNumber&&!found){
             if(cart[i].getID().equals(product.getID())){
-                encontrada=true;
+                found=true;
             }
             i++;
         }
-        return encontrada;
+        return found;
     }
 
     /**
@@ -110,10 +110,8 @@ public class Ticket {
      */
     public String toString(){
         StringBuilder str = new StringBuilder();
-        if(status.equals(TicketStatus.VACIO)){
-            str.append("The ticket is empty \n");
-        }
-        else {
+        str.append("Ticket: " + ticketId + "\n");
+        if(!status.equals(TicketStatus.EMPTY)){
             int numMerch = 0;
             int numStationery = 0;
             int numClothes = 0;

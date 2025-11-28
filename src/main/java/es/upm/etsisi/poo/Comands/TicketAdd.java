@@ -38,7 +38,7 @@ public class TicketAdd extends ComandTicket{
     public void apply() {
         Ticket ticketActual = seleccinarTicket();
         if(ticketActual !=null) {
-            if (ticketActual.getStatus() != TicketStatus.CERRADO) {
+            if (ticketActual.getStatus() != TicketStatus.CLOSE) {
                 int cont = 0;
                 boolean encontrado = false;
                 while (cont < catalog.length() && !encontrado) {
@@ -55,13 +55,13 @@ public class TicketAdd extends ComandTicket{
                 else {
                     p=catalog.find(cont);
                 }
-                if(encontrado&&(p instanceof Events)&&ticketActual.reunionYaIntroducida(p)){
+                if(encontrado&&(p instanceof Events)&&ticketActual.reunionIntroduce(p)){
                     encontrado=false;
                     System.out.println("no puedes introducir dos enetos iguales en el mismo ticket");
                 }
                 if (encontrado) {
-                    if (ticketActual.getStatus() != TicketStatus.ACTIVO) {
-                        ticketActual.setStatus(TicketStatus.ACTIVO);
+                    if (ticketActual.getStatus() != TicketStatus.ACTIVE) {
+                        ticketActual.setStatus(TicketStatus.ACTIVE);
                     }
                     for (int i = 0; i < Integer.parseInt(quantity); i++) {
                         ticketActual.AddProduct(p);

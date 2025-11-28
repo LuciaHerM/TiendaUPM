@@ -25,7 +25,7 @@ public class TicketRemove extends ComandTicket{
      */
     public void apply() {
         Ticket ticketActive = encontrarTicket();
-        if(ticketActive!= null && ticketActive.getStatus()!= TicketStatus.CERRADO) {
+        if(ticketActive!= null && ticketActive.getStatus()!= TicketStatus.CLOSE) {
             int i = 0;
             boolean encontrado = false;
             while (!encontrado && i < catalog.length()) {
@@ -71,7 +71,7 @@ public class TicketRemove extends ComandTicket{
         if(encontrado) {
             return ticket;
         }else {
-            System.out.println("No se encontro ticket con ese id");
+            System.out.println("That ticket id can't be found");
             return null;
         }
     }
