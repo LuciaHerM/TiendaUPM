@@ -46,7 +46,7 @@ public class Product {
 
     public void setPersonalizaciones(String[] personalizaciones) {
         if(max_pers > 0){
-            if(personalizaciones.length<max_pers){
+            if(personalizaciones.length<=max_pers){
                 this.personalizaciones = personalizaciones;
                 this.price += this.price*0.1* personalizaciones.length;
             }
