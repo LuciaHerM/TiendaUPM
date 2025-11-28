@@ -2,7 +2,8 @@ package es.upm.etsisi.poo;
 
 import java.util.Arrays;
 
-public class Catalog {
+public class
+Catalog {
 
     private static Product[] products;
     private static final int MAX_NUM_PRODUCTS = 200;
