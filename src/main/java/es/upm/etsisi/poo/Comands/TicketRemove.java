@@ -63,6 +63,7 @@ public class TicketRemove extends ComandTicket{
             while (!encontrado && i < tickets.size()) {
                 if (tickets.get(i).getTicketId().equals(ticketId)) {
                     ticket = tickets.get(i);
+                    encontrado = true;
                 } else {
                     i++;
                 }
