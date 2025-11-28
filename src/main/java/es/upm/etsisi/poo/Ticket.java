@@ -110,10 +110,8 @@ public class Ticket {
      */
     public String toString(){
         StringBuilder str = new StringBuilder();
-        if(status.equals(TicketStatus.EMPTY)){
-            str.append("The ticket is empty \n");
-        }
-        else {
+        str.append("Ticket: " + ticketId + "\n");
+        if(!status.equals(TicketStatus.EMPTY)){
             int numMerch = 0;
             int numStationery = 0;
             int numClothes = 0;
