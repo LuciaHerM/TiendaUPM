@@ -63,8 +63,8 @@ public class TicketAdd extends ComandTicket{
                     System.out.println("no puedes introducir dos enetos iguales en el mismo ticket");
                 }
                 if (encontrado) {
-                    if (ticketActual.getStatus() != TicketStatus.ACTIVE) {
-                        ticketActual.setStatus(TicketStatus.ACTIVE);
+                    if (ticketActual.getStatus() != TicketStatus.OPEN) {
+                        ticketActual.setStatus(TicketStatus.OPEN);
                     }
                     for (int i = 0; i < Integer.parseInt(quantity); i++) {
                         ticketActual.AddProduct(p);
