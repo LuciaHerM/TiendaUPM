@@ -21,7 +21,10 @@ public class TicketAdd extends ComandTicket{
         this.quantity=quantity;
         this.catalog=catalog;
         this.casher = seleccinarCash(cashers,cashId) ;
-        this.personalizaciones = personalizacion;
+        this.personalizaciones = new String[personalizacion.length];
+        for (int i = 0; i < personalizaciones.length; i++) {
+            this.personalizaciones[i] = personalizacion[i].replace("--p", "");
+        }
     }
     public TicketAdd(String ticketId,String cashId,String prodId, String quantity, Catalog catalog,ArrayList<Cash> cashers){
         this.ticketId=ticketId;
