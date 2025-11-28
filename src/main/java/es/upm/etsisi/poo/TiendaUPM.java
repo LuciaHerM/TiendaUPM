@@ -52,27 +52,27 @@ public class TiendaUPM {
      * Inicia el bucle principal del programa, donde se procesan los comandos.
      */
     private void start() {
-        boolean continuar = true;
+        boolean proceed = true;
         System.out.println("Ticket module. Type 'help' to see commands.");
-        while (continuar) {
+        while (proceed) {
             System.out.print("tUPM>");
-            String comando = sc.nextLine();
+            String comand = sc.nextLine();
             Pattern pattern = Pattern.compile("\"([^\"]*(?:\"[^\"]*)*)\"|(\\S+)");
-            Matcher matcher = pattern.matcher(comando);
+            Matcher matcher = pattern.matcher(comand);
 
-            ArrayList<String> comand = new ArrayList<String>();
+            ArrayList<String> comand_list = new ArrayList<String>();
             while (matcher.find()) {
                 if (matcher.group(1) != null) {
-                    comand.add(matcher.group(1)); // valor dentro de comillas
+                    comand_list.add(matcher.group(1)); // valor dentro de comillas
                 } else {
-                    comand.add(matcher.group(2)); // palabra normal
+                    comand_list.add(matcher.group(2)); // palabra normal
                 }
             }
-            String[] comands = new String[comand.size()];
-            for(int i=0;i<comand.size();i++){
-                comands[i]=comand.get(i);
+            String[] comands = new String[comand_list.size()];
+            for(int i=0;i<comand_list.size();i++){
+                comands[i]=comand_list.get(i);
             }
-            continuar=gestionComandos(comands);
+            proceed=gestionComandos(comands);
         }
     }
 

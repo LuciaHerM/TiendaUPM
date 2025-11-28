@@ -32,7 +32,7 @@ public class TicketPrint extends ComandTicket{
             System.out.println(ticketActive.toString());
             System.out.println("ticket print: ok ");
             ticketActive.setTicketId(ticketActive.getTicketId()+"-"+LocalDateTime.now().format(FORMAT));
-            ticketActive.setStatus(TicketStatus.CERRADO);
+            ticketActive.setStatus(TicketStatus.CLOSE);
         }else{
             System.out.println("The id of the ticket is not correct");
         }

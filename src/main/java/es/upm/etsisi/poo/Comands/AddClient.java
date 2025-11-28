@@ -20,23 +20,23 @@ public class AddClient extends ComandClient {
         this.clients = clients;
     }
     public void apply (){
-        boolean encuentraDNIEnClientList = false;
+        boolean foundDNIEnClientList = false;
         int cont = 0;
-        while (!encuentraDNIEnClientList && cont < clients.size()){
+        while (!foundDNIEnClientList && cont < clients.size()){
             if (clients.get(cont).getDNI().equals(DNI)){
-                encuentraDNIEnClientList = true;
+                foundDNIEnClientList = true;
             } else {
                 cont++;
             }
         }
-        if (!encuentraDNIEnClientList) {
+        if (!foundDNIEnClientList) {
             Client client = new Client(name, DNI, email, cashId);
             clients.add(client);
             System.out.println(client.toString());
             System.out.println("client add: ok");
         }
-        if (encuentraDNIEnClientList){
-            System.out.println("Ya existe un cliente con dicho DNI");
+        if (foundDNIEnClientList){
+            System.out.println("That client exist already ");
         }
     }
 }

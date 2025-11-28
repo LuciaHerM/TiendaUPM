@@ -18,10 +18,6 @@ public class Cash extends User{
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "{class:Cash, id:"+id+", name:'"+name+"', email:"+ email+"}";    }
-
     public ArrayList<Ticket> getCashTickets() {
         return cashTickets;
     }
@@ -29,6 +25,12 @@ public class Cash extends User{
     public void setCashTickets(ArrayList<Ticket> cashTickets) {
         this.cashTickets = cashTickets;
     }
+
+
+    @Override
+    public String toString() {
+        return "{class:Cash, id:"+id+", name:'"+name+"', email:"+ email+"}";    }
+
 
     /**
      * Si no está ya el ticket en el ArrayList, lo añade
