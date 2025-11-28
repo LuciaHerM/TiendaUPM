@@ -11,10 +11,12 @@ public class TicketList extends ComandTicket{
         this.cashers=cashers;
     }
     public void apply() {
+        System.out.println("Ticket List:");
         for (Cash casher : cashers) {
             for (Ticket ticket : casher.getCashTickets()){
-                System.out.println(ticket.toString());
+                System.out.println("  " + ticket.getTicketId() + " - " + ticket.getStatus());
             }
         }
+        System.out.println("ticket list: ok");
     }
 }
