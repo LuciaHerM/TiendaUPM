@@ -10,6 +10,7 @@ public class TicketList extends ComandTicket{
     public TicketList(ArrayList<Cash> cashers) {
         this.cashers=cashers;
     }
+
     public void apply() {
         System.out.println("Ticket List:");
         for (Cash casher : cashers) {

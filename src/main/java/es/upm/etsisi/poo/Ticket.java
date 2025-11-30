@@ -179,7 +179,7 @@ public class Ticket {
 
                 BigDecimal price = BigDecimal.valueOf(cart[i].getPrice());
                 BigDecimal rate = BigDecimal.valueOf(productDiscount);
-                BigDecimal discount = price.multiply(rate).setScale(3, RoundingMode.HALF_UP);
+                BigDecimal discount = price.multiply(rate).setScale(2, RoundingMode.HALF_UP);
 
                 if (productDiscount == 0.0) {
                     str.append(" " +cart[i].toString() +"\n");
