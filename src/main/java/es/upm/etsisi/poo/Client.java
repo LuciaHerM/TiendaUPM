@@ -34,7 +34,7 @@ public class Client extends User{
 
     @Override
     public String toString() {
-        return "Cliente{identifier='"+DNI+"', name="+name+", email="+ email+", cash="+ cashId+"}";
+        return "Client{identifier='"+DNI+"', name='"+name+"', email='"+ email+"', cash="+ cashId+"}";
     }
 
     /**
@@ -51,6 +51,7 @@ public class Client extends User{
      * Este método recorre printeando todos los tickets del cliente
      */
     public void ticketListClients(){
+        System.out.println("Client:\n");
         for (int i = 0; i < clientTickets.size(); i++) System.out.println(clientTickets.get(i).toString());
     }
 }

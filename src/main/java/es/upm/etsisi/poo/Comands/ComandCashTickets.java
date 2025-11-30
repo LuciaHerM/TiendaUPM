@@ -32,7 +32,7 @@ public class ComandCashTickets extends ComandCash {
                 System.out.println(ticket.toString());
             }
             if(ticketList.isEmpty()){
-                System.out.println("The cash don't have tickets created");
+                System.out.println("Tickets: ");
             }
             System.out.println("cash tickets: ok");
         } else {

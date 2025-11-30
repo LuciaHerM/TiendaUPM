@@ -29,7 +29,7 @@ public class Cash extends User{
 
     @Override
     public String toString() {
-        return "Cash{identifier='" +id+"', name='"+name+"', email="+ email+"}";    }
+        return "Cash{identifier='" +id+"', name='"+name+"', email='"+ email+"'}";    }
 
 
     /**
@@ -46,6 +46,7 @@ public class Cash extends User{
      * Este método recorre printeando todos los tickets del cajero
      */
     public void ticketListCash(){
+        System.out.println("Cash:\n");
         for (int i = 0; i < cashTickets.size(); i++) System.out.println(cashTickets.get(i).toString());
     }
 }

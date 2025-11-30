@@ -178,16 +178,16 @@ public class Ticket {
                     str.append(cart[i].toString() +"\n");
                 } else {
                     BigDecimal discount = new BigDecimal(Double.toString((cart[i].getPrice() * productDiscount)));
-                    discount = discount.setScale(2, RoundingMode.HALF_UP);
+                    discount = discount.setScale(1, RoundingMode.HALF_UP);
                     str.append(cart[i].toString() + " **discount -" + discount +"\n");
                 }
                 totalPrice += cart[i].getPrice();
                 totalDiscount += cart[i].getPrice() * productDiscount;
             }
         }
-        str.append("Total price: " + totalPrice + "\n");
-        str.append("Total discount: " + totalDiscount + "\n");
-        str.append("Final Price: " + (totalPrice - totalDiscount) + "\n");
+        str.append(" Total price: " + totalPrice + "\n");
+        str.append(" Total discount: " + totalDiscount + "\n");
+        str.append(" Final Price: " + (totalPrice - totalDiscount));
 
         return str.toString();
     }
