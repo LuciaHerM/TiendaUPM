@@ -113,8 +113,8 @@ public class Ticket {
     public String toString(){
         totalPrice = 0.0;
         totalDiscount = 0.0;
-        BigDecimal totalPriceBD = BigDecimal.ZERO;
-        BigDecimal totalDiscountBD = BigDecimal.ZERO;
+        BigDecimal totalPrice1 = BigDecimal.ZERO;
+        BigDecimal totalDiscount1 = BigDecimal.ZERO;
         StringBuilder str = new StringBuilder();
         str.append("Ticket : " + ticketId + "\n");
         if(!status.equals(TicketStatus.EMPTY)){
@@ -178,13 +178,13 @@ public class Ticket {
                 }
 
                 BigDecimal price = BigDecimal.valueOf(cart[i].getPrice());
-                BigDecimal rate = BigDecimal.valueOf(productDiscount);
-                BigDecimal discount = price.multiply(rate).setScale(2, RoundingMode.HALF_UP);
+                BigDecimal discount = BigDecimal.valueOf(productDiscount);
+                BigDecimal discountFinal = price.multiply(discount).setScale(2, RoundingMode.HALF_UP);
 
                 if (productDiscount == 0.0) {
                     str.append(" " +cart[i].toString() +"\n");
                 } else {
-                    str.append(" " +cart[i].toString() + " **discount -" + discount +"\n");
+                    str.append(" " +cart[i].toString() + " **discount -" + discountFinal +"\n");
                 }
                 BigDecimal priceToAdd;
                 if(cart[i] instanceof Events){
@@ -193,12 +193,12 @@ public class Ticket {
                 } else {
                     priceToAdd = price;
                 }
-                totalPriceBD = totalPriceBD.add(priceToAdd);
-                totalDiscountBD = totalDiscountBD.add(discount);            }
+                totalPrice1 = totalPrice1.add(priceToAdd);
+                totalDiscount1 = totalDiscount1.add(discountFinal);            }
 
         }
-        totalPrice = totalPriceBD.doubleValue();
-        totalDiscount = totalDiscountBD.doubleValue();
+        totalPrice = totalPrice1.doubleValue();
+        totalDiscount = totalDiscount1.doubleValue();
         str.append("  Total price: " + totalPrice + "\n");
         str.append("  Total discount: " + totalDiscount + "\n");
         str.append("  Final Price: " + (totalPrice - totalDiscount));
