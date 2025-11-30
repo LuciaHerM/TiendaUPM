@@ -181,7 +181,11 @@ public class Ticket {
                     discount = discount.setScale(2, RoundingMode.HALF_UP);
                     str.append(cart[i].toString() + " **discount -" + discount +"\n");
                 }
-                totalPrice += cart[i].getPrice();
+                if(cart[i] instanceof Events){
+                    totalPrice += cart[i].getPrice()*((Events) cart[i]).getInvited_person();
+                }else {
+                    totalPrice += cart[i].getPrice();
+                }
                 totalDiscount += cart[i].getPrice() * productDiscount;
             }
         }
