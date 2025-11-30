@@ -70,9 +70,17 @@ public class Events extends Product {
     @Override
     public String toString() {
         if(invited_person!=0) {
-            return "{class:" + typeEvent + ", id:" + id + ", name:'" + name   + "', price:" + price*invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + ", actual people in event:" + invited_person + "}";
+            if (typeEvent.equals(TypeEvent.MEETING)){
+                return " {class:Meeting, id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + ", actual people in event:" + invited_person + "}";
+            }else {
+                return " {class:Food, id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + ", actual people in event:" + invited_person + "}";
+            }
         }else {
-            return "{class:" + typeEvent + ", id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
+            if (typeEvent.equals(TypeEvent.MEETING)){
+                return " {class:Meeting, id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
+            }else {
+                return " {class:Food, id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
+            }
         }
     }
 }

@@ -94,12 +94,12 @@ public class Product {
     @Override
     public String toString() {
         if(personalizaciones==null && max_pers==0) {
-            return "{class:Product, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + "}";
+            return " {class:Product, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + "}";
         }else if (personalizaciones==null){
-            return "{class:ProductPersonalized, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + ", maxPersonal: " + max_pers + "}";
+            return " {class:ProductPersonalized, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + ", maxPersonal:" + max_pers + "}";
         }
         else {
-            return "{class:ProductPersonalized, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + ", maxPersonal: " + max_pers + ", personalizationList:[" + personalizacionesToString()+ "]}";
+            return " {class:ProductPersonalized, id:" + id + ", name:'" + name + "', category:" + category + ", price:" + price + ", maxPersonal:" + max_pers + ", personalizationList:[" + personalizacionesToString()+ "]}";
         }
     }
     @Override
@@ -126,7 +126,7 @@ public class Product {
         for (int i = 0; i < personalizaciones.length; i++) {
             sb.append(personalizaciones[i]);
             if (i < personalizaciones.length - 1) {
-                sb.append(",");
+                sb.append(", ");
             }
         }
 

@@ -111,13 +111,17 @@ Catalog {
                     int num_personInt = Integer.parseInt(num_person);
                     Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
                     if(productEvent.getNum_person() == 0){
-                        System.out.println("Error processing ->prod addEvent ->Error adding product");
+                        if(typeEvent.equals(TypeEvent.MEETING)){
+                            System.out.println("Error processing ->prod addMeeting ->Error adding product");
+                        } else {
+                            System.out.println("Error processing ->prod addFood ->Error adding product");
+                        }
                     }else{
                         products[num_products] = productEvent;
                         num_products++;
                         System.out.println(productEvent.toString());
                         if(typeEvent.equals(TypeEvent.MEETING)){
-                            System.out.println("prod addMeetint: ok");
+                            System.out.println("prod addMeeting: ok");
                         }
                         else {
                             System.out.println("prod addFood: ok");

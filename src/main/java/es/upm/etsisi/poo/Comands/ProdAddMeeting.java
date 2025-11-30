@@ -32,7 +32,6 @@ public class ProdAddMeeting extends Product {
     }
     /**
      * Añade un producto de tipo reunion llamando al metodo dentro de catalogo
-
      */
     public void apply() {
         catalog.addEvent(id, name,price,expiration_day,num_person, TypeEvent.MEETING);

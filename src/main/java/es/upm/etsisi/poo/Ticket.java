@@ -111,10 +111,12 @@ public class Ticket {
      * @return  Cadena con el contenido del ticket.
      */
     public String toString(){
+        totalPrice = 0.0;
+        totalDiscount = 0.0;
+        BigDecimal totalPriceBD = BigDecimal.ZERO;
+        BigDecimal totalDiscountBD = BigDecimal.ZERO;
         StringBuilder str = new StringBuilder();
-        str.append("Ticket: " + ticketId + "\n");
-        totalPrice=0.0;
-        totalDiscount=0.0;
+        str.append("Ticket : " + ticketId + "\n");
         if(!status.equals(TicketStatus.EMPTY)){
             int numMerch = 0;
             int numStationery = 0;
@@ -174,24 +176,32 @@ public class Ticket {
                             break;
                     }
                 }
+
+                BigDecimal price = BigDecimal.valueOf(cart[i].getPrice());
+                BigDecimal rate = BigDecimal.valueOf(productDiscount);
+                BigDecimal discount = price.multiply(rate).setScale(3, RoundingMode.HALF_UP);
+
                 if (productDiscount == 0.0) {
-                    str.append(cart[i].toString() +"\n");
+                    str.append(" " +cart[i].toString() +"\n");
                 } else {
-                    BigDecimal discount = new BigDecimal(Double.toString((cart[i].getPrice() * productDiscount)));
-                    discount = discount.setScale(2, RoundingMode.HALF_UP);
-                    str.append(cart[i].toString() + " **discount -" + discount +"\n");
+                    str.append(" " +cart[i].toString() + " **discount -" + discount +"\n");
                 }
+                BigDecimal priceToAdd;
                 if(cart[i] instanceof Events){
-                    totalPrice += cart[i].getPrice()*((Events) cart[i]).getInvited_person();
-                }else {
-                    totalPrice += cart[i].getPrice();
+                    priceToAdd = price.multiply(
+                            BigDecimal.valueOf(((Events) cart[i]).getInvited_person()));
+                } else {
+                    priceToAdd = price;
                 }
-                totalDiscount += cart[i].getPrice() * productDiscount;
-            }
+                totalPriceBD = totalPriceBD.add(priceToAdd);
+                totalDiscountBD = totalDiscountBD.add(discount);            }
+
         }
-        str.append(" Total price: " + totalPrice + "\n");
-        str.append(" Total discount: " + totalDiscount + "\n");
-        str.append(" Final Price: " + (totalPrice - totalDiscount));
+        totalPrice = totalPriceBD.doubleValue();
+        totalDiscount = totalDiscountBD.doubleValue();
+        str.append("  Total price: " + totalPrice + "\n");
+        str.append("  Total discount: " + totalDiscount + "\n");
+        str.append("  Final Price: " + (totalPrice - totalDiscount));
 
         return str.toString();
     }

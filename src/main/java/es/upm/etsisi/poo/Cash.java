@@ -47,6 +47,6 @@ public class Cash extends User{
      */
     public void ticketListCash(){
         System.out.println("Cash:\n");
-        for (int i = 0; i < cashTickets.size(); i++) System.out.println(cashTickets.get(i).toString());
+        for (int i = 0; i < cashTickets.size(); i++) System.out.println(" " + cashTickets.get(i).toString());
     }
 }
