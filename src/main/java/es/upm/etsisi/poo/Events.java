@@ -8,6 +8,7 @@ public class Events extends Product {
     private final int MAX_PARTICIPANTS=100;
     private int num_person;
     private TypeEvent typeEvent;
+    private int invited_person=0;
 
     public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
         super(id, name, price);
@@ -17,8 +18,6 @@ public class Events extends Product {
         }
         if(num_person<=MAX_PARTICIPANTS){
             this.num_person=num_person;
-        }else{
-            System.out.println("The number of people is surpasses the maximon of people accepted ");
         }
     }
 
@@ -60,8 +59,20 @@ public class Events extends Product {
         this.num_person = num_person;
     }
 
+    public int getInvited_person() {
+        return invited_person;
+    }
+
+    public void setInvited_person(int invited_person) {
+        this.invited_person = invited_person;
+    }
+
     @Override
     public String toString() {
-        return "{class:Events, id:" + id + ", name:'" + name  + "expiration_day:" + expiration_day + ", num_person:" + num_person + ", typeEvent:" + typeEvent + ", price:" + price + "}";
+        if(invited_person!=0) {
+            return "{class:" + typeEvent + ", id:" + id + ", name:'" + name   + "', price:" + price*invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + ", actual people in event:" + invited_person + "}";
+        }else {
+            return "{class:" + typeEvent + ", id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
+        }
     }
 }

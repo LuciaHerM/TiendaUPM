@@ -27,9 +27,10 @@ public class ComandCashTickets extends ComandCash {
         }
         if (cajero != null) {
             ArrayList<Ticket> ticketList = cajero.getCashTickets();
+            System.out.println("Tickets:");
             for (int i = 0; i < ticketList.size(); i++) {
                 Ticket ticket = ticketList.get(i);
-                System.out.println(ticket.toString());
+                System.out.println("  " + ticket.getTicketId() + " - " + ticket.getStatus());
             }
             if(ticketList.isEmpty()){
                 System.out.println("Tickets: ");
