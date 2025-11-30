@@ -73,10 +73,7 @@ public  class TicketNew extends ComandTicket{
                 Ticket ticket = new Ticket(ticketId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
-                for (int i = 0; i < listTicketCash().size(); i++) {
-                    Ticket ti = listTicketCash().get(i);
-                    System.out.println(ti.toString());
-                }
+                System.out.println(ticket.toString());
                 System.out.println("ticket new: ok");
             } else {
                 System.out.println("The ticket id is not correct because it does exist the ticket or because the format is not correct:  YY-MM-dd-HH:mm-#####" );

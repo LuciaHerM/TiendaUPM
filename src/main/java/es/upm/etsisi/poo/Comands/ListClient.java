@@ -13,8 +13,9 @@ public class ListClient extends ComandClient {
 
     public void apply() {
         clients.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
+        System.out.println("Client:");
         for (Client client : clients) {
-            System.out.println(client.toString());
+            System.out.println(" " + client.toString());
         }
         if(clients.isEmpty()){
             System.out.println("The client list is empty.");

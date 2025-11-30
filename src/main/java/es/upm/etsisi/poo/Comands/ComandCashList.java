@@ -18,8 +18,9 @@ public class ComandCashList extends ComandCash {
      */
     public void apply() {
         cashers.sort((c1,c2)->c1.getName().compareTo(c2.getName()));
+        System.out.println("Cash:");
         for(int i = 0 ; i < cashers.size();i++){
-            System.out.println(cashers.get(i).toString());
+            System.out.println(" " + cashers.get(i).toString());
         }
         if(cashers.isEmpty()){
             System.out.println("The cash list is empty");

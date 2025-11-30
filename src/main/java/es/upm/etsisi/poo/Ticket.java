@@ -178,10 +178,14 @@ public class Ticket {
                     str.append(cart[i].toString() +"\n");
                 } else {
                     BigDecimal discount = new BigDecimal(Double.toString((cart[i].getPrice() * productDiscount)));
-                    discount = discount.setScale(1, RoundingMode.HALF_UP);
+                    discount = discount.setScale(2, RoundingMode.HALF_UP);
                     str.append(cart[i].toString() + " **discount -" + discount +"\n");
                 }
-                totalPrice += cart[i].getPrice();
+                if(cart[i] instanceof Events){
+                    totalPrice += cart[i].getPrice()*((Events) cart[i]).getInvited_person();
+                }else {
+                    totalPrice += cart[i].getPrice();
+                }
                 totalDiscount += cart[i].getPrice() * productDiscount;
             }
         }

@@ -54,11 +54,12 @@ public class TicketAdd extends ComandTicket{
                 Product p ;
                 if(personalizaciones!=null){
                     p=catalog.find(cont).clone();
-                    p.setPersonalizaciones(personalizaciones);              }
+                    p.setPersonalizaciones(personalizaciones);
+                }
                 else {
                     p=catalog.find(cont);
                 }
-                if(find&&(p instanceof Events)&&ticketActual.reunionIntroduce(p)){
+                if(find && (p instanceof Events) && ticketActual.reunionIntroduce(p)){
                     find=false;
                     System.out.println("There can't be two identical events.");
                 }
@@ -66,8 +67,13 @@ public class TicketAdd extends ComandTicket{
                     if (ticketActual.getStatus() != TicketStatus.OPEN) {
                         ticketActual.setStatus(TicketStatus.OPEN);
                     }
-                    for (int i = 0; i < Integer.parseInt(quantity); i++) {
+                    if(p instanceof Events) {
+                        ((Events) p).setInvited_person(Integer.parseInt(quantity));
                         ticketActual.AddProduct(p);
+                    }else{
+                        for (int i = 0; i < Integer.parseInt(quantity); i++) {
+                            ticketActual.AddProduct(p);
+                        }
                     }
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
