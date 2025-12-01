@@ -24,7 +24,7 @@ public class TicketRemove extends ComandTicket{
      * Elimina un producto del ticket.
      */
     public void apply() {
-        Ticket ticketActive = encontrarTicket();
+        Ticket ticketActive = findTicket();
         if(ticketActive!= null && ticketActive.getStatus()!= TicketStatus.CLOSE) {
             int i = 0;
             boolean encontrado = false;
@@ -47,7 +47,7 @@ public class TicketRemove extends ComandTicket{
         }
 
     }
-    private Ticket encontrarTicket() {
+    private Ticket findTicket() {
         Cash casher = null;
         for (int i = 0; i < cashers.size(); i++) {
             if ( cashers.get(i).getId().equals(cashId)) {

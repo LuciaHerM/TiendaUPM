@@ -1,7 +1,5 @@
 package es.upm.etsisi.poo;
 
-import java.util.Arrays;
-
 public class
 Catalog {
 
@@ -220,7 +218,7 @@ Catalog {
         }
     }
 
-    public String crearId(){
+    public String createId(){
         int antId=0;
         if(products[0]!=null) {
             antId = Integer.parseInt(products[0].getID());

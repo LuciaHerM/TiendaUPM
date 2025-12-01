@@ -39,7 +39,7 @@ public class TicketAdd extends ComandTicket{
      *  Añade una cantidad específica de un producto al ticket.
      */
     public void apply() {
-        Ticket ticketActual = seleccinarTicket();
+        Ticket ticketActual = selectTicket();
         if(ticketActual !=null) {
             if (ticketActual.getStatus() != TicketStatus.CLOSE) {
                 int cont = 0;
@@ -89,7 +89,7 @@ public class TicketAdd extends ComandTicket{
         }
     }
 
-    private Ticket seleccinarTicket(){
+    private Ticket selectTicket(){
         ArrayList<Ticket> ticketsList = casher.getCashTickets();
         Ticket ticketActual = null;
         for (int i = 0; i < ticketsList.size(); i++) {

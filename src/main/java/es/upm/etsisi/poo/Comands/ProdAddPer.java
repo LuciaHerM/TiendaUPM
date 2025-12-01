@@ -2,8 +2,6 @@ package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
 
-import es.upm.etsisi.poo.Catalog;
-
 public class ProdAddPer extends Product {
     private String id;
     private String name;
@@ -22,7 +20,7 @@ public class ProdAddPer extends Product {
         this.catalog=catalog;
     }
     public ProdAddPer(String name, String category, String price, String pers , Catalog catalog) {
-        this.id = catalog.crearId();
+        this.id = catalog.createId();
         this.name = name;
         this.category = category;
         this.price = price;

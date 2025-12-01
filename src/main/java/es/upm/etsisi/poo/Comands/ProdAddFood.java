@@ -21,7 +21,7 @@ public class ProdAddFood extends Product{
         this.catalog = catalog;
     }
     public ProdAddFood(String name, String price, String expiration_day, String num_person, Catalog catalog) {
-        this.id = catalog.crearId();
+        this.id = catalog.createId();
         this.name = name;
         this.price = price;
         this.expiration_day = expiration_day;

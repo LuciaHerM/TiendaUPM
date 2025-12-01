@@ -18,7 +18,7 @@ public class ProdAdd extends Product {
         this.catalog = catalog;
     }
     public ProdAdd(String name, String category, String price, Catalog catalog) {
-        this.id = catalog.crearId();
+        this.id = catalog.createId();
         this.name = name;
         this.category = category;
         this.price = price;
