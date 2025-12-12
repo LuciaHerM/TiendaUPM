@@ -96,6 +96,9 @@ public class TiendaUPM {
                     case "list":
                         comad = new ListClient(clients);
                         break;
+                    default:
+                        comad = new UnknownComand();
+                        break;
                 }
                 break;
             case "cash":
@@ -113,6 +116,9 @@ public class TiendaUPM {
                         break;
                     case "tickets":
                         comad = new ComandCashTickets(comand[2], cashers);
+                        break;
+                    default:
+                        comad = new UnknownComand();
                         break;
                 }
                 break;
@@ -153,6 +159,9 @@ public class TiendaUPM {
                     case "remove":
                         comad = new ProdRemove(comand[2], catalog);
                         break;
+                    default:
+                        comad = new UnknownComand();
+                        break;
                 }
                 break;
             case "ticket":
@@ -180,6 +189,9 @@ public class TiendaUPM {
                         break;
                     case "list":
                         comad = new TicketList(cashers);
+                        break;
+                    default:
+                        comad = new UnknownComand();
                         break;
                 }
                 break;
