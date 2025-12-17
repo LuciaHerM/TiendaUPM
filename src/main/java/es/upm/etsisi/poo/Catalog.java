@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo;
 
+import java.util.ArrayList;
+
 public class
 Catalog {
 
@@ -10,6 +12,15 @@ Catalog {
     public Catalog() {
         products = new Product[MAX_NUM_PRODUCTS];
         num_products=0;
+    }
+
+    public Catalog(ArrayList<Product> all){
+        products = new Product[MAX_NUM_PRODUCTS];
+        num_products=0;
+        for(Product p : all){
+            products[num_products]=p;
+            num_products++;
+        }
     }
 
     public int length(){

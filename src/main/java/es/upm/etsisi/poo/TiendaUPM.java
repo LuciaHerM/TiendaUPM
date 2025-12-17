@@ -2,6 +2,8 @@ package es.upm.etsisi.poo;
 
 
 import es.upm.etsisi.poo.Comands.*;
+import es.upm.etsisi.poo.persistence.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -46,6 +48,17 @@ public class TiendaUPM {
         catalog = new Catalog();
         cashers =new ArrayList<Cash>();
         clients =new ArrayList<Client>();
+
+        DatabaseManager.getInstance();
+        ProductDAO productDAO = new ProductDAO();
+        TicketDAO ticketDAO = new TicketDAO();
+        ClientDAO clientDAO = new ClientDAO();
+        CashDAO cashDAO = new CashDAO();
+
+        catalog = new Catalog(productDAO.findAll());
+        cashers = cashDAO.findAll(ticketDAO, productDAO);
+        clients = clientDAO.findAll(ticketDAO, productDAO);
+
     }
 
     /**
