@@ -13,7 +13,7 @@ public class Events extends Product {
     public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
         super(id, name, price);
         this.typeEvent=typeEvent;
-        if(check_min_time(expiration_day, typeEvent)){
+        if(check_min_time()){
             this.expiration_day=expiration_day;
         }
         if(num_person<=MAX_PARTICIPANTS){
@@ -21,10 +21,10 @@ public class Events extends Product {
         }
     }
 
-    public static boolean check_min_time(String date, TypeEvent typeEvent){
+    public boolean check_min_time(){
         LocalDate eventDate;
         try{
-            eventDate=LocalDate.parse(date);
+            eventDate=LocalDate.parse(expiration_day);
         }catch (Exception e){
             System.out.println("The date is not correct written must be in this format yyyy-mm-dd");
             return false;

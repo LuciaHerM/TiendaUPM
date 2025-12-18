@@ -3,7 +3,6 @@ package es.upm.etsisi.poo;
 import java.util.Arrays;
 
 public class Personalized extends Product_Basic{
-
     public int max_pers=0;
     public String[] personalizaciones;
 
@@ -63,8 +62,8 @@ public class Personalized extends Product_Basic{
 
 
     @Override
-    public Product_Basic clone() {
-        Product_Basic copia = new Personalized();
+    public Personalized clone() {
+        Personalized copia = new Personalized();
         copia.id = this.id;
         copia.name = this.name;
         copia.category = this.category;

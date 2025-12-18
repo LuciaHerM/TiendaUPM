@@ -1,0 +1,53 @@
+package es.upm.etsisi.poo;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+public class Services extends Product{
+    public Category_service category_service;
+    public String expiration_day;
+    public final double DISCOUNT=0.15;
+    public Services(Category_service category_service, String expiration_day) {
+        this.category_service=category_service;
+        if(check_correct_day()){
+           this.expiration_day=expiration_day;
+        }
+    }
+    public boolean check_correct_day(){
+        LocalDate eventDate;
+        try{
+            eventDate=LocalDate.parse(expiration_day);
+        }catch (Exception e){
+            System.out.println("The date is not correct written must be in this format yyyy-mm-dd");
+            return false;
+        }
+        LocalDate today=LocalDate.now();
+        if(!eventDate.isAfter(today)){
+            System.out.println("The date can't be before today");
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public Category_service getCategory_service() {
+        return category_service;
+    }
+
+    public void setCategory_service(Category_service category_service) {
+        this.category_service = category_service;
+    }
+
+    public String getExpiration_day() {
+        return expiration_day;
+    }
+
+    public void setExpiration_day(String expiration_day) {
+        this.expiration_day = expiration_day;
+    }
+
+    public double getDISCOUNT() {
+        return DISCOUNT;
+    }
+}
