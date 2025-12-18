@@ -7,7 +7,7 @@ public class Services extends Product{
     public Category_service category_service;
     public String expiration_day;
     public final double DISCOUNT=0.15;
-    public Services(Category_service category_service, String expiration_day) {
+    public Services(String expiration_day, Category_service category_service) {
         this.category_service=category_service;
         if(check_correct_day()){
            this.expiration_day=expiration_day;
