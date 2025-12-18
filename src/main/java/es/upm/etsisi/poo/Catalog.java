@@ -60,7 +60,7 @@ Catalog {
                     default -> throw new IllegalStateException("Unexpected value: " + category);
                 };
                 double price1 = Double.parseDouble(price);
-                Product product = new Product(id, name, category1, price1);
+                Product_Basic product = new Product_Basic(id, name, category1, price1);
                 products[num_products] = product;
                 num_products++;
                 System.out.println(product.toString());
@@ -92,7 +92,7 @@ Catalog {
                 };
                 double price1 = Double.parseDouble(price);
                 int pers1 = Integer.parseInt(pers);
-                Product product = new Product(id, name, category1, price1, pers1);
+                Personalized product = new Personalized(id, name, category1, price1, pers1);
                 products[num_products] = product;
                 num_products++;
                 System.out.println(product.toString());
