@@ -114,31 +114,27 @@ Catalog {
             i++;
         }
         if(id!=null && name!=null && typeEvent!=null && price!=null){
-            if(Events.check_min_time(expiration_day, typeEvent)) {
-                if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
-                    double priceDouble = Double.parseDouble(price);
-                    int num_personInt = Integer.parseInt(num_person);
-                    Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
-                    if(productEvent.getNum_person() == 0){
-                        if(typeEvent.equals(TypeEvent.MEETING)){
-                            System.out.println("Error processing ->prod addMeeting ->Error adding product");
-                        } else {
-                            System.out.println("Error processing ->prod addFood ->Error adding product");
-                        }
-                    }else{
-                        products[num_products] = productEvent;
-                        num_products++;
-                        System.out.println(productEvent.toString());
-                        if(typeEvent.equals(TypeEvent.MEETING)){
-                            System.out.println("prod addMeeting: ok");
-                        }
-                        else {
-                            System.out.println("prod addFood: ok");
-                        }
+            if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
+                double priceDouble = Double.parseDouble(price);
+                int num_personInt = Integer.parseInt(num_person);
+                Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
+                if(productEvent.getNum_person() == 0){
+                    if(typeEvent.equals(TypeEvent.MEETING)){
+                        System.out.println("Error processing ->prod addMeeting ->Error adding product");
+                    } else {
+                        System.out.println("Error processing ->prod addFood ->Error adding product");
+                    }
+                }else{
+                    products[num_products] = productEvent;
+                    num_products++;
+                    System.out.println(productEvent.toString());
+                    if(typeEvent.equals(TypeEvent.MEETING)){
+                        System.out.println("prod addMeeting: ok");
+                    }
+                    else {
+                        System.out.println("prod addFood: ok");
                     }
                 }
-            } else {
-                System.out.println("The product can't be add.");
             }
         } else {
             System.out.println("The product can't be add.");
@@ -181,15 +177,43 @@ Catalog {
                     products[i].setName(value);
                     break;
                 case "CATEGORY":
-                    Category category = switch (value){
-                        case "MERCH" -> Category.MERCH;
-                        case "STATIONERY"-> Category.STATIONERY;
-                        case "CLOTHES" -> Category.CLOTHES;
-                        case "BOOK" -> Category.BOOK;
-                        case "ELECTRONICS" -> Category.ELECTRONICS;
-                        default -> throw new IllegalStateException("Unexpected value: " + value);
-                    };
-                    products[i].setCategory(category);
+                    if(products[i].getClass().equals(Product_Basic.class)){
+                        Product_Basic product = (Product_Basic) products[i];
+                        Category category = switch (value){
+                            case "MERCH" -> Category.MERCH;
+                            case "STATIONERY"-> Category.STATIONERY;
+                            case "CLOTHES" -> Category.CLOTHES;
+                            case "BOOK" -> Category.BOOK;
+                            case "ELECTRONICS" -> Category.ELECTRONICS;
+                            default -> throw new IllegalStateException("Unexpected value: " + value);
+                        };
+                        product.setCategory(category);
+                        products[i]=product;
+                    } else if (products[i].getClass().equals(Personalized.class)) {
+                        Personalized product = (Personalized) products[i];
+                        Category category = switch (value){
+                            case "MERCH" -> Category.MERCH;
+                            case "STATIONERY"-> Category.STATIONERY;
+                            case "CLOTHES" -> Category.CLOTHES;
+                            case "BOOK" -> Category.BOOK;
+                            case "ELECTRONICS" -> Category.ELECTRONICS;
+                            default -> throw new IllegalStateException("Unexpected value: " + value);
+                        };
+                        product.setCategory(category);
+                        products[i]=product;
+                    }else if(products[i].getClass().equals(Services.class)){
+                        Services product = (Services) products[i];
+                        Category_service category = switch (value){
+                            case "TRANSPORT" -> Category_service.TRANSPORT;
+                            case "SHOWS" -> Category_service.SHOWS;
+                            case "INSURANCE" -> Category_service.INSURANCE;
+                            default -> throw new IllegalStateException("Unexpected value: " + value);
+                        };
+                        product.setCategory_service(category);
+                        products[i]=product;
+                    } else if (products[i].getClass().equals(Events.class)) {
+                        System.out.println("Can't be edit de category or typeEvent of a Event");
+                    }
                     break;
                 case "PRICE":
                     double price = Double.parseDouble(value);
