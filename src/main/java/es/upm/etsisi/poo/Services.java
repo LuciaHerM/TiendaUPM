@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class Services extends Product{
+    public String id;
     public Category_service category_service;
     public String expiration_day;
     public final double DISCOUNT=0.15;
-    public Services(String expiration_day, Category_service category_service) {
+    public Services(String expiration_day, Category_service category_service, String id) {
         this.category_service=category_service;
         if(check_correct_day()){
            this.expiration_day=expiration_day;
-        }
+        }else {expiration_day=null;}
+        this.id=id;
     }
     public boolean check_correct_day(){
         LocalDate eventDate;

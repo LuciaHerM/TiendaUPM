@@ -8,18 +8,24 @@ Catalog {
     private static Product[] products;
     private static final int MAX_NUM_PRODUCTS = 200;
     private static int num_products;
+    private static int num_sesiones;
 
     public Catalog() {
         products = new Product[MAX_NUM_PRODUCTS];
         num_products=0;
+        num_sesiones=0;
     }
 
     public Catalog(ArrayList<Product> all){
         products = new Product[MAX_NUM_PRODUCTS];
         num_products=0;
+        num_sesiones=0;
         for(Product p : all){
             products[num_products]=p;
             num_products++;
+            if(products[num_products].getID().contains("S")){
+                num_sesiones++;
+            }
         }
     }
 
@@ -140,7 +146,31 @@ Catalog {
             System.out.println("The product can't be add.");
         }
     }
-
+    public void addServicio(String expiration_day, Category_service category_service){
+        if(expiration_day!=null && category_service!=null){
+            if(num_products<MAX_NUM_PRODUCTS){
+                Services services= new Services(expiration_day,category_service,createID_S());
+                if(services.getExpiration_day()!=null){
+                    products[num_products]=services;
+                    num_products++;
+                    num_sesiones++;
+                    if (category_service.equals(category_service.TRANSPORT)){
+                        System.out.println("prod addTransport: ok");
+                    }
+                    if (category_service.equals(category_service.SHOW)){
+                        System.out.println("prod addShow: ok");
+                    }
+                    if (category_service.equals(category_service.INSURANCE)){
+                        System.out.println("prod addInsurance: ok");
+                    }
+                }
+            }else{
+                System.out.println("The catalog is full, you can't add more products.");
+            }
+        }else{
+            System.out.println("The product can't be add.");
+        }
+    }
 
     /**
      * Muestra el catálogo de productos actualmente registrados.
@@ -205,7 +235,7 @@ Catalog {
                         Services product = (Services) products[i];
                         Category_service category = switch (value){
                             case "TRANSPORT" -> Category_service.TRANSPORT;
-                            case "SHOWS" -> Category_service.SHOWS;
+                            case "SHOWS" -> Category_service.SHOW;
                             case "INSURANCE" -> Category_service.INSURANCE;
                             default -> throw new IllegalStateException("Unexpected value: " + value);
                         };
@@ -243,10 +273,15 @@ Catalog {
         }
         if(encontrado){
             System.out.println(products[i].toString());
+            Product p_aux=null;
             for(int j=i;j<num_products;j++){
+                p_aux=products[j];
                 products[j]=products[j+1];
             }
             num_products--;
+            if(p_aux.getID().contains("S")&& p_aux!=null){
+                num_sesiones--;
+            }
             System.out.println("prod remove: ok");
         }else{
             System.out.println("Product to remove not found");
@@ -265,5 +300,11 @@ Catalog {
             }
         }
         return Integer.toString(antId+1);
+    }
+    public String createID_S(){
+        int num_id=num_sesiones+1;
+        String ID_S;
+        ID_S = String.valueOf(num_sesiones) + "S";
+        return ID_S;
     }
 }
