@@ -8,7 +8,6 @@ public class Product_Basic extends Product {
     }
 
     public Product_Basic() {
-
     }
 
     public Category getCategory() {

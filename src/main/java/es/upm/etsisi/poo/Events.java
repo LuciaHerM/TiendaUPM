@@ -26,7 +26,7 @@ public class Events extends Product {
         try{
             eventDate=LocalDate.parse(expiration_day);
         }catch (Exception e){
-            System.out.println("The date is not correct written must be in this format yyyy-mm-dd");
+            Notifier.dateIncorrectFormat();
             return false;
         }
         LocalDate today=LocalDate.now();

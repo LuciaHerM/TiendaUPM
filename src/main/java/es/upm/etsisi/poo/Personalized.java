@@ -12,7 +12,7 @@ public class Personalized extends Product_Basic{
         if(max_pers>0){
             this.max_pers=max_pers;
         }else {
-            System.out.println("It's not possible to insert that maximon personalization. ");
+            Notifier.ErrorNumberPersonalization();
         }
     }
 
@@ -31,11 +31,11 @@ public class Personalized extends Product_Basic{
                 this.price += this.price*0.1* personalizaciones.length;
             }
             else {
-                System.out.println("no puedes introducir esa cantidad de personalizaciones .");
+                Notifier.ErrorNumberPersonalization();
             }
         }
         else {
-            System.out.println("no puedes introducir personalizaciones a un producto no personalizable .");
+            Notifier.CantPersonalize();
         }
     }
     public String personalizacionesToString() {

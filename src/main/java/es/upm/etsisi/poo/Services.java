@@ -12,7 +12,9 @@ public class Services extends Product{
         this.category_service=category_service;
         if(check_correct_day()){
            this.expiration_day=expiration_day;
-        }else {expiration_day=null;}
+        }else {
+            expiration_day=null;
+        }
         this.id=id;
     }
     public boolean check_correct_day(){
@@ -20,12 +22,12 @@ public class Services extends Product{
         try{
             eventDate=LocalDate.parse(expiration_day);
         }catch (Exception e){
-            System.out.println("The date is not correct written must be in this format yyyy-mm-dd");
+            Notifier.dateIncorrectFormat();
             return false;
         }
         LocalDate today=LocalDate.now();
         if(!eventDate.isAfter(today)){
-            System.out.println("The date can't be before today");
+            Notifier.dateBeforeToday();
             return false;
         }
         else{
