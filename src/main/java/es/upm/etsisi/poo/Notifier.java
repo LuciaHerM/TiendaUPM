@@ -60,5 +60,23 @@ public class Notifier {
         System.out.println("The catalog is full, you can't add more products.");
     }
 
+    //Clase Events
+    public static void dateIncorrectFormat() {
+        System.out.println("The date is not correct written must be in this format yyyy-mm-dd");
+    }
+
+    public static void dateBeforeToday() {
+        System.out.println("The date can't be before today");
+    }
+
+    //Clase Personalized
+    public static void ErrorNumberPersonalization(){
+        System.out.println("It's not possible to insert that number of personalization.");
+    }
+
+    public static void CantPersonalize(){
+        System.out.println("Can't personalize a product not customizable");
+    }
+
 
 }
