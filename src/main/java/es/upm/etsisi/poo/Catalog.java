@@ -2,8 +2,7 @@ package es.upm.etsisi.poo;
 
 import java.util.ArrayList;
 
-public class
-Catalog {
+public class Catalog {
 
     private static Product[] products;
     private static final int MAX_NUM_PRODUCTS = 200;
@@ -50,7 +49,7 @@ Catalog {
         boolean encontrado=false;
         while(!encontrado && i< num_products){
             if(products[i].getID().equals(id)){
-                System.out.println("Can't be add a product with the same id");
+                Notifier.showErrorAddProductWithSameId();
                 encontrado=true;
             }
             i++;
@@ -63,30 +62,30 @@ Catalog {
                     case "CLOTHES" -> Category.CLOTHES;
                     case "BOOK" -> Category.BOOK;
                     case "ELECTRONICS" -> Category.ELECTRONICS;
-                    default -> throw new IllegalStateException("Unexpected value: " + category);
+                    default -> Notifier.UnexpectecValue(category);
                 };
                 double price1 = Double.parseDouble(price);
                 Product_Basic product = new Product_Basic(id, name, category1, price1);
                 products[num_products] = product;
                 num_products++;
                 System.out.println(product.toString());
-                System.out.println("prod add: ok");
+                Notifier.showSuccessAddProduct();
             }
         } else {
-            System.out.println("The product can't be add.");
+            Notifier.showErrorAddProduct();
         }
     }
     public void addPer(String id, String name, String category, String price, String pers) {
-        int i=0;
-        boolean encontrado=false;
-        while(!encontrado && i< num_products){
-            if(products[i].getID().equals(id)){
-                System.out.println("Can't be add a product with the same id");
-                encontrado=true;
+        int i = 0;
+        boolean encontrado = false;
+        while (!encontrado && i < num_products) {
+            if (products[i].getID().equals(id)) {
+                Notifier.showErrorAddProductWithSameId();
+                encontrado = true;
             }
             i++;
         }
-        if(id!=null && name!=null && category!=null && price!=null) {
+        if (id != null && name != null && category != null && price != null) {
             if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
                 Category category1 = switch (category) {
                     case "MERCH" -> Category.MERCH;
@@ -94,7 +93,8 @@ Catalog {
                     case "CLOTHES" -> Category.CLOTHES;
                     case "BOOK" -> Category.BOOK;
                     case "ELECTRONICS" -> Category.ELECTRONICS;
-                    default -> throw new IllegalStateException("Unexpected value: " + category);
+                    default -> Notifier.UnexpectecValue(category);
+                    ///////////////////////////////      NO TENGO CLARO COMO MANEJAR ESTO EN LA CLASE NOTIFIER
                 };
                 double price1 = Double.parseDouble(price);
                 int pers1 = Integer.parseInt(pers);
@@ -102,10 +102,11 @@ Catalog {
                 products[num_products] = product;
                 num_products++;
                 System.out.println(product.toString());
-                System.out.println("prod add: ok");
+                Notifier.showSuccessAddProduct();
+
             }
         } else {
-            System.out.println("The product can't be add.");
+            Notifier.showErrorAddProduct();
         }
     }
 
@@ -114,7 +115,7 @@ Catalog {
         boolean encontrado=false;
         while(!encontrado && i< num_products){
             if(products[i].getID().equals(id)){
-                System.out.println("Can't be add a product with the same id");
+                Notifier.showErrorAddProductWithSameId();
                 encontrado=true;
             }
             i++;
@@ -125,28 +126,19 @@ Catalog {
                 int num_personInt = Integer.parseInt(num_person);
                 Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
                 if(productEvent.getNum_person() == 0){
-                    if(typeEvent.equals(TypeEvent.MEETING)){
-                        System.out.println("Error processing ->prod addMeeting ->Error adding product");
-                    } else {
-                        System.out.println("Error processing ->prod addFood ->Error adding product");
-                    }
+                    Notifier.showErrorAddEvent(typeEvent);
                 }else{
                     products[num_products] = productEvent;
                     num_products++;
                     System.out.println(productEvent.toString());
-                    if(typeEvent.equals(TypeEvent.MEETING)){
-                        System.out.println("prod addMeeting: ok");
-                    }
-                    else {
-                        System.out.println("prod addFood: ok");
-                    }
+                    Notifier.showSuccessAddEvent(typeEvent);
                 }
             }
         } else {
-            System.out.println("The product can't be add.");
+            Notifier.showErrorAddProduct();
         }
     }
-    public void addServicio(String expiration_day, Category_service category_service){
+    public void addService(String expiration_day, Category_service category_service){
         if(expiration_day!=null && category_service!=null){
             if(num_products<MAX_NUM_PRODUCTS){
                 Services services= new Services(expiration_day,category_service,createID_S());
@@ -154,21 +146,13 @@ Catalog {
                     products[num_products]=services;
                     num_products++;
                     num_sesiones++;
-                    if (category_service.equals(category_service.TRANSPORT)){
-                        System.out.println("prod addTransport: ok");
-                    }
-                    if (category_service.equals(category_service.SHOW)){
-                        System.out.println("prod addShow: ok");
-                    }
-                    if (category_service.equals(category_service.INSURANCE)){
-                        System.out.println("prod addInsurance: ok");
-                    }
+                    Notifier.showSuccessAddService(category_service);
                 }
             }else{
-                System.out.println("The catalog is full, you can't add more products.");
+                Notifier.fullCatalog();
             }
         }else{
-            System.out.println("The product can't be add.");
+            Notifier.showErrorAddProduct();
         }
     }
 
@@ -191,7 +175,7 @@ Catalog {
      * @param change    Atributo a modificar (name, category o price).
      * @param value     Nuevo valor del atributo.
      */
-    public void update(String id, String change, String value) {
+    public void update(String id, String change, String value) throws IllegalStateException {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i<num_products){
@@ -209,16 +193,17 @@ Catalog {
                 case "CATEGORY":
                     if(products[i].getClass().equals(Product_Basic.class)){
                         Product_Basic product = (Product_Basic) products[i];
-                        Category category = switch (value){
+                        Category category = switch (value) {
                             case "MERCH" -> Category.MERCH;
-                            case "STATIONERY"-> Category.STATIONERY;
+                            case "STATIONERY" -> Category.STATIONERY;
                             case "CLOTHES" -> Category.CLOTHES;
                             case "BOOK" -> Category.BOOK;
                             case "ELECTRONICS" -> Category.ELECTRONICS;
-                            default -> throw new IllegalStateException("Unexpected value: " + value);
+                            default -> Notifier.UnexpectecValue(value);
                         };
                         product.setCategory(category);
-                        products[i]=product;
+                        products[i] = product;
+
                     } else if (products[i].getClass().equals(Personalized.class)) {
                         Personalized product = (Personalized) products[i];
                         Category category = switch (value){
@@ -227,7 +212,7 @@ Catalog {
                             case "CLOTHES" -> Category.CLOTHES;
                             case "BOOK" -> Category.BOOK;
                             case "ELECTRONICS" -> Category.ELECTRONICS;
-                            default -> throw new IllegalStateException("Unexpected value: " + value);
+                            default -> Notifier.UnexpectecValue(value);
                         };
                         product.setCategory(category);
                         products[i]=product;
@@ -237,7 +222,7 @@ Catalog {
                             case "TRANSPORT" -> Category_service.TRANSPORT;
                             case "SHOWS" -> Category_service.SHOW;
                             case "INSURANCE" -> Category_service.INSURANCE;
-                            default -> throw new IllegalStateException("Unexpected value: " + value);
+                            default -> Notifier.UnexpectecValueService(value);
                         };
                         product.setCategory_service(category);
                         products[i]=product;
