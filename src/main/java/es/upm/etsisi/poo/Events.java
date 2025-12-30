@@ -67,6 +67,14 @@ public class Events extends Product {
         this.invited_person = invited_person;
     }
 
+    public int getMAX_PARTICIPANTS() {
+        return MAX_PARTICIPANTS;
+    }
+
+    public TypeEvent getTypeEvent() {
+        return typeEvent;
+    }
+
     @Override
     public String toString() {
         if(invited_person!=0) {
