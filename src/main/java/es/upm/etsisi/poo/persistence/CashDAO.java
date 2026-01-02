@@ -17,7 +17,7 @@ public class CashDAO {
                              .getConnection()
                              .prepareStatement(sql)) {
 
-            ps.setString(1, c.getId());
+            ps.setString(1, c.getCashId());
             ps.setString(2, c.getName());
             ps.setString(3, c.getEmail());
             ps.executeUpdate();
@@ -54,7 +54,7 @@ public class CashDAO {
             for (Cash c : cashes) {
                 tickets.stream()
                         .filter(t ->
-                                c.getId().equals(
+                                c.getCashId().equals(
                                         obtenerCashTicket(t)))
                         .forEach(c::ticketAddCash);
             }

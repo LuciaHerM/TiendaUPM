@@ -50,13 +50,13 @@ public  class TicketNew extends ComandTicket{
 
         for(int i = 0 ; i < cashers.size();i++){
             Cash ca = cashers.get(i);
-            if(ca.getId().equals(cashId)){
+            if(ca.getCashId().equals(cashId)){
                 cash= ca;
             }
         }
         for(int i = 0 ; i < clients.size();i++){
             Client c = clients.get(i);
-            if(c.getDNI().equals(clientId)){
+            if(c.getCashId().equals(clientId)){
                 client = c;
             }
         }
@@ -110,7 +110,7 @@ public  class TicketNew extends ComandTicket{
     private ArrayList<Ticket> listTicketCash() {
         Cash cajero = null;
         for (es.upm.etsisi.poo.Cash cash : cashers) {
-            if (cash.getId().equals(cashId)) {
+            if (cash.getCashId().equals(cashId)) {
                 cajero = cash;
             }
         }

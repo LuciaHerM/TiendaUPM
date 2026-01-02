@@ -21,7 +21,7 @@ public class ComandCashTickets extends ComandCash {
     public void apply() {
         es.upm.etsisi.poo.Cash cajero = null;
         for (es.upm.etsisi.poo.Cash cash : cashers) {
-            if (cash.getId().equals(id)) {
+            if (cash.getCashId().equals(id)) {
                 cajero = cash;
             }
         }

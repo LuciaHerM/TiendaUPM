@@ -1,17 +1,21 @@
 package es.upm.etsisi.poo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Cash extends User{
 
+    private String cashId;
     private ArrayList<Ticket> cashTickets;
 
     public Cash (String id, String name, String email){
         super(name, email, id);
+        this.cashId = id;
         this.cashTickets = new ArrayList<>();
     }
 
+    public String getCashId() {
+        return cashId;
+    }
 
     public ArrayList<Ticket> getCashTickets() {
         return cashTickets;
@@ -24,7 +28,7 @@ public class Cash extends User{
 
     @Override
     public String toString() {
-        return "Cash{identifier='" +id+"', name='"+name+"', email='"+ email+"'}";    }
+        return "Cash{identifier='" + cashId +"', name='"+name+"', email='"+ email+"'}";    }
 
 
     /**

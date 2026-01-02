@@ -33,7 +33,7 @@ public class ComandCashAdd extends ComandCash {
         int i = 0 ;
         if(this.id !=  null && id.matches("^UW\\d{7}$")) {
             while (!found && i < cashers.size()) {
-                if (cashers.get(i).getId().equals(id)) {
+                if (cashers.get(i).getCashId().equals(id)) {
                     found = true;
                 }
                 i++;
@@ -61,7 +61,7 @@ public class ComandCashAdd extends ComandCash {
     private String generateIDCash(){
         int max = 0;
         for (int i = 0; i < cashers.size(); i++) {
-            String id = cashers.get(i).getId();
+            String id = cashers.get(i).getCashId();
             int num = Integer.parseInt(id.substring(2));
             if (num > max) {
                 max = num;

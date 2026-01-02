@@ -3,16 +3,26 @@ package es.upm.etsisi.poo;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Client extends User{
+public class Client extends User{
 
+    private String id;
+    private String cashId;
     private List<Ticket> clientTickets;
 
-    public Client (String name, String email, String id){
+    public Client (String name, String id, String email, String cashId){
         super(name, email, id);
+        this.id = id;
+        this.cashId=cashId;
         this.clientTickets = new ArrayList<>();
     }
-    public abstract String getIdentifier();
-    public abstract boolean isCompany();
+
+    public String getId() {
+        return id;
+    }
+
+    public String getCashId() {
+        return cashId;
+    }
 
     public List<Ticket> getClientTickets() {
         return clientTickets;
@@ -24,7 +34,7 @@ public abstract class Client extends User{
 
     @Override
     public String toString() {
-        return "Client{identifier='"+DNI+"', name='"+name+"', email='"+ email+"', cash="+ id +"}";
+        return "Client{identifier='"+id+"', name='"+name+"', email='"+ email+"', cash="+ cashId+"}";
     }
 
     /**

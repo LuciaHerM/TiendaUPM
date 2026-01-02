@@ -50,7 +50,7 @@ public class TicketRemove extends ComandTicket{
     private Ticket findTicket() {
         Cash casher = null;
         for (int i = 0; i < cashers.size(); i++) {
-            if ( cashers.get(i).getId().equals(cashId)) {
+            if ( cashers.get(i).getCashId().equals(cashId)) {
                 casher = cashers.get(i);
             }
         }

@@ -42,7 +42,7 @@ public class TicketPrint extends ComandTicket{
     private ArrayList<Ticket> listTicketCash() {
         Cash casher = null;
         for (es.upm.etsisi.poo.Cash cash : cashers) {
-            if (cash.getId().equals(cashId)) {
+            if (cash.getCashId().equals(cashId)) {
                 casher = cash;
             }
         }

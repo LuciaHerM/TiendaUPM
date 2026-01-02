@@ -102,7 +102,7 @@ public class TicketAdd extends ComandTicket{
     private Cash selectCash(ArrayList<Cash> cashers , String cashId ){
         Cash casherActual = null;
         for (int i = 0; i < cashers.size(); i++) {
-            if ( cashers.get(i).getId().equals(cashId)) {
+            if ( cashers.get(i).getCashId().equals(cashId)) {
                 casherActual = cashers.get(i);
             }
         }
