@@ -34,7 +34,7 @@ public class ProductDAO {
                 ps.setString(4, "EVENT");
             } else if (p instanceof Services) {
                 ps.setString(4, "SERVICE");
-            } else if (p instanceof Personalizado) {
+            } else if (p instanceof Personalized) {
                 ps.setString(4, "CUSTOM");
             } else {
                 ps.setString(4, "BASIC");
@@ -49,7 +49,7 @@ public class ProductDAO {
 
             /* ===== Services ===== */
             if (p instanceof Services) {
-                ps.setString(6, ((Services) p).getCategory().name());
+                ps.setString(6, ((Services) p).getCategory_service().name());
             } else {
                 ps.setNull(6, Types.VARCHAR);
             }
@@ -68,7 +68,7 @@ public class ProductDAO {
             }
 
             /* ===== Personalizado ===== */
-            if (p instanceof Personalizado per) {
+            if (p instanceof Personalized per) {
                 ps.setInt(11, per.getMax_pers());
                 ps.setString(12, String.join(",", per.getPersonalizaciones()));
             } else {
@@ -113,23 +113,34 @@ public class ProductDAO {
                     }
 
                     case "SERVICE" -> p = new Services(
-                            rs.getString("id"),
-                            rs.getString("name"),
-                            rs.getDouble("price"),
-                            Category_Service.valueOf(
-                                    rs.getString("category_service"))
+                            rs.getString("expiration_day"),
+                            switch (rs.getString("category_service")) {
+                                case "SHOW" -> Category_service.SHOW;
+                                case "INSURANCE" -> Category_service.INSURANCE;
+                                case "TRANSPORT" -> Category_service.TRANSPORT;
+                                default -> null;
+                            },
+                            rs.getString("id")
                     );
 
                     case "CUSTOM" -> {
-                        p = new Personalizado(
+                        p = new Personalized(
                                 rs.getString("id"),
                                 rs.getString("name"),
+                                switch (rs.getString("category")) {
+                                    case "MERCH" -> Category.MERCH;
+                                    case "STATIONERY" -> Category.STATIONERY;
+                                    case "CLOTHES" -> Category.CLOTHES;
+                                    case "BOOK" -> Category.BOOK;
+                                    case "ELECTRONICS" -> Category.ELECTRONICS;
+                                    default -> Notifier.UnexpectecValue(rs.getString("category"));
+                                },
                                 rs.getDouble("price"),
                                 rs.getInt("max_pers")
                         );
                         String pers = rs.getString("personalizations");
                         if (pers != null)
-                            ((Personalizado) p)
+                            ((Personalized) p)
                                     .setPersonalizaciones(pers.split(","));
                     }
 

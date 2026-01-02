@@ -63,21 +63,22 @@ public class DatabaseManager {
                 price REAL,
 
                 -- Discriminador de herencia
-                product_type TEXT NOT NULL,
+                product_type ENUM('EVENT','SERVICE','CUSTOM','BASIC') NOT NULL,
 
                 -- Product_Basic
-                category TEXT,
+                category ENUM('MERCH','STATIONERY','CLOTHES','BOOK','ELECTRONICS'),
 
                 -- Services
-                category_service TEXT,
+                expiration_day TEXT,
+                category_service ENUM('TRANSPORT','SHOW','INSURANCE'),
 
                 -- Events
                 expiration_day TEXT,
                 max_participants INTEGER,
                 num_person INTEGER,
-                type_event TEXT,
+                type_event ENUM('FOOD','MEETING'),
 
-                -- Personalizado
+                -- Personalized
                 max_pers INTEGER,
                 personalizations TEXT
             );
@@ -89,7 +90,7 @@ public class DatabaseManager {
                 id TEXT PRIMARY KEY,
                 cash_id TEXT,
                 client_dni TEXT,
-                status TEXT NOT NULL,
+                status ENUM('EMPTY','OPEN','CLOSE') NOT NULL,
                 total_price REAL,
                 total_discount REAL,
                 FOREIGN KEY(cash_id) REFERENCES cash(id),

@@ -38,6 +38,11 @@ public class Personalized extends Product_Basic{
             Notifier.CantPersonalize();
         }
     }
+
+    public int getMax_pers() {
+        return max_pers;
+    }
+
     public String personalizacionesToString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < personalizaciones.length; i++) {
