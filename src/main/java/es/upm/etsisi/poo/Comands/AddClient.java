@@ -7,36 +7,44 @@ import java.util.ArrayList;
 public class AddClient extends ComandClient {
 
     private String name;
-    private String DNI;
+    private String identifier;
     private String email;
-    private String cashId;
+    private String id;
     private ArrayList<Client> clients;
 
-    public AddClient(String name, String DNI, String email, String cashId, ArrayList<Client> clients) {
+    public AddClient(String name, String identifier, String email, String id, ArrayList<Client> clients) {
         this.name = name;
-        this.DNI = DNI;
+        this.identifier = identifier;
         this.email = email;
-        this.cashId = cashId;
+        this.id = id;
         this.clients = clients;
     }
     public void apply (){
-        boolean foundDNIEnClientList = false;
+        boolean foundIdentifierEnClientList = false;
         int cont = 0;
-        while (!foundDNIEnClientList && cont < clients.size()){
-            if (clients.get(cont).getDNI().equals(DNI)){
-                foundDNIEnClientList = true;
+        while (!foundIdentifierEnClientList && cont < clients.size()){
+            if (clients.get(cont).getIdentifier().equals(identifier)){
+                foundIdentifierEnClientList = true;
             } else {
                 cont++;
             }
         }
-        if (!foundDNIEnClientList) {
-            Client client = new Client(name, DNI, email, cashId);
+        if (!foundIdentifierEnClientList) {
+            Client client;
+            if (isNIF(identifier)){
+                client = new BussinessClient(name, identifier, email, id);
+            } else {
+                client = new NormalClient(name, identifier, email, id);
+            }
             clients.add(client);
             System.out.println(client.toString());
             System.out.println("client add: ok");
         }
-        if (foundDNIEnClientList){
+        if (foundIdentifierEnClientList){
             System.out.println("That client exist already ");
         }
+    }
+    private boolean isNIF(String identifier){
+        return identifier.matches("[A-Za-z][0-9]{8}");
     }
 }

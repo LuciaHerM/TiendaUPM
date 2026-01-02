@@ -29,6 +29,10 @@ public class ComandCashRemove extends ComandCash {
             }
         }
         if(encontrado){
+            int longitudTicketsDeEsteCash = cashers.get(i).getCashTickets().size();
+            for (int j = 0; j < longitudTicketsDeEsteCash; j++) {
+                cashers.get(i).getCashTickets().clear();
+            }
             cashers.remove(i);
             System.out.println("cash remove: ok");
         }

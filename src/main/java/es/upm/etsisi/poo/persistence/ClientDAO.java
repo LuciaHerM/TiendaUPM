@@ -21,10 +21,10 @@ public class ClientDAO {
                              .getConnection()
                              .prepareStatement(sql)) {
 
-            ps.setString(1, c.getDNI());
+            ps.setString(1, c.getIdentifier());
             ps.setString(2, c.getName());
             ps.setString(3, c.getEmail());
-            ps.setString(4, c.getCashId());
+            ps.setString(4, c.getId());
 
             ps.executeUpdate();
 
@@ -62,7 +62,7 @@ public class ClientDAO {
             for (Client c : clients) {
                 tickets.stream()
                         .filter(t ->
-                                c.getDNI().equals(
+                                c.getIdentifier().equals(
                                         obtenerClienteTicket(t)))
                         .forEach(c::ticketAddClients);
             }
