@@ -46,7 +46,7 @@ public class DatabaseManager {
         // CLIENT
         stmt.execute("""
             CREATE TABLE IF NOT EXISTS client (
-                dni TEXT PRIMARY KEY,
+                id TEXT PRIMARY KEY,
                 name TEXT,
                 email TEXT,
                 cash_id TEXT

@@ -1,5 +1,7 @@
 package es.upm.etsisi.poo.persistence;
 import es.upm.etsisi.poo.*;
+import es.upm.etsisi.poo.Comands.BussinessClient;
+import es.upm.etsisi.poo.Comands.NormalClient;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -47,12 +49,23 @@ public class ClientDAO {
 
             while (rs.next()) {
 
-                Client c = new Client(
-                        rs.getString("dni"),
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("cashId")
-                );
+                String id = rs.getString("id");
+                Client c;
+
+                if (id.matches("[A-Za-z][0-9]{8}")){
+                    c = new BussinessClient(
+                            rs.getString("name"),
+                            id,
+                            rs.getString("email"),
+                            rs.getString("cashId"));
+                } else{
+                    c = new NormalClient(
+                            rs.getString("name"),
+                            id,
+                            rs.getString("email"),
+                            rs.getString("cashId")
+                    );
+                }
 
                 clients.add(c);
             }
