@@ -49,6 +49,7 @@ public class TiendaUPM {
         cashers =new ArrayList<Cash>();
         clients =new ArrayList<Client>();
 
+        /*
         DatabaseManager.getInstance();
         ProductDAO productDAO = new ProductDAO();
         TicketDAO ticketDAO = new TicketDAO();
@@ -58,6 +59,7 @@ public class TiendaUPM {
         catalog = new Catalog(productDAO.findAll());
         cashers = cashDAO.findAll(ticketDAO, productDAO);
         clients = clientDAO.findAll(ticketDAO, productDAO);
+        */
 
     }
 
@@ -138,7 +140,9 @@ public class TiendaUPM {
             case "prod":
                 switch (comand[1]) {
                     case "add":
-                        if(comand.length==5)
+                        if (comand.length==4)
+                            comad = new ProdAddServices(comand[2],comand[3],catalog);
+                        else if(comand.length==5)
                             comad = new ProdAdd(comand[2], comand[3], comand[4], catalog);
                         else if(comand.length==7)
                             comad = new ProdAddPer(comand[2], comand[3], comand[4],comand[5],comand[6], catalog);

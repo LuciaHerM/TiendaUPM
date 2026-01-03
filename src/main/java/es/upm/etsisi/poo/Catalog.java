@@ -138,8 +138,14 @@ public class Catalog {
             Notifier.showErrorAddProduct();
         }
     }
-    public void addService(String expiration_day, Category_service category_service){
-        if(expiration_day!=null && category_service!=null){
+    public void addService(String expiration_day, String category){
+        if(expiration_day!=null && category!=null){
+            Category_service category_service = switch (category){
+                case "TRANSPORT" -> Category_service.TRANSPORT;
+                case "SHOW" -> Category_service.SHOW;
+                case "INSURANCE" -> Category_service.INSURANCE;
+                default -> Notifier.UnexpectecValueService(category);
+            };
             if(num_products<MAX_NUM_PRODUCTS){
                 Services services= new Services(expiration_day,category_service,createID_S());
                 if(services.getExpiration_day()!=null){

@@ -1,7 +1,5 @@
 package es.upm.etsisi.poo.persistence;
 import es.upm.etsisi.poo.*;
-import es.upm.etsisi.poo.Comands.BussinessClient;
-import es.upm.etsisi.poo.Comands.NormalClient;
 
 import java.sql.*;
 import java.util.ArrayList;
