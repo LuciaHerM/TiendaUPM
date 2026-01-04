@@ -41,7 +41,7 @@ public class TicketEmpresa extends Ticket {
         // --- PRODUCTS ---
         sb.append("Product Included\n");
         for (int i = 0; i < productNumber; i++) {
-            if (cart[i] instanceof Product) {
+            if (!(cart[i] instanceof Services)) {
                 Product p = (Product) cart[i];
                 sb.append("  ").append(p.toString()).append("\n");
                 totalPrice += p.getPrice();
