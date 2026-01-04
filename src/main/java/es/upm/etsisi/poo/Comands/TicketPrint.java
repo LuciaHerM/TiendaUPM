@@ -30,15 +30,21 @@ public class TicketPrint extends ComandTicket{
      *  Imprime el ticket actual y guarda ticket .
      */
     public void apply() {
-        if(ticketActive!=null&&permitidoElcierre()) {
-            ticketActive.setTicketId(ticketActive.getTicketId()+"-"+LocalDateTime.now().format(FORMAT));
-            System.out.println(ticketActive.toString());
-            System.out.println("ticket print: ok");
-            ticketActive.setStatus(TicketStatus.CLOSE);
+        if(ticketActive!=null) {
+            if(permitidoElcierre()) {
+                ticketActive.setTicketId(ticketActive.getTicketId() + "-" + LocalDateTime.now().format(FORMAT));
+                System.out.println(ticketActive.toString());
+                System.out.println("ticket print: ok");
+                ticketActive.setStatus(TicketStatus.CLOSE);
+            }
+            else{
+                System.out.println("It is not possible to close a combined company ticket without including at least one product and one service");
+            }
         }else{
             System.out.println("The id of the ticket is not correct");
         }
     }
+
     private boolean permitidoElcierre(){
         boolean cierre = true;
         if(ticketActive instanceof TicketEmpresa){
