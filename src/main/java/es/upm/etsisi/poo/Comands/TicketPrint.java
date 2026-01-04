@@ -2,6 +2,7 @@ package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Ticket;
+import es.upm.etsisi.poo.TicketEmpresa;
 import es.upm.etsisi.poo.TicketStatus;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +30,7 @@ public class TicketPrint extends ComandTicket{
      *  Imprime el ticket actual y guarda ticket .
      */
     public void apply() {
-        if(ticketActive!=null) {
+        if(ticketActive!=null&&permitidoElcierre()) {
             ticketActive.setTicketId(ticketActive.getTicketId()+"-"+LocalDateTime.now().format(FORMAT));
             System.out.println(ticketActive.toString());
             System.out.println("ticket print: ok");
@@ -37,6 +38,13 @@ public class TicketPrint extends ComandTicket{
         }else{
             System.out.println("The id of the ticket is not correct");
         }
+    }
+    private boolean permitidoElcierre(){
+        boolean cierre = true;
+        if(ticketActive instanceof TicketEmpresa){
+            cierre = ((TicketEmpresa) ticketActive).validoCierre();
+        }
+        return cierre;
     }
 
     private ArrayList<Ticket> listTicketCash() {
