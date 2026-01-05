@@ -8,7 +8,7 @@ import java.util.Arrays;
  * La clase Ticket representa un ticket de compra en la app. Permite gestionar los productos, los descuentos e
  * imprimir el ticket a traves de sus metodos.
  */
-public abstract class Ticket {
+public class Ticket {
 
     protected Product[] cart;
     protected Double totalPrice;
@@ -105,10 +105,4 @@ public abstract class Ticket {
         }
     }
 
-    /**
-     * Crea una representacion textual del ticket con todos los productos, los descuentos aplicados y
-     * el precio total. El metodo utiliza un for para contar el número de productos por categoria y poder aplicar el posible descuento.
-     * @return  Cadena con el contenido del ticket.
-     */
-    public abstract String toString();
 }

@@ -52,9 +52,14 @@ public class TicketAdd extends ComandTicket{
                     }
                 }
                 Product p ;
-                if(personalizaciones!=null){
-                    p=catalog.find(cont).clone();
-                    p.setPersonalizaciones(personalizaciones);
+                if(personalizaciones!=null) {
+                    p= ((Personalized) catalog.find(cont)).clone();
+                    Personalized p1 = null;
+                    if (p instanceof Personalized) {
+                        p1 = (Personalized) p;
+                        p1.setPersonalizaciones(personalizaciones);
+                    }
+                    p = p1;
                 }
                 else {
                     p=catalog.find(cont);
@@ -63,7 +68,15 @@ public class TicketAdd extends ComandTicket{
                     find=false;
                     System.out.println("There can't be two identical events.");
                 }
-                if (find) {
+                if(find && (p instanceof Services) && (ticketActual instanceof TicketComunes)){
+                    Notifier.showErrorAddServicesInComunTicket();
+                }else if(find && (p instanceof Services) && (ticketActual instanceof TicketEmpresa)){
+                    if (ticketActual.getStatus() != TicketStatus.OPEN) {
+                        ticketActual.setStatus(TicketStatus.OPEN);
+                    }
+                    ticketActual.AddProduct(p);
+                }
+                else if (find) {
                     if (ticketActual.getStatus() != TicketStatus.OPEN) {
                         ticketActual.setStatus(TicketStatus.OPEN);
                     }

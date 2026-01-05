@@ -1,9 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
-import es.upm.etsisi.poo.Cash;
-import es.upm.etsisi.poo.Catalog;
-import es.upm.etsisi.poo.Client;
-import es.upm.etsisi.poo.Ticket;
+import es.upm.etsisi.poo.*;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -70,7 +68,12 @@ public  class TicketNew extends ComandTicket{
         // Ticket no guarda al cajero ni el cliente
         else {
             if (ticketsList!=null && !existId(ticketId, ticketsList)) {
-                Ticket ticket = new Ticket(ticketId);
+                Ticket ticket;
+                if(client instanceof BussinessClient){
+                    ticket = new TicketEmpresa(ticketId);
+                }else {
+                    ticket = new TicketComunes(ticketId);
+                }
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
                 System.out.println(ticket.toString());

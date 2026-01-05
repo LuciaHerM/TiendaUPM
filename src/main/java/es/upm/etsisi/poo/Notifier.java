@@ -79,4 +79,7 @@ public class Notifier {
     }
 
 
+    public static void showErrorAddServicesInComunTicket() {
+        System.out.println("Can't add services in a comun ticket");
+    }
 }
