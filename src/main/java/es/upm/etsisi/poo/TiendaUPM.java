@@ -188,7 +188,15 @@ public class TiendaUPM {
                             comad = new TicketNew(comand[2], comand[3], catalog, cashers, clients);
                         }
                         else if(comand.length == 5){
-                            comad = new TicketNew(comand[2], comand[3],comand[4], catalog, cashers, clients);
+                            if(Character.isLetter(comand[2].charAt(0))){
+                                comad = new TicketBussinessNew(comand[2], comand[3],comand[4], catalog, cashers, clients);
+                            }
+                            else{
+                                comad = new TicketNew(comand[2], comand[3],comand[4], catalog, cashers, clients);
+                            }
+                        }
+                        else{
+                            comad = new TicketBussinessNew(comand[2], comand[3],comand[4], comand[5], catalog, cashers, clients);
                         }
                         break;
                     case "add":

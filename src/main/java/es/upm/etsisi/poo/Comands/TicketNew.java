@@ -9,15 +9,15 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public  class TicketNew extends ComandTicket{
-    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
-    private static final Random random = new Random();
-    private Catalog catalog;
-    private String cashId;
-    private ArrayList<Cash> cashers;
-    private ArrayList<Client> clients;
-    private String clientId;
-    private String ticketId;
-    private ArrayList<Ticket> ticketsList;
+    static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yy-MM-dd-HH:mm");
+    static final Random random = new Random();
+    Catalog catalog;
+    String cashId;
+    ArrayList<Cash> cashers;
+    ArrayList<Client> clients;
+    String clientId;
+    String ticketId;
+    ArrayList<Ticket> ticketsList;
 
     public TicketNew(String ticketId,String cashId, String clientId, Catalog catalog, ArrayList<Cash> cashers, ArrayList<Client> clients){
         this.cashId=cashId;
@@ -68,12 +68,7 @@ public  class TicketNew extends ComandTicket{
         // Ticket no guarda al cajero ni el cliente
         else {
             if (ticketsList!=null && !existId(ticketId, ticketsList)) {
-                Ticket ticket;
-                if(client instanceof BussinessClient){
-                    ticket = new TicketEmpresa(ticketId);
-                }else {
-                    ticket = new TicketComunes(ticketId);
-                }
+                Ticket ticket = new TicketComunes(ticketId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
                 System.out.println(ticket.toString());
@@ -96,7 +91,7 @@ public  class TicketNew extends ComandTicket{
         return id;
     }
 
-    private boolean existId(String id, ArrayList<Ticket> tickets) {
+    boolean existId(String id, ArrayList<Ticket> tickets) {
         boolean r = false;
         for (Ticket t : tickets) {
             if (t.getTicketId().equals(id)) {
@@ -105,12 +100,12 @@ public  class TicketNew extends ComandTicket{
         }
         return r;
     }
-    private boolean correctFormat(String id) {
+    boolean correctFormat(String id) {
         String fecha = "\\d{2}-\\d{2}-\\d{2}-\\d{2}:\\d{2}";
         String apertura = fecha + "-\\d{5}";
         return id.matches(apertura);
     }
-    private ArrayList<Ticket> listTicketCash() {
+    ArrayList<Ticket> listTicketCash() {
         Cash cajero = null;
         for (es.upm.etsisi.poo.Cash cash : cashers) {
             if (cash.getCashId().equals(cashId)) {
