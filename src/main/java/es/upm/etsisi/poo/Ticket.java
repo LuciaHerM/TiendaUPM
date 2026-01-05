@@ -45,6 +45,19 @@ public class Ticket {
     public void setStatus(TicketStatus status) {
         this.status = status;
     }
+
+    public Product[] getCart() {
+        return cart;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public Double getTotalDiscount() {
+        return totalDiscount;
+    }
+
     /**
      * mira si hay un objeto del tipo evento dentro del ticket igual
      * para evitar que se introduzcan dos iguales

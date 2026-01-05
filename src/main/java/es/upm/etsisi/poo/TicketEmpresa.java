@@ -5,19 +5,9 @@ import java.util.Map;
 public class TicketEmpresa extends Ticket {
     private CompanyTicketTipe type;
 
-    public TicketEmpresa(String ticketId, CompanyTicketTipe type) {
+    public TicketEmpresa(String ticketId) {
         super(ticketId);
-        this.type = type;
-    }
-
-    @Override
-    public void AddProduct(Product item) {
-        if (!(item instanceof Services) && (type==CompanyTicketTipe.SERVICES_ONLY)) {
-                    System.err.println("Este ticket de empresa solo admite servicios");
-        }
-        else {
-            super.AddProduct(item);
-        }
+        this.type = CompanyTicketTipe.PRODUCTS_AND_SERVICES;
     }
 
     @Override
@@ -28,6 +18,7 @@ public class TicketEmpresa extends Ticket {
 
         int serviceCount = 0;
         totalPrice = 0.0;
+        ProductServices();
 
         // --- SERVICES ---
         sb.append("Services Included: \n");
@@ -65,6 +56,24 @@ public class TicketEmpresa extends Ticket {
         }
 
         return sb.toString();
+    }
+
+    public void ProductServices(){
+        int servicios = 0 ;
+        int productos = 0 ;
+        for (int i = 0; i < productNumber; i++) {
+            if (cart[i] instanceof Services) {
+                servicios++;
+            }
+            else{
+                productos++;
+            }
+        }
+        if ((productos>0)){
+            type = CompanyTicketTipe.PRODUCTS_AND_SERVICES;
+        }else{
+            type = CompanyTicketTipe.SERVICES_ONLY;
+        }
     }
 
     public boolean validoCierre(){

@@ -54,7 +54,7 @@ public class TicketDAO {
             del.setString(1, t.getTicketId());
             del.executeUpdate();
 
-            for (Product p : t.getCart().values()) {
+            for (Product p : t.getCart()) {
                 ins.setString(1, t.getTicketId());
                 ins.setString(2, p.getID());
                 ins.executeUpdate();
