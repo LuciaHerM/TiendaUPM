@@ -16,7 +16,7 @@ public class RemoveClient extends ComandClient {
         boolean encontrarEnListaEliminar = false;
         int contador = 0;
         while (!encontrarEnListaEliminar && contador < clients.size()) {
-            if (clients.get(contador).getCashId().equals(DNI)) {
+            if (clients.get(contador).getId().equals(DNI)) {
                 encontrarEnListaEliminar = true;
             } else {
                 contador++;

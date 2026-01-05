@@ -54,7 +54,7 @@ public  class TicketNew extends ComandTicket{
         }
         for(int i = 0 ; i < clients.size();i++){
             Client c = clients.get(i);
-            if(c.getCashId().equals(clientId)){
+            if(c.getId().equals(clientId)){
                 client = c;
             }
         }
