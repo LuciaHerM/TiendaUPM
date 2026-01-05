@@ -200,7 +200,10 @@ public class TiendaUPM {
                         }
                         break;
                     case "add":
-                        if(comand.length ==  6) {
+                        if (comand.length == 5){
+                            comad = new TicketAdd(comand[2], comand[3], comand[4], catalog, cashers);
+                        }
+                        else if(comand.length ==  6) {
                             comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5], catalog, cashers);
                         } else{
                             comad = new TicketAdd(comand[2], comand[3], comand[4], comand[5],Arrays.copyOfRange(comand, 6, comand.length),catalog, cashers);
