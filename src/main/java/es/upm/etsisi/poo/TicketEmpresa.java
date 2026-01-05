@@ -38,18 +38,18 @@ public class TicketEmpresa extends Ticket {
             }
         }
 
-        // --- PRODUCTS ---
-        sb.append("Product Included\n");
-        for (int i = 0; i < productNumber; i++) {
-            if (cart[i] instanceof Product) {
-                Product p = (Product) cart[i];
-                sb.append("  ").append(p.toString()).append("\n");
-                totalPrice += p.getPrice();
-            }
-        }
 
         // Si es SOLO servicios, no tiene sentido imprimir precios
         if (type == CompanyTicketTipe.PRODUCTS_AND_SERVICES) {
+            // --- PRODUCTS ---
+            sb.append("Product Included: \n");
+            for (int i = 0; i < productNumber; i++) {
+                if (cart[i] instanceof Product_Basic || cart[i] instanceof Events) {
+                    Product p = cart[i];
+                    sb.append("  ").append(p.toString()).append("\n");
+                    totalPrice += p.getPrice();
+                }
+            }
             double discountFromServices = totalPrice * (serviceCount * 0.15);
             double finalPrice = totalPrice - discountFromServices;
 

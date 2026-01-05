@@ -295,7 +295,7 @@ public class Catalog {
     public String createID_S(){
         int num_id=num_sesiones+1;
         String ID_S;
-        ID_S = String.valueOf(num_sesiones) + "S";
+        ID_S = String.valueOf(num_id) + "S";
         return ID_S;
     }
 }

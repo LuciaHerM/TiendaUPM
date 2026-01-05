@@ -10,17 +10,17 @@ public class Services extends Product{
     public final double DISCOUNT=0.15;
     public Services(String expiration_day, Category_service category_service, String id) {
         this.category_service=category_service;
-        if(check_correct_day()){
+        if(check_correct_day(expiration_day)){
            this.expiration_day=expiration_day;
         }else {
             expiration_day=null;
         }
         this.id=id;
     }
-    public boolean check_correct_day(){
+    public boolean check_correct_day(String day){
         LocalDate eventDate;
         try{
-            eventDate=LocalDate.parse(expiration_day);
+            eventDate=LocalDate.parse(day);
         }catch (Exception e){
             Notifier.dateIncorrectFormat();
             return false;
@@ -33,6 +33,10 @@ public class Services extends Product{
         else{
             return true;
         }
+    }
+
+    public String getID() {
+        return id;
     }
 
     public Category_service getCategory_service() {
@@ -53,5 +57,10 @@ public class Services extends Product{
 
     public double getDISCOUNT() {
         return DISCOUNT;
+    }
+
+    @Override
+    public String toString() {
+        return "{class:ProductService, id:" + id + ", category:" + category_service + ", expiration:" + expiration_day + "}";
     }
 }
