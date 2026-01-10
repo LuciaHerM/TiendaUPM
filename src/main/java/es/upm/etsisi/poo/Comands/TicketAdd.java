@@ -83,6 +83,8 @@ public class TicketAdd extends ComandTicket{
                         ticketActual.setStatus(TicketStatus.OPEN);
                     }
                     ticketActual.AddProduct(p);
+                    System.out.println(ticketActual.toString());
+                    System.out.println("ticket add: ok");
                 }
                 else if (find) {
                     if (ticketActual.getStatus() != TicketStatus.OPEN) {

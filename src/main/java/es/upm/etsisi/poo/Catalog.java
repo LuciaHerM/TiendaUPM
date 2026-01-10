@@ -131,7 +131,7 @@ public class Catalog {
                     products[num_products] = productEvent;
                     num_products++;
                     System.out.println(productEvent.toString());
-                    Notifier.showSuccessAddEvent(typeEvent);
+                    Notifier.showSuccessAddProduct();
                 }
             }
         } else {
@@ -152,7 +152,7 @@ public class Catalog {
                     products[num_products]=services;
                     num_products++;
                     num_sesiones++;
-                    Notifier.showSuccessAddService(category_service);
+                    Notifier.showSuccessAddProduct();
                 }
             }else{
                 Notifier.fullCatalog();
