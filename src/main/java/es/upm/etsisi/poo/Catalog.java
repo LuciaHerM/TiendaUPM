@@ -280,18 +280,33 @@ public class Catalog {
     }
 
     public String createId(){
-        int antId=0;
+
+        String sol="0";
         if(products[0]!=null) {
-            antId = Integer.parseInt(products[0].getID());
-            for (int i = 1; i < num_products; i++) {
-                int id = Integer.parseInt(products[i].getID());
-                if (antId < id) {
-                    antId = id;
+            int idBuscado=0;
+            boolean find=false;
+            while (idBuscado<=num_products && find){
+                boolean idEncontrado = false;
+                int i=0;
+                while(i<num_products && !idEncontrado){
+                    if (products[i] != null && products[i].getID() != null) {
+                        int idActual = Integer.parseInt(products[i].getID());
+                        if (idActual == idBuscado) {
+                            idEncontrado = true;
+                        }
+                    }
+                    i++;
                 }
+                if (!idEncontrado) {
+                    find=true;
+                    sol= Integer.toString(idBuscado);
+                }
+                idBuscado++;
             }
         }
-        return Integer.toString(antId+1);
+        return sol;
     }
+
     public String createID_S(){
         int num_id=num_sesiones+1;
         String ID_S;
