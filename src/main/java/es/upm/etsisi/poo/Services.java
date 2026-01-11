@@ -1,7 +1,10 @@
 package es.upm.etsisi.poo;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class Services extends Product{
     public String id;
@@ -27,6 +30,7 @@ public class Services extends Product{
         }
         LocalDate today=LocalDate.now();
         if(!eventDate.isAfter(today)){
+            Notifier.dateBeforeToday();
             Notifier.dateBeforeToday();
             return false;
         }
@@ -61,6 +65,19 @@ public class Services extends Product{
 
     @Override
     public String toString() {
-        return "{class:ProductService, id:" + id + ", category:" + category_service + ", expiration:" + expiration_day + "}";
+        String expirationFormatted = expiration_day;
+        if(expiration_day!=null){
+            try {
+                LocalDate fecha = LocalDate.parse(expiration_day);
+                ZonedDateTime mediaNoche = fecha.atStartOfDay(ZoneId.of("CET"));
+                DateTimeFormatter formatear = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss z yyyy");
+                expirationFormatted = mediaNoche.format(formatear);
+            } catch(Exception e){
+                expirationFormatted = expiration_day;
+            }
+        }
+
+
+        return "{class:ProductService, id:" + id + ", category:" + category_service + ", expiration:" + expirationFormatted + "}";
     }
 }
