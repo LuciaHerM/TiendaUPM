@@ -28,6 +28,7 @@ public class TicketEmpresa extends Ticket {
         sb.append("Ticket : ").append(ticketId).append("\n");
 
         totalPrice = 0.0;
+        totalDiscount = 0.0;
         BigDecimal totalPrice1 = BigDecimal.ZERO;
         if(productNumber>0) {
 
@@ -71,17 +72,17 @@ public class TicketEmpresa extends Ticket {
                     }
                 }
                 totalPrice = totalPrice1.doubleValue();
-                double discountFromServices = totalPrice * (serv * 0.15);
-                double finalPrice = totalPrice - discountFromServices;
+                totalDiscount = totalPrice * (serv * 0.15);
+                double finalPrice = totalPrice - totalDiscount;
 
                 sb.append("  Total price: ").append(totalPrice).append("\n");
                 sb.append("  Extra Discount from services:")
-                        .append(discountFromServices)
+                        .append(totalDiscount)
                         .append(" **discount -")
-                        .append(discountFromServices)
+                        .append(totalDiscount)
                         .append("\n");
 
-                sb.append("  Total discount: ").append(discountFromServices).append("\n");
+                sb.append("  Total discount: ").append(totalDiscount).append("\n");
                 sb.append("  Final Price: ").append(finalPrice);
             }
         }
