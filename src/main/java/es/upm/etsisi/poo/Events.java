@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 
@@ -13,7 +14,7 @@ public class Events extends Product {
     public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
         super(id, name, price);
         this.typeEvent=typeEvent;
-        if(check_min_time()){
+        if(check_min_time(expiration_day)){
             this.expiration_day=expiration_day;
         }
         if(num_person<=MAX_PARTICIPANTS){
@@ -21,10 +22,11 @@ public class Events extends Product {
         }
     }
 
-    public boolean check_min_time(){
+    public boolean check_min_time(String expiration_day){
         LocalDate eventDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try{
-            eventDate=LocalDate.parse(expiration_day);
+            eventDate=LocalDate.parse(expiration_day, formatter);
         }catch (Exception e){
             Notifier.dateIncorrectFormat();
             return false;
@@ -85,9 +87,9 @@ public class Events extends Product {
             }
         }else {
             if (typeEvent.equals(TypeEvent.MEETING)){
-                return " {class:Meeting, id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
+                return " {class:Meeting, id:" + id + ", name:'" + name + "', price:" + price  + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
             }else {
-                return " {class:Food, id:" + id + ", name:'" + name + "', price:" + price * invited_person + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
+                return " {class:Food, id:" + id + ", name:'" + name + "', price:" + price + ", date of Event:" + expiration_day + ", max people allowed:" + num_person + "}";
             }
         }
     }

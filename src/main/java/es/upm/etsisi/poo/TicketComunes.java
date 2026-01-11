@@ -12,7 +12,7 @@ public class TicketComunes extends Ticket{
     @Override
     public void AddProduct(Product item) {
         if (item instanceof Services) {
-           System.err.println("No puedes introducir un servicio en un ticket comun");
+           System.err.println("Can't introduce a service in a common ticket");
         }
         else {
             super.AddProduct(item);

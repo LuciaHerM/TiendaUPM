@@ -34,7 +34,7 @@ public class Client extends User{
 
     @Override
     public String toString() {
-        return "Client{identifier='"+id+"', name='"+name+"', email='"+ email+"', cash="+ cashId+"}";
+        return "USER{identifier='"+id+"', name='"+name+"', email='"+ email+"', cash="+ cashId+"}";
     }
 
     /**

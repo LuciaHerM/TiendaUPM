@@ -94,7 +94,6 @@ public class Catalog {
                     case "BOOK" -> Category.BOOK;
                     case "ELECTRONICS" -> Category.ELECTRONICS;
                     default -> Notifier.UnexpectecValue(category);
-                    ///////////////////////////////      NO TENGO CLARO COMO MANEJAR ESTO EN LA CLASE NOTIFIER
                 };
                 double price1 = Double.parseDouble(price);
                 int pers1 = Integer.parseInt(pers);
@@ -131,7 +130,7 @@ public class Catalog {
                     products[num_products] = productEvent;
                     num_products++;
                     System.out.println(productEvent.toString());
-                    Notifier.showSuccessAddProduct();
+                    Notifier.showSuccessAddEvent(typeEvent);
                 }
             }
         } else {
@@ -146,13 +145,13 @@ public class Catalog {
                 case "INSURANCE" -> Category_service.INSURANCE;
                 default -> Notifier.UnexpectecValueService(category);
             };
-            if(num_products<MAX_NUM_PRODUCTS){
+            if(num_products<MAX_NUM_PRODUCTS ){
                 Services services= new Services(expiration_day,category_service,createID_S());
                 if(services.getExpiration_day()!=null){
                     products[num_products]=services;
                     num_products++;
                     num_sesiones++;
-                    Notifier.showSuccessAddProduct();
+                    Notifier.showSuccessAddService(category_service);
                 }
             }else{
                 Notifier.fullCatalog();

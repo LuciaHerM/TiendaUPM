@@ -39,6 +39,7 @@ public class AddClient extends ComandClient {
                 client = new NormalClient(name, id, email, cashId);
             }
             clients.add(client);
+
             System.out.println(client.toString());
             System.out.println("client add: ok");
         }

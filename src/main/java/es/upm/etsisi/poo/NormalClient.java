@@ -12,4 +12,6 @@ public class NormalClient extends Client{
     public String getDNI() {
         return DNI;
     }
+
+
 }

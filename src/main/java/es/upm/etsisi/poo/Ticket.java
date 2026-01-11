@@ -85,7 +85,7 @@ public class Ticket {
             productNumber++;
             //Arrays.sort(cart,Comparator.comparing(Product::getName));
         }else{
-            System.out.println("Intentas introducir más productos al Ticket.");
+            System.out.println("You are trying to introduce more products to the ticket.");
         }
     }
 

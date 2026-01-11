@@ -12,4 +12,6 @@ public class BussinessClient extends Client{
     public String getNIF() {
         return NIF;
     }
+
+
 }
