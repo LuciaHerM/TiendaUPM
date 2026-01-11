@@ -14,4 +14,8 @@ public class BussinessClient extends Client{
     }
 
 
+    @Override
+    public String toString() {
+        return "COMPANY{identifier='"+id+"', name='"+name+"', email='"+ email+"', cash="+ cashId+"}";
+    }
 }

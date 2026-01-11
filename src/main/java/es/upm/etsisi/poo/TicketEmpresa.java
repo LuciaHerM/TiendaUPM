@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class TicketEmpresa extends Ticket {
@@ -26,42 +27,63 @@ public class TicketEmpresa extends Ticket {
         StringBuilder sb = new StringBuilder();
         sb.append("Ticket : ").append(ticketId).append("\n");
 
-        int serviceCount = 0;
         totalPrice = 0.0;
+        BigDecimal totalPrice1 = BigDecimal.ZERO;
+        if(productNumber>0) {
 
-        // --- SERVICES ---
-        sb.append("Services Included: \n");
-        for (int i = 0; i < productNumber; i++) {
-            if (cart[i] instanceof Services) {
-                sb.append("  ").append(cart[i].toString()).append("\n");
-                serviceCount++;
-            }
-        }
-
-
-        // Si es SOLO servicios, no tiene sentido imprimir precios
-        if (type == CompanyTicketTipe.PRODUCTS_AND_SERVICES) {
-            // --- PRODUCTS ---
-            sb.append("Product Included: \n");
+            int serv=0, prod=0;
             for (int i = 0; i < productNumber; i++) {
-                if (cart[i] instanceof Product_Basic || cart[i] instanceof Events) {
-                    Product p = cart[i];
-                    sb.append("  ").append(p.toString()).append("\n");
-                    totalPrice += p.getPrice();
+                if (cart[i] instanceof Services) {
+                    serv++;
+                }
+                else if (cart[i] instanceof Product_Basic || cart[i] instanceof Events) {
+                    prod++;
                 }
             }
-            double discountFromServices = totalPrice * (serviceCount * 0.15);
-            double finalPrice = totalPrice - discountFromServices;
 
-            sb.append("  Total price: ").append(totalPrice).append("\n");
-            sb.append("  Extra Discount from services:")
-                    .append(discountFromServices)
-                    .append(" **discount -")
-                    .append(discountFromServices)
-                    .append("\n");
+            // --- SERVICES ---
+            if(serv>0) {
+                sb.append("Services Included: \n");
+                for (int i = 0; i < productNumber; i++) {
+                    if (cart[i] instanceof Services) {
+                        sb.append("  ").append(cart[i].toString()).append("\n");
+                    }
+                }
+            }
 
-            sb.append("  Total discount: ").append(discountFromServices).append("\n");
-            sb.append("  Final Price: ").append(finalPrice);
+
+            // Si es SOLO servicios, no tiene sentido imprimir precios
+            if (type == CompanyTicketTipe.PRODUCTS_AND_SERVICES && prod>0) {
+                // --- PRODUCTS ---
+                sb.append("Product Included: \n");
+                for (int i = 0; i < productNumber; i++) {
+                    if (cart[i] instanceof Product_Basic || cart[i] instanceof Events) {
+                        Product p = cart[i];
+                        sb.append("  ").append(p.toString()).append("\n");
+                        BigDecimal price = BigDecimal.valueOf(cart[i].getPrice());
+                        BigDecimal priceToAdd;
+                        if(cart[i] instanceof Events){
+                            priceToAdd = price.multiply(BigDecimal.valueOf(((Events) cart[i]).getInvited_person()));
+                        } else {
+                            priceToAdd = price;
+                        }
+                        totalPrice1 = totalPrice1.add(priceToAdd);
+                    }
+                }
+                totalPrice = totalPrice1.doubleValue();
+                double discountFromServices = totalPrice * (serv * 0.15);
+                double finalPrice = totalPrice - discountFromServices;
+
+                sb.append("  Total price: ").append(totalPrice).append("\n");
+                sb.append("  Extra Discount from services:")
+                        .append(discountFromServices)
+                        .append(" **discount -")
+                        .append(discountFromServices)
+                        .append("\n");
+
+                sb.append("  Total discount: ").append(discountFromServices).append("\n");
+                sb.append("  Final Price: ").append(finalPrice);
+            }
         }
 
         return sb.toString();

@@ -14,4 +14,8 @@ public class NormalClient extends Client{
     }
 
 
+    @Override
+    public String toString() {
+        return "USER{identifier='"+id+"', name='"+name+"', email='"+ email+"', cash="+ cashId+"}";
+    }
 }

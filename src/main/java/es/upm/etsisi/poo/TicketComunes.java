@@ -107,8 +107,8 @@ public class TicketComunes extends Ticket{
                     priceToAdd = price;
                 }
                 totalPrice1 = totalPrice1.add(priceToAdd);
-                totalDiscount1 = totalDiscount1.add(discountFinal);            }
-
+                totalDiscount1 = totalDiscount1.add(discountFinal);
+            }
         }
         totalPrice = totalPrice1.doubleValue();
         totalDiscount = totalDiscount1.doubleValue();

@@ -151,7 +151,8 @@ public class Catalog {
                     products[num_products]=services;
                     num_products++;
                     num_sesiones++;
-                    Notifier.showSuccessAddService(category_service);
+                    System.out.println(services.toString());
+                    Notifier.showSuccessAddProduct();
                 }
             }else{
                 Notifier.fullCatalog();

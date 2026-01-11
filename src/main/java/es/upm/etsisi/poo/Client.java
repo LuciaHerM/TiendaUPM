@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Client extends User{
 
-    private String id;
-    private String cashId;
+    public String id;
+    public String cashId;
     private List<Ticket> clientTickets;
 
     public Client (String name, String id, String email, String cashId){
@@ -32,10 +32,6 @@ public class Client extends User{
         this.clientTickets = clientTickets;
     }
 
-    @Override
-    public String toString() {
-        return "USER{identifier='"+id+"', name='"+name+"', email='"+ email+"', cash="+ cashId+"}";
-    }
 
     /**
      * Si no está ya el ticket en el ArrayList, lo añade
