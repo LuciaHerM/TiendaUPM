@@ -31,7 +31,6 @@ public class Services extends Product{
         LocalDate today=LocalDate.now();
         if(!eventDate.isAfter(today)){
             Notifier.dateBeforeToday();
-            Notifier.dateBeforeToday();
             return false;
         }
         else{
