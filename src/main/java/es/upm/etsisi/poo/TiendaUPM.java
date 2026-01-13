@@ -1,6 +1,5 @@
 package es.upm.etsisi.poo;
 
-
 import es.upm.etsisi.poo.Comands.*;
 import es.upm.etsisi.poo.persistence.*;
 
@@ -46,10 +45,9 @@ public class TiendaUPM {
     private void init() {
         System.out.println("Welcome to the ticket module App.");
         catalog = new Catalog();
-        cashers =new ArrayList<Cash>();
-        clients =new ArrayList<Client>();
+        cashers = new ArrayList<Cash>();
+        clients = new ArrayList<Client>();
 
-        /*
         DatabaseManager.getInstance();
         ProductDAO productDAO = new ProductDAO();
         TicketDAO ticketDAO = new TicketDAO();
@@ -59,7 +57,6 @@ public class TiendaUPM {
         catalog = new Catalog(productDAO.findAll());
         cashers = cashDAO.findAll(ticketDAO, productDAO);
         clients = clientDAO.findAll(ticketDAO, productDAO);
-        */
 
     }
 

@@ -2,7 +2,7 @@ package es.upm.etsisi.poo.Comands;
 
 import java.util.ArrayList;
 import es.upm.etsisi.poo.Cash;
-
+import es.upm.etsisi.poo.persistence.CashDAO;
 
 
 public class ComandCashAdd extends ComandCash {
@@ -43,6 +43,7 @@ public class ComandCashAdd extends ComandCash {
                         , email);
                 cashers.add(cash);
                 System.out.println(cash.toString());
+                CashDAO.save(cash);
                 System.out.println("cash add: ok");
             } else {
                 System.out.println("The id of the casher is already created");

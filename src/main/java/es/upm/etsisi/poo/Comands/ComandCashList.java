@@ -1,16 +1,13 @@
 package es.upm.etsisi.poo.Comands;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import es.upm.etsisi.poo.Cash;
-import es.upm.etsisi.poo.Ticket;
 
 /**
     * Realiza un bucle para ir mostrando en pantalla los datos de cada cajero guardado en el arrayList
     */
 public class ComandCashList extends ComandCash {
-    es.upm.etsisi.poo.Cash casher;
     private ArrayList<Cash> cashers;
 
     public ComandCashList(ArrayList<Cash> cashers) {

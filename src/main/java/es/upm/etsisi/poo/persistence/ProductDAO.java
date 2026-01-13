@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProductDAO {
 
-    public void save(Product p) {
+    public static void save(Product p) {
 
         String sql = """
             INSERT OR REPLACE INTO product (
@@ -162,7 +162,7 @@ public class ProductDAO {
     }
 
 
-    public void delete(String id) {
+    public static void delete(String id) {
         try (PreparedStatement ps =
                      DatabaseManager.getInstance()
                              .getConnection()
@@ -176,4 +176,38 @@ public class ProductDAO {
             e.printStackTrace();
         }
     }
+    public static void update(String id, String field, String value) {
+
+        String sql = "";
+
+        switch (field.toUpperCase()) {
+
+            case "NAME" ->
+                    sql = "UPDATE product SET name = ? WHERE id = ?";
+
+            case "PRICE" ->
+                    sql = "UPDATE product SET price = ? WHERE id = ?";
+
+            case "CATEGORY" ->
+                    sql = "UPDATE product SET category = ? WHERE id = ?";
+        }
+
+        try (PreparedStatement ps =
+                     DatabaseManager.getInstance()
+                             .getConnection()
+                             .prepareStatement(sql)) {
+
+            if (field.equalsIgnoreCase("PRICE")) {
+                ps.setDouble(1, Double.parseDouble(value));
+            } else {
+                ps.setString(1, value);
+            }
+
+            ps.setString(2, id);
+
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

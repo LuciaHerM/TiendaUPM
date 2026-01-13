@@ -8,7 +8,7 @@ import java.util.List;
 public class ClientDAO {
 
 
-    public void save(Client c) {
+    public static void save(Client c) {
 
         String sql = """
             INSERT OR REPLACE INTO client
@@ -85,7 +85,7 @@ public class ClientDAO {
     }
 
 
-    public void delete(String dni) {
+    public static void delete(String dni) {
 
         try (PreparedStatement ps =
                      DatabaseManager.getInstance()

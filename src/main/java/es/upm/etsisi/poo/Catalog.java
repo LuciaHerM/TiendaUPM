@@ -1,4 +1,6 @@
 package es.upm.etsisi.poo;
+import es.upm.etsisi.poo.persistence.ProductDAO;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -68,6 +70,7 @@ public class Catalog {
                 Product_Basic product = new Product_Basic(id, name, category1, price1);
                 products[num_products] = product;
                 num_products++;
+                ProductDAO.save(product);
                 System.out.println(product.toString());
                 Notifier.showSuccessAddProduct();
             }
@@ -100,6 +103,7 @@ public class Catalog {
                 Personalized product = new Personalized(id, name, category1, price1, pers1);
                 products[num_products] = product;
                 num_products++;
+                ProductDAO.save(product);
                 System.out.println(product.toString());
                 Notifier.showSuccessAddProduct();
 
@@ -129,6 +133,7 @@ public class Catalog {
                 }else{
                     products[num_products] = productEvent;
                     num_products++;
+                    ProductDAO.save(productEvent);
                     System.out.println(productEvent.toString());
                     Notifier.showSuccessAddEvent(typeEvent);
                 }
@@ -151,6 +156,7 @@ public class Catalog {
                     products[num_products]=services;
                     num_products++;
                     num_sesiones++;
+                    ProductDAO.save(services);
                     System.out.println(services.toString());
                     Notifier.showSuccessAddProduct();
                 }
@@ -247,6 +253,7 @@ public class Catalog {
                     products[i].setPrice(price);
                     break;
             }
+            ProductDAO.update(id,change,value);
             System.out.println(products[i].toString());
             System.out.println("prod update: ok");
         }else{
@@ -270,6 +277,7 @@ public class Catalog {
         }
         if(encontrado){
             System.out.println(products[i].toString());
+            ProductDAO.delete(products[i].getID());
             Product p_aux=null;
             for(int j=i;j<num_products;j++){
                 p_aux=products[j];
