@@ -54,9 +54,9 @@ public class TiendaUPM {
         ClientDAO clientDAO = new ClientDAO();
         CashDAO cashDAO = new CashDAO();
 
-        catalog = new Catalog(productDAO.findAll());
+        /*catalog = new Catalog(productDAO.findAll());
         cashers = cashDAO.findAll(ticketDAO, productDAO);
-        clients = clientDAO.findAll(ticketDAO, productDAO);
+        clients = clientDAO.findAll(ticketDAO, productDAO);*/
 
     }
 
@@ -229,6 +229,9 @@ public class TiendaUPM {
             case "exit":
                 continuar = false;
                 comad = new ComandsExit();
+                break;
+            case "deleteAll":
+                comad = new ComandDeleteAll();
                 break;
             default:
                 comad = new UnknownComand();

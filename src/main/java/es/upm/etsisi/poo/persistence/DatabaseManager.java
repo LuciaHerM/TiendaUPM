@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class DatabaseManager {
 
     private static DatabaseManager instance;
-    private Connection connection;
+    private static Connection connection;
     private static final String URL = "jdbc:sqlite:data/app.db";
 
     private DatabaseManager() {
@@ -119,5 +119,27 @@ public class DatabaseManager {
         );
     """);
     }
+    public static void deleteAll() {
+
+        try (Statement stmt = connection.createStatement()) {
+
+            // Desactivar FK temporalmente
+            stmt.execute("PRAGMA foreign_keys = OFF");
+
+            // Borrar tablas (orden inverso)
+            stmt.execute("DROP TABLE IF EXISTS ticket_product");
+            stmt.execute("DROP TABLE IF EXISTS ticket");
+            stmt.execute("DROP TABLE IF EXISTS product");
+            stmt.execute("DROP TABLE IF EXISTS client");
+            stmt.execute("DROP TABLE IF EXISTS cash");
+
+            // Reactivar FK
+            stmt.execute("PRAGMA foreign_keys = ON");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error borrando la base de datos", e);
+        }
+    }
+
 
 }
