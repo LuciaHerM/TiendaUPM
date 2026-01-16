@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Client;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 import es.upm.etsisi.poo.persistence.ClientDAO;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class RemoveClient extends ComandClient {
         this.clients = clients;
     }
 
-    public void apply() {
+    public void apply() throws TiendaUPMExcepcion {
         boolean encontrarEnListaEliminar = false;
         int contador = 0;
         while (!encontrarEnListaEliminar && contador < clients.size()) {
@@ -29,7 +30,7 @@ public class RemoveClient extends ComandClient {
             ClientDAO.delete(id);
             System.out.println("client remove: ok");
         } else {
-            System.out.println("That client does'nt exist, so it can't be remove");
+            throw new TiendaUPMExcepcion("That client does'nt exist, so it can't be remove", "ERR_CLIENT");
         }
     }
 }
