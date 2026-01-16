@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 import es.upm.etsisi.poo.TypeEvent;
 
 public class ProdAddMeeting extends Product {
@@ -33,7 +34,7 @@ public class ProdAddMeeting extends Product {
     /**
      * Añade un producto de tipo reunion llamando al metodo dentro de catalogo
      */
-    public void apply() {
+    public void apply() throws TiendaUPMExcepcion {
         catalog.addEvent(id, name,price,expiration_day,num_person, TypeEvent.MEETING);
     }
 
