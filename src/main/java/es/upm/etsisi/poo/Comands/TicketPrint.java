@@ -1,9 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
-import es.upm.etsisi.poo.Cash;
-import es.upm.etsisi.poo.Ticket;
-import es.upm.etsisi.poo.TicketEmpresa;
-import es.upm.etsisi.poo.TicketStatus;
+import es.upm.etsisi.poo.*;
+
 import es.upm.etsisi.poo.persistence.TicketDAO;
 
 import java.time.LocalDateTime;
@@ -31,7 +29,7 @@ public class TicketPrint extends ComandTicket{
     /**
      *  Imprime el ticket actual y guarda ticket .
      */
-    public void apply() {
+    public void apply() throws TiendaUPMExcepcion {
         if(ticketActive!=null) {
             if(permitidoElcierre()) {
                 ticketActive.setTicketId(ticketActive.getTicketId() + "-" + LocalDateTime.now().format(FORMAT));
@@ -40,11 +38,11 @@ public class TicketPrint extends ComandTicket{
                 ticketActive.setStatus(TicketStatus.CLOSE);
                 TicketDAO.closeTicket(ticketId);
             }
-            else{
-                System.out.println("It is not possible to close a combined company ticket without including at least one product and one service");
+            else {
+                throw new TiendaUPMExcepcion("It is not possible to close a combined company ticket without including at least one product and one service", "ERR_CLOSECOMBINEDTICKET");
             }
-        }else{
-            System.out.println("The id of the ticket is not correct");
+        }else {
+            throw new TiendaUPMExcepcion("The id of the ticket is not correct", "ERR_TICKETID");
         }
     }
 
