@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Cash;
+import es.upm.etsisi.poo.persistence.CashDAO;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,9 @@ public class ComandCashRemove extends ComandCash {
         }
         if(encontrado){
             cashers.get(i).getCashTickets().clear();
+            String id = cashers.get(i).getCashId();
             cashers.remove(i);
+            CashDAO.delete(id);
             System.out.println("cash remove: ok");
         }
         else {

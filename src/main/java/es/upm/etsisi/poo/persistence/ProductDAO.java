@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProductDAO {
 
-    public void save(Product p) {
+    public static void save(Product p) {
 
         String sql = """
             INSERT OR REPLACE INTO product (
@@ -27,16 +27,18 @@ public class ProductDAO {
 
             ps.setString(1, p.getID());
             ps.setString(2, p.getName());
-            ps.setDouble(3, p.getPrice());
 
             /* ===== DISCRIMINADOR ===== */
             if (p instanceof Events) {
+                ps.setDouble(3, p.getPrice());
                 ps.setString(4, "EVENT");
             } else if (p instanceof Services) {
                 ps.setString(4, "SERVICE");
             } else if (p instanceof Personalized) {
+                ps.setDouble(3, p.getPrice());
                 ps.setString(4, "CUSTOM");
             } else {
+                ps.setDouble(3, p.getPrice());
                 ps.setString(4, "BASIC");
             }
 
@@ -70,7 +72,11 @@ public class ProductDAO {
             /* ===== Personalizado ===== */
             if (p instanceof Personalized per) {
                 ps.setInt(11, per.getMax_pers());
-                ps.setString(12, String.join(",", per.getPersonalizaciones()));
+                String pers = null;
+                if(per.personalizaciones!=null) {
+                    pers = String.join(",", per.getPersonalizaciones());
+                }
+                ps.setString(12, pers);
             } else {
                 ps.setNull(11, Types.INTEGER);
                 ps.setNull(12, Types.VARCHAR);
@@ -162,7 +168,7 @@ public class ProductDAO {
     }
 
 
-    public void delete(String id) {
+    public static void delete(String id) {
         try (PreparedStatement ps =
                      DatabaseManager.getInstance()
                              .getConnection()
@@ -176,4 +182,38 @@ public class ProductDAO {
             e.printStackTrace();
         }
     }
+    public static void update(String id, String field, String value) {
+
+        String sql = "";
+
+        switch (field.toUpperCase()) {
+
+            case "NAME" ->
+                    sql = "UPDATE product SET name = ? WHERE id = ?";
+
+            case "PRICE" ->
+                    sql = "UPDATE product SET price = ? WHERE id = ?";
+
+            case "CATEGORY" ->
+                    sql = "UPDATE product SET category = ? WHERE id = ?";
+        }
+
+        try (PreparedStatement ps =
+                     DatabaseManager.getInstance()
+                             .getConnection()
+                             .prepareStatement(sql)) {
+
+            if (field.equalsIgnoreCase("PRICE")) {
+                ps.setDouble(1, Double.parseDouble(value));
+            } else {
+                ps.setString(1, value);
+            }
+
+            ps.setString(2, id);
+
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -4,6 +4,8 @@ import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.TicketEmpresa;
 import es.upm.etsisi.poo.TicketStatus;
+import es.upm.etsisi.poo.persistence.TicketDAO;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -36,6 +38,7 @@ public class TicketPrint extends ComandTicket{
                 System.out.println(ticketActive.toString());
                 System.out.println("ticket print: ok");
                 ticketActive.setStatus(TicketStatus.CLOSE);
+                TicketDAO.closeTicket(ticketId);
             }
             else{
                 System.out.println("It is not possible to close a combined company ticket without including at least one product and one service");

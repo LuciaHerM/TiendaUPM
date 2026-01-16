@@ -8,11 +8,11 @@ import java.util.List;
 public class ClientDAO {
 
 
-    public void save(Client c) {
+    public static void save(Client c) {
 
         String sql = """
             INSERT OR REPLACE INTO client
-            (dni, name, email, cash_id)
+            (id, name, email, cash_id)
             VALUES (?, ?, ?, ?)
         """;
 
@@ -55,13 +55,13 @@ public class ClientDAO {
                             rs.getString("name"),
                             id,
                             rs.getString("email"),
-                            rs.getString("cashId"));
+                            rs.getString("cash_id"));
                 } else{
                     c = new NormalClient(
                             rs.getString("name"),
                             id,
                             rs.getString("email"),
-                            rs.getString("cashId")
+                            rs.getString("cash_id")
                     );
                 }
 
@@ -85,13 +85,13 @@ public class ClientDAO {
     }
 
 
-    public void delete(String dni) {
+    public static void delete(String dni) {
 
         try (PreparedStatement ps =
                      DatabaseManager.getInstance()
                              .getConnection()
                              .prepareStatement(
-                                     "DELETE FROM client WHERE dni = ?")) {
+                                     "DELETE FROM client WHERE id = ?")) {
 
             ps.setString(1, dni);
             ps.executeUpdate();
@@ -105,7 +105,7 @@ public class ClientDAO {
     private String obtenerClienteTicket(Ticket t) {
 
         String sql = """
-            SELECT client_dni
+            SELECT client_id
             FROM ticket
             WHERE id = ?
         """;
@@ -119,7 +119,7 @@ public class ClientDAO {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next())
-                return rs.getString("client_dni");
+                return rs.getString("client_id");
 
         } catch (SQLException e) {
             e.printStackTrace();

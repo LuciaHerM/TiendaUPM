@@ -8,9 +8,9 @@ import java.util.List;
 public class CashDAO {
 
 
-    public void save(Cash c) {
+    public static void save(Cash c) {
 
-        String sql = "INSERT OR IGNORE INTO cash(id,name,email) VALUES (?,?,?)";
+        String sql = "INSERT OR REPLACE INTO cash(id,name,email) VALUES (?,?,?)";
 
         try (PreparedStatement ps =
                      DatabaseManager.getInstance()
@@ -66,7 +66,7 @@ public class CashDAO {
     }
 
 
-    public void delete(String id) {
+    public static void delete(String id) {
 
         try (PreparedStatement ps =
                      DatabaseManager.getInstance()

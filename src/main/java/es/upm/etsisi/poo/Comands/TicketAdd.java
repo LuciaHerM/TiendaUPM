@@ -2,6 +2,7 @@ package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.*;
 import es.upm.etsisi.poo.Product;
+import es.upm.etsisi.poo.persistence.TicketDAO;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,7 @@ public class TicketAdd extends ComandTicket{
         this.catalog=catalog;
         this.casher = selectCash(cashers,cashId) ;
         this.personalizaciones = null;
+        this.quantity="1";
     }
 
     /**
@@ -98,6 +100,7 @@ public class TicketAdd extends ComandTicket{
                             ticketActual.AddProduct(p);
                         }
                     }
+                    TicketDAO.guardarProductos(ticketActual, p, Integer.parseInt(quantity));
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 } else {

@@ -4,6 +4,7 @@ import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Ticket;
 import es.upm.etsisi.poo.Catalog;
 import es.upm.etsisi.poo.TicketStatus;
+import es.upm.etsisi.poo.persistence.TicketDAO;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,7 @@ public class TicketRemove extends ComandTicket{
                 }
             }
             if (encontrado) {
+                TicketDAO.removeProductFromTicket(ticketId, prodId);
                 ticketActive.RemoveProduct(catalog.find(i));
                 System.out.println(ticketActive.toString());
                 System.out.println("ticket remove: ok");

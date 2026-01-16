@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.*;
+import es.upm.etsisi.poo.persistence.TicketDAO;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -71,6 +72,7 @@ public  class TicketNew extends ComandTicket{
                 Ticket ticket = new TicketComunes(ticketId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
+                TicketDAO.save(ticket,clientId,cashId);
                 System.out.println(ticket.toString());
                 System.out.println("ticket new: ok");
             } else {

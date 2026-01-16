@@ -1,5 +1,6 @@
 package es.upm.etsisi.poo.persistence;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,14 +9,24 @@ import java.sql.Statement;
 public class DatabaseManager {
 
     private static DatabaseManager instance;
-    private Connection connection;
+    private static Connection connection;
     private static final String URL = "jdbc:sqlite:data/app.db";
 
     private DatabaseManager() {
         try {
+            Class.forName("org.sqlite.JDBC");
+
+            File dir = new File("data");
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
             connection = DriverManager.getConnection(URL);
+            Statement stmt = connection.createStatement();
+            stmt.execute("PRAGMA foreign_keys = ON");
             crearTablas();
-        } catch (SQLException e) {
+
+        } catch (Exception e) {
             throw new RuntimeException("Error conectando a SQLite", e);
         }
     }
@@ -32,81 +43,101 @@ public class DatabaseManager {
     }
 
     private void crearTablas() throws SQLException {
+
         Statement stmt = connection.createStatement();
 
         // CASH
         stmt.execute("""
-            CREATE TABLE IF NOT EXISTS cash (
-                id TEXT PRIMARY KEY,
-                name TEXT,
-                email TEXT
-            );
-        """);
+        CREATE TABLE IF NOT EXISTS cash (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            email TEXT
+        );
+    """);
 
         // CLIENT
         stmt.execute("""
-            CREATE TABLE IF NOT EXISTS client (
-                id TEXT PRIMARY KEY,
-                name TEXT,
-                email TEXT,
-                cash_id TEXT
-                FOREIGN KEY(cash_id) REFERENCES cash(id),
-            );
-        """);
-
+        CREATE TABLE IF NOT EXISTS client (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            email TEXT,
+            cash_id TEXT,
+            FOREIGN KEY (cash_id) REFERENCES cash(id)
+        );
+    """);
 
         // PRODUCT
         stmt.execute("""
-            CREATE TABLE IF NOT EXISTS product (
-                id TEXT PRIMARY KEY,
-                name TEXT,
-                price REAL,
+        CREATE TABLE IF NOT EXISTS product (
+            id TEXT PRIMARY KEY,
+            name TEXT,
+            price REAL,
 
-                -- Discriminador de herencia
-                product_type ENUM('EVENT','SERVICE','CUSTOM','BASIC') NOT NULL,
+            -- discriminador
+            product_type TEXT NOT NULL,
 
-                -- Product_Basic
-                category ENUM('MERCH','STATIONERY','CLOTHES','BOOK','ELECTRONICS'),
+            -- BASIC
+            category TEXT,
 
-                -- Services
-                expiration_day TEXT,
-                category_service ENUM('TRANSPORT','SHOW','INSURANCE'),
+            -- SERVICE
+            expiration_day TEXT,
+            category_service TEXT,
 
-                -- Events
-                expiration_day TEXT,
-                max_participants INTEGER,
-                num_person INTEGER,
-                type_event ENUM('FOOD','MEETING'),
+            -- EVENT
+            max_participants INTEGER,
+            num_person INTEGER,
+            type_event TEXT,
 
-                -- Personalized
-                max_pers INTEGER,
-                personalizations TEXT
-            );
-        """);
+            -- CUSTOM
+            max_pers INTEGER,
+            personalizations TEXT
+        );
+    """);
 
         // TICKET
         stmt.execute("""
-            CREATE TABLE IF NOT EXISTS ticket (
-                id TEXT PRIMARY KEY,
-                cash_id TEXT,
-                client_dni TEXT,
-                status ENUM('EMPTY','OPEN','CLOSE') NOT NULL,
-                total_price REAL,
-                total_discount REAL,
-                FOREIGN KEY(cash_id) REFERENCES cash(id),
-                FOREIGN KEY(client_dni) REFERENCES client(dni)
-            );
-        """);
+        CREATE TABLE IF NOT EXISTS ticket (
+            id TEXT PRIMARY KEY,
+            cash_id TEXT,
+            client_id TEXT,
+            status TEXT NOT NULL,
+            total_price REAL,
+            total_discount REAL
+        );
+    """);
 
-        // TICKET_PRODUCT (N..M)
+        // TICKET_PRODUCT
         stmt.execute("""
-            CREATE TABLE IF NOT EXISTS ticket_product (
-                ticket_id TEXT,
-                product_id TEXT,
-                PRIMARY KEY(ticket_id, product_id),
-                FOREIGN KEY(ticket_id) REFERENCES ticket(id),
-                FOREIGN KEY(product_id) REFERENCES product(id)
-            );
-        """);
+        CREATE TABLE IF NOT EXISTS ticket_product (
+            ticket_id TEXT,
+            product_id TEXT,
+            quantity INTEGER NOT NULL DEFAULT 1,
+            FOREIGN KEY (ticket_id) REFERENCES ticket(id),
+            FOREIGN KEY (product_id) REFERENCES product(id)
+        );
+    """);
     }
+    public static void deleteAll() {
+
+        try (Statement stmt = connection.createStatement()) {
+
+            // Desactivar FK temporalmente
+            stmt.execute("PRAGMA foreign_keys = OFF");
+
+            // Borrar tablas (orden inverso)
+            stmt.execute("DROP TABLE IF EXISTS ticket_product");
+            stmt.execute("DROP TABLE IF EXISTS ticket");
+            stmt.execute("DROP TABLE IF EXISTS product");
+            stmt.execute("DROP TABLE IF EXISTS client");
+            stmt.execute("DROP TABLE IF EXISTS cash");
+
+            // Reactivar FK
+            stmt.execute("PRAGMA foreign_keys = ON");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error borrando la base de datos", e);
+        }
+    }
+
+
 }

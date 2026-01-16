@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Client;
+import es.upm.etsisi.poo.persistence.ClientDAO;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,9 @@ public class RemoveClient extends ComandClient {
             }
         }
         if (encontrarEnListaEliminar) {
+            String id = clients.get(contador).getId();
             clients.remove(clients.get(contador));
+            ClientDAO.delete(id);
             System.out.println("client remove: ok");
         } else {
             System.out.println("That client does'nt exist, so it can't be remove");

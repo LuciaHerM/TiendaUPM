@@ -8,11 +8,11 @@ import java.util.List;
 public class TicketDAO {
 
 
-    public void save(Ticket t, String clientDni, String cashId) {
+    public static void save(Ticket t, String clientDni, String cashId) {
 
         String sql = """
             INSERT OR REPLACE INTO ticket
-            (id, status, total_price, total_discount, client_dni, cash_id)
+            (id, status, total_price, total_discount, client_id, cash_id)
             VALUES (?, ?, ?, ?, ?, ?)
         """;
 
@@ -30,7 +30,6 @@ public class TicketDAO {
 
             ps.executeUpdate();
 
-            guardarProductos(t);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,27 +37,25 @@ public class TicketDAO {
     }
 
 
-    private void guardarProductos(Ticket t) throws SQLException {
+    public static void guardarProductos(Ticket t, Product p, int quantity) {
 
-        String delete = "DELETE FROM ticket_product WHERE ticket_id = ?";
-        String insert = """
-            INSERT INTO ticket_product(ticket_id, product_id)
-            VALUES (?, ?)
+        try {
+            String insert = """
+            INSERT INTO ticket_product (ticket_id, product_id, quantity)
+            VALUES (?, ?, ?)
         """;
 
-        Connection conn = DatabaseManager.getInstance().getConnection();
+            Connection conn = DatabaseManager.getInstance().getConnection();
 
-        try (PreparedStatement del = conn.prepareStatement(delete);
-             PreparedStatement ins = conn.prepareStatement(insert)) {
-
-            del.setString(1, t.getTicketId());
-            del.executeUpdate();
-
-            for (Product p : t.getCart()) {
-                ins.setString(1, t.getTicketId());
-                ins.setString(2, p.getID());
-                ins.executeUpdate();
+            try (PreparedStatement ps = conn.prepareStatement(insert)) {
+                ps.setString(1, t.getTicketId());
+                ps.setString(2, p.getID());
+                ps.setInt(3, quantity);
+                ps.executeUpdate();
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error guardando producto en ticket", e);
         }
     }
 
@@ -120,8 +117,28 @@ public class TicketDAO {
         }
     }
 
+    public static void removeProductFromTicket(String ticketId, String productId) {
 
-    public void delete(String id) {
+        String sql = """
+        DELETE FROM ticket_product
+        WHERE ticket_id = ? AND product_id = ?
+    """;
+
+        try (PreparedStatement ps =
+                     DatabaseManager.getInstance()
+                             .getConnection()
+                             .prepareStatement(sql)) {
+
+            ps.setString(1, ticketId);
+            ps.setString(2, productId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void delete(String id) {
         try (PreparedStatement ps =
                      DatabaseManager.getInstance()
                              .getConnection()
@@ -135,5 +152,23 @@ public class TicketDAO {
             e.printStackTrace();
         }
     }
+
+    public static void closeTicket(String ticketId) {
+
+        String sql = "UPDATE ticket SET status = 'CLOSE' WHERE id = ?";
+
+        try (PreparedStatement ps =
+                     DatabaseManager.getInstance()
+                             .getConnection()
+                             .prepareStatement(sql)) {
+
+            ps.setString(1, ticketId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
 
