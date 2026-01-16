@@ -3,7 +3,7 @@ package es.upm.etsisi.poo.Comands;
 import java.util.ArrayList;
 import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.persistence.CashDAO;
-
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
 public class ComandCashAdd extends ComandCash {
     private String name;
@@ -28,10 +28,10 @@ public class ComandCashAdd extends ComandCash {
      * Comprueba que no esiste un cajero con el mismo nombre y si no esiste crea
      * un cajero y o añade al arrayList de cajeros
      */
-    public void apply(){
+    public void apply() throws TiendaUPMExcepcion {
         boolean found = false;
-        int i = 0 ;
-        if(this.id !=  null && id.matches("^UW\\d{7}$")) {
+        int i = 0;
+        if (this.id != null && id.matches("^UW\\d{7}$")) {
             while (!found && i < cashers.size()) {
                 if (cashers.get(i).getCashId().equals(id)) {
                     found = true;
@@ -46,11 +46,10 @@ public class ComandCashAdd extends ComandCash {
                 CashDAO.save(cash);
                 System.out.println("cash add: ok");
             } else {
-                System.out.println("The id of the casher is already created");
+                throw new TiendaUPMExcepcion("The id of the casher is already created", "ERR_CASHER");
             }
-        }
-        else {
-            System.out.println("The id format is not correct : UWxxxxxxx (x un digito 0-9) .");
+        } else {
+            throw new TiendaUPMExcepcion("The id format is not correct : UWxxxxxxx (x un digito 0-9) .", "ERR_CASHERID");
         }
 
 
