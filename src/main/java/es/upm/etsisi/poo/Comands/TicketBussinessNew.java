@@ -22,7 +22,7 @@ public class TicketBussinessNew extends TicketNew{
         this.type = type;
     }
 
-    public void apply(){
+    public void apply() throws TiendaUPMExcepcion{
 
         Cash cash = null;
         Client client = null;
@@ -41,10 +41,10 @@ public class TicketBussinessNew extends TicketNew{
         }
 
         if(cash == null) {
-            System.out.println("The cash id can't be find.");
+            throw new TiendaUPMExcepcion("The cash id can't be find.", "ERR_CASHID");
         }
-        else if(client == null) {
-            System.out.println("The client id can't be find");
+        else if(client == null){
+            throw new TiendaUPMExcepcion("The client id can't be find", "ERR_CLIENTID");
         }
         // Ticket no guarda al cajero ni el cliente
         else {
@@ -62,8 +62,8 @@ public class TicketBussinessNew extends TicketNew{
                 TicketDAO.save(ticket,clientId,cashId);
                 System.out.println(ticket.toString());
                 System.out.println("ticket new: ok");
-            } else {
-                System.out.println("The ticket id is not correct because it does exist the ticket or because the format is not correct:  YY-MM-dd-HH:mm-#####" );
+            } else{
+                throw new TiendaUPMExcepcion("The ticket id is not correct because it does exist the ticket or because the format is not correct:  YY-MM-dd-HH:mm-#####", "ERR_TICKETID");
             }
         }
     }

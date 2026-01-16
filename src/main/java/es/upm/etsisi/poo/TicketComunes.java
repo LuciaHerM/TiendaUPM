@@ -10,11 +10,10 @@ public class TicketComunes extends Ticket{
     }
 
     @Override
-    public void AddProduct(Product item) throws TiendaUPMExcepcion {
+    public void AddProduct(Product item) throws TiendaUPMExcepcion{
         if (item instanceof Services) {
-           System.err.println("Can't introduce a service in a common ticket");
-        }
-        else {
+            throw new TiendaUPMExcepcion("Can't introduce a service in a common ticket", "ERR_SERVICE");
+        }else {
             super.AddProduct(item);
         }
     }
