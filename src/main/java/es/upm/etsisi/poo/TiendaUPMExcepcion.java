@@ -13,8 +13,4 @@ public class TiendaUPMExcepcion extends Exception{
     public String getMensaje() {
         return descripcionError;
     }
-    public String getError() {
-        return codigoError;
-    }
-
 }

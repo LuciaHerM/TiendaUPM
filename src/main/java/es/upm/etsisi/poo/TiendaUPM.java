@@ -244,7 +244,7 @@ public class TiendaUPM {
                 comad.apply();
             }
         } catch (TiendaUPMExcepcion e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMensaje());
         } catch (Exception e) {
             System.out.println("Aviso: Error inesperado al procesar el producto.");
     }
