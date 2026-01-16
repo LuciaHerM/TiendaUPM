@@ -3,7 +3,7 @@ package es.upm.etsisi.poo.Comands;
 import es.upm.etsisi.poo.Catalog;
 import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
-public class ProdRemove extends Comands{
+public class ProdRemove extends Product{
     private String id;
     private Catalog catalog;
     public ProdRemove(String id, Catalog catalog) {
