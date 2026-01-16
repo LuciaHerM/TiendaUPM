@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
 public class ProdUpdate extends Product{
     private String id;
@@ -18,7 +19,7 @@ public class ProdUpdate extends Product{
     /**
      * Permite modificar un atributo de un producto.
      */
-    public void apply() {
+    public void apply() throws TiendaUPMExcepcion {
         catalog.update(id,change,value);
     }
 }

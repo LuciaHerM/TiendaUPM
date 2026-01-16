@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
 public class ProdAdd extends Product {
     private String id;
@@ -28,7 +29,7 @@ public class ProdAdd extends Product {
      * Añade un nuevo producto al catálogo de la tienda.
 
      */
-    public void apply(){
+    public void apply() throws TiendaUPMExcepcion {
         catalog.add(id,name,category,price);
     }
 }

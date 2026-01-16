@@ -161,7 +161,7 @@ public class ProductDAO {
                 products.add(p);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | TiendaUPMExcepcion e) {
             e.printStackTrace();
         }
         return products;

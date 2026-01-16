@@ -12,7 +12,7 @@ public class TicketEmpresa extends Ticket {
     }
 
     @Override
-    public void AddProduct(Product item) {
+    public void AddProduct(Product item) throws TiendaUPMExcepcion {
         if (!(item instanceof Services) && (type==CompanyTicketTipe.SERVICES_ONLY)) {
             System.err.println("This bussines ticket can only add services");
         }
