@@ -70,25 +70,31 @@ public class TiendaUPM {
         boolean proceed = true;
         System.out.println("Ticket module. Type 'help' to see commands.");
         while (proceed) {
-            System.out.print("tUPM>");
-            String comand = sc.nextLine();
-            Pattern pattern = Pattern.compile("\"([^\"]*(?:\"[^\"]*)*)\"|(\\S+)");
-            Matcher matcher = pattern.matcher(comand);
+            try {
+                System.out.print("tUPM>");
+                String comand = sc.nextLine();
+                Pattern pattern = Pattern.compile("\"([^\"]*(?:\"[^\"]*)*)\"|(\\S+)");
+                Matcher matcher = pattern.matcher(comand);
 
-            ArrayList<String> comand_list = new ArrayList<String>();
-            while (matcher.find()) {
-                if (matcher.group(1) != null) {
-                    comand_list.add(matcher.group(1)); // valor dentro de comillas
-                } else {
-                    comand_list.add(matcher.group(2)); // palabra normal
+                ArrayList<String> comand_list = new ArrayList<String>();
+                while (matcher.find()) {
+                    if (matcher.group(1) != null) {
+                        comand_list.add(matcher.group(1)); // valor dentro de comillas
+                    } else {
+                        comand_list.add(matcher.group(2)); // palabra normal
+                    }
                 }
+                String[] comands = new String[comand_list.size()];
+                for (int i = 0; i < comand_list.size(); i++) {
+                    comands[i] = comand_list.get(i);
+                }
+                proceed = gestionComandos(comands);
+            } catch(TiendaUPMExcepcion e){
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            String[] comands = new String[comand_list.size()];
-            for(int i=0;i<comand_list.size();i++){
-                comands[i]=comand_list.get(i);
             }
-            proceed=gestionComandos(comands);
-        }
     }
 
     /**
@@ -96,7 +102,7 @@ public class TiendaUPM {
      * @param comand
      * @return
      */
-    private boolean gestionComandos(String[] comand){
+    private boolean gestionComandos(String[] comand)throws TiendaUPMExcepcion{
         boolean continuar=true;
         Comands comad = null;
         switch (comand[0]) {
@@ -237,7 +243,17 @@ public class TiendaUPM {
                 comad = new UnknownComand();
                 break;
         }
-        comad.apply();
+        try {
+            if (comad != null) {
+                comad.apply();
+            }
+        } catch (TiendaUPMExcepcion e) {
+            // CUMPLIMIENTO: Se muestra mensaje amigable, no el error técnico [1, 10]
+            System.out.println(e.getCodigoError());
+        } catch (Exception e) {
+            // CAPTURA GLOBAL: Evita que el programa "muera" ante cualquier otro fallo [10]
+            System.out.println("Aviso: No se pudo procesar la operación. Inténtelo de nuevo.");
+        }
         System.out.println();
         return continuar;
     }

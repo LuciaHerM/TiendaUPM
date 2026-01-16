@@ -3,6 +3,7 @@ package es.upm.etsisi.poo.Comands;
 import es.upm.etsisi.poo.BussinessClient;
 import es.upm.etsisi.poo.Client;
 import es.upm.etsisi.poo.NormalClient;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class AddClient extends ComandClient {
         this.cashId = cashId;
         this.clients = clients;
     }
-    public void apply (){
+    public void apply () throws TiendaUPMExcepcion {
         boolean foundIDEnClientList = false;
         int cont = 0;
         while (!foundIDEnClientList && cont < clients.size()){
@@ -44,7 +45,9 @@ public class AddClient extends ComandClient {
             System.out.println("client add: ok");
         }
         if (foundIDEnClientList){
-            System.out.println("That client exist already ");
+            throw new TiendaUPMExcepcion(
+                    "The client already exist.", "ERR_CLIENT_001"
+            );
         }
     }
 }
