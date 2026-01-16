@@ -43,7 +43,7 @@ public  class TicketNew extends ComandTicket{
      * Le pasan por parametros el id del cajero y el dni del cliente al que pertenece el ticket
      * a los cuales busca en la lista de cajeros y clientes y si los encuentra crea un ticket con esos parametros.
      */
-    public void apply() {
+    public void apply() throws TiendaUPMExcepcion {
         Cash cash = null;
         Client client = null;
 
