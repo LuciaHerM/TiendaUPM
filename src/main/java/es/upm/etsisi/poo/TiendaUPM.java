@@ -67,7 +67,6 @@ public class TiendaUPM {
         boolean proceed = true;
         System.out.println("Ticket module. Type 'help' to see commands.");
         while (proceed) {
-            try {
                 System.out.print("tUPM>");
                 String comand = sc.nextLine();
                 Pattern pattern = Pattern.compile("\"([^\"]*(?:\"[^\"]*)*)\"|(\\S+)");
@@ -86,11 +85,6 @@ public class TiendaUPM {
                     comands[i] = comand_list.get(i);
                 }
                 proceed = gestionComandos(comands);
-            } catch(TiendaUPMExcepcion e){
-                System.out.println(e.getMessage());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
             }
     }
 
@@ -99,7 +93,7 @@ public class TiendaUPM {
      * @param comand
      * @return
      */
-    private boolean gestionComandos(String[] comand)throws TiendaUPMExcepcion{
+    private boolean gestionComandos(String[] comand){
         boolean continuar=true;
         Comands comad = null;
         switch (comand[0]) {
@@ -147,6 +141,8 @@ public class TiendaUPM {
                             comad = new ProdAddServices(comand[2],comand[3],catalog);
                         else if(comand.length==5)
                             comad = new ProdAdd(comand[2], comand[3], comand[4], catalog);
+                        else if (comand.length == 6) // <--- AÑADE ESTA CONDICIÓN PARA TU COMANDO
+                            comad = new ProdAdd(comand[2], comand[3], comand[4], comand[5], catalog);
                         else if(comand.length==7)
                             comad = new ProdAddPer(comand[2], comand[3], comand[4],comand[5],comand[6], catalog);
                         else{
@@ -248,14 +244,13 @@ public class TiendaUPM {
                 comad.apply();
             }
         } catch (TiendaUPMExcepcion e) {
-            // CUMPLIMIENTO: Se muestra mensaje amigable, no el error técnico [1, 10]
-            System.out.println(e.getCodigoError());
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-            // CAPTURA GLOBAL: Evita que el programa "muera" ante cualquier otro fallo [10]
-            System.out.println("Aviso: No se pudo procesar la operación. Inténtelo de nuevo.");
-        }
+            System.out.println("Aviso: Error inesperado al procesar el producto.");
+    }
         System.out.println();
         return continuar;
+
     }
 
     /**
