@@ -1,8 +1,9 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
-public class ProdRemove extends Product{
+public class ProdRemove extends Comands{
     private String id;
     private Catalog catalog;
     public ProdRemove(String id, Catalog catalog) {
@@ -12,7 +13,7 @@ public class ProdRemove extends Product{
     /**
      * Elimina un producto del catálogo.
      */
-    public void apply() {
+    public void apply()  throws TiendaUPMExcepcion{
         catalog.remove(id);
     }
 }

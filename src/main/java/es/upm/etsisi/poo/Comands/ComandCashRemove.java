@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Cash;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 import es.upm.etsisi.poo.persistence.CashDAO;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class ComandCashRemove extends ComandCash {
         this.id = id;
         this.cashers = cashers;
     }
-    public void apply(){
+    public void apply() throws TiendaUPMExcepcion {
         boolean encontrado = false;
         int i =0;
         while(i < cashers.size()&&!encontrado){
@@ -36,7 +37,7 @@ public class ComandCashRemove extends ComandCash {
             System.out.println("cash remove: ok");
         }
         else {
-            System.out.println("That id can't be find");
+            throw new TiendaUPMExcepcion("That id can't be find", "ERR_CAHID");
         }
 
     }

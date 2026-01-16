@@ -11,7 +11,7 @@ public class Events extends Product {
     private TypeEvent typeEvent;
     private int invited_person=0;
 
-    public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
+    public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) throws TiendaUPMExcepcion{
         super(id, name, price);
         this.typeEvent=typeEvent;
         this.expiration_day=expiration_day;
@@ -19,35 +19,37 @@ public class Events extends Product {
     }
 
     public static Events createFromInput(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
+        if(num_person>MAX_PARTICIPANTS){
+            throw new TiendaUPMExcepcion(
+                    "Error: El número de personas (" + num_person + ") excede el máximo permitido (" + MAX_PARTICIPANTS + ").",
+                    "ERR_EVENT_CAPACITY");
+        }
         if(num_person==0){
             Notifier.showErrorAddEvent(typeEvent);
         }
         else if (check_min_time(typeEvent, expiration_day) && num_person <= MAX_PARTICIPANTS) {
+
             return new Events(id, name, price, expiration_day, num_person, typeEvent);
         }
         return null;
     }
 
 
-    public static boolean check_min_time(TypeEvent typeEvent, String expiration_day){
+    public static boolean check_min_time(TypeEvent typeEvent, String expiration_day)throws TiendaUPMExcepcion{
         LocalDate eventDate;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try{
             eventDate=LocalDate.parse(expiration_day, formatter);
         }catch (Exception e){
-            Notifier.dateIncorrectFormat();
-            return false;
+            throw new TiendaUPMExcepcion("The date is not correct written must be in this format yyyy-mm-dd", "ERR_DATEFORMAT");
         }
         LocalDate today=LocalDate.now();
-        if(!eventDate.isAfter(today)){
-            System.out.println("The date can't be before today");
-            return false;
+        if(!eventDate.isAfter(today)){ throw new TiendaUPMExcepcion("The date can't be before today", "ERR_DATE_PAST");
         }
         double daysBetween= ChronoUnit.HOURS.between(today.atStartOfDay(),eventDate.atStartOfDay())/24.0;
 
         if(typeEvent.getMinDaysBefore()>daysBetween){
-                System.out.println("The minimum planning time for "+typeEvent+" is "+typeEvent.getMinDaysBefore()+" days.");
-                return false;
+            throw new TiendaUPMExcepcion("The minimum planning time for "+typeEvent+" is "+typeEvent.getMinDaysBefore()+" days.", "ERR_DATE_MIN_DAYS");
         }
         return true;
     }

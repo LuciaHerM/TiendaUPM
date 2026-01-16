@@ -6,13 +6,13 @@ public class Personalized extends Product_Basic{
     public int max_pers=0;
     public String[] personalizaciones;
 
-    public Personalized(String id, String name, Category category, Double price, int max_pers) {
+    public Personalized(String id, String name, Category category, Double price, int max_pers) throws TiendaUPMExcepcion{
         super(id,name,category,price);
         this.personalizaciones=null;
         if(max_pers>0){
             this.max_pers=max_pers;
         }else {
-            Notifier.ErrorNumberPersonalization();
+            throw new TiendaUPMExcepcion("It's not possible to insert that number of personalization.", "ERR_PERSONALIZATION");
         }
     }
 
@@ -24,18 +24,18 @@ public class Personalized extends Product_Basic{
         return personalizaciones;
     }
 
-    public void setPersonalizaciones(String[] personalizaciones) {
+    public void setPersonalizaciones(String[] personalizaciones) throws TiendaUPMExcepcion{
         if(max_pers > 0){
             if(personalizaciones.length<=max_pers){
                 this.personalizaciones = personalizaciones;
                 this.price += this.price*0.1* personalizaciones.length;
             }
             else {
-                Notifier.ErrorNumberPersonalization();
+                throw new TiendaUPMExcepcion("It's not possible to insert that number of personalization.", "ERR_PERSONALIZATION");
             }
         }
         else {
-            Notifier.CantPersonalize();
+            throw new TiendaUPMExcepcion("Can't add services in a common ticket", "ERR_PERSONALIZATION");
         }
     }
 
