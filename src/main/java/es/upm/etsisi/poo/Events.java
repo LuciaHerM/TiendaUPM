@@ -18,14 +18,11 @@ public class Events extends Product {
         this.num_person=num_person;
     }
 
-    public static Events createFromInput(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
+    public static Events createFromInput(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) throws TiendaUPMExcepcion {
         if(num_person>MAX_PARTICIPANTS){
             throw new TiendaUPMExcepcion(
                     "Error: El número de personas (" + num_person + ") excede el máximo permitido (" + MAX_PARTICIPANTS + ").",
                     "ERR_EVENT_CAPACITY");
-        }
-        if(num_person==0){
-            Notifier.showErrorAddEvent(typeEvent);
         }
         else if (check_min_time(typeEvent, expiration_day) && num_person <= MAX_PARTICIPANTS) {
 

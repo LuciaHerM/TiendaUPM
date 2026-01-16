@@ -80,15 +80,14 @@ public class TicketDAO {
                 tickets.add(t);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | TiendaUPMExcepcion e) {
             e.printStackTrace();
         }
         return tickets;
     }
 
 
-    private void cargarProductos(Ticket t, ProductDAO productDAO)
-            throws SQLException {
+    private void cargarProductos(Ticket t, ProductDAO productDAO) throws TiendaUPMExcepcion, SQLException {
 
         String sql = """
             SELECT product_id
@@ -109,10 +108,12 @@ public class TicketDAO {
             while (rs.next()) {
                 String pid = rs.getString("product_id");
 
-                allProducts.stream()
-                        .filter(p -> p.getID().equals(pid))
-                        .findFirst()
-                        .ifPresent(t::AddProduct);
+                for (Product p : allProducts) {
+                    if (p.getID().equals(pid)) {
+                        t.AddProduct(p);
+                        break;
+                    }
+                }
             }
         }
     }

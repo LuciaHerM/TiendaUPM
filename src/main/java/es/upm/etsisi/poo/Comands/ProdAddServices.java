@@ -1,6 +1,7 @@
 package es.upm.etsisi.poo.Comands;
 
 import es.upm.etsisi.poo.Catalog;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
 public class ProdAddServices extends Product {
     private String expiration_day;
@@ -13,7 +14,7 @@ public class ProdAddServices extends Product {
         this.catalog = catalog;
     }
 
-    public void apply(){
+    public void apply() throws TiendaUPMExcepcion {
         catalog.addService(expiration_day,category_service);
     }
 }
