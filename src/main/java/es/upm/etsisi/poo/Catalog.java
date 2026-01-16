@@ -1,6 +1,9 @@
 package es.upm.etsisi.poo;
 import java.util.Arrays;
 import java.util.ArrayList;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
+
+
 
 public class Catalog {
 
@@ -44,13 +47,14 @@ public class Catalog {
      * @param category  Categoria del producto perteneciente al enum Category.
      * @param price Precio del producto.
      */
-    public void add(String id, String name, String category, String price) {
+    public void add(String id, String name, String category, String price) throws TiendaUPMExcepcion {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i< num_products){
-            if(products[i].getID().equals(id)){
-                Notifier.showErrorAddProductWithSameId();
+            if(products[i].getID().equals(id)) {
                 encontrado=true;
+                throw new TiendaUPMExcepcion("Can't be added a product with the same id", "ERR_PRODCUTID"){
+                };
             }
             i++;
         }
@@ -62,7 +66,7 @@ public class Catalog {
                     case "CLOTHES" -> Category.CLOTHES;
                     case "BOOK" -> Category.BOOK;
                     case "ELECTRONICS" -> Category.ELECTRONICS;
-                    default -> Notifier.UnexpectecValue(category);
+                    default -> throw new TiendaUPMExcepcion("Unexpected value: " + category, "ERR_UNEXPECTED");
                 };
                 double price1 = Double.parseDouble(price);
                 Product_Basic product = new Product_Basic(id, name, category1, price1);
@@ -71,17 +75,17 @@ public class Catalog {
                 System.out.println(product.toString());
                 Notifier.showSuccessAddProduct();
             }
-        } else {
-            Notifier.showErrorAddProduct();
+        } else{
+            throw new TiendaUPMExcepcion("The product can't be added.", "ERR_PRODUCT");
         }
     }
-    public void addPer(String id, String name, String category, String price, String pers) {
+    public void addPer(String id, String name, String category, String price, String pers) throws TiendaUPMExcepcion {
         int i = 0;
         boolean encontrado = false;
         while (!encontrado && i < num_products) {
             if (products[i].getID().equals(id)) {
-                Notifier.showErrorAddProductWithSameId();
                 encontrado = true;
+                throw new TiendaUPMExcepcion("Can't be added a product with the same id", "ERR_PRODCUTID");
             }
             i++;
         }
@@ -93,7 +97,7 @@ public class Catalog {
                     case "CLOTHES" -> Category.CLOTHES;
                     case "BOOK" -> Category.BOOK;
                     case "ELECTRONICS" -> Category.ELECTRONICS;
-                    default -> Notifier.UnexpectecValue(category);
+                    default -> throw new TiendaUPMExcepcion("Unexpected value: " + category, "ERR_UNEXPECTED");
                 };
                 double price1 = Double.parseDouble(price);
                 int pers1 = Integer.parseInt(pers);
@@ -104,18 +108,19 @@ public class Catalog {
                 Notifier.showSuccessAddProduct();
 
             }
-        } else {
-            Notifier.showErrorAddProduct();
+        } else{
+            throw new TiendaUPMExcepcion("The product can't be added.", "ERR_PRODUCT");
         }
     }
 
-    public void addEvent(String id, String name, String price, String expiration_day, String num_person, TypeEvent typeEvent){
+    public void addEvent(String id, String name, String price, String expiration_day, String num_person, TypeEvent typeEvent) throws TiendaUPMExcepcion {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i< num_products){
-            if(products[i].getID().equals(id)){
-                Notifier.showErrorAddProductWithSameId();
+            if(products[i].getID().equals(id)) {
                 encontrado=true;
+                throw new TiendaUPMExcepcion("Can't be added a product with the same id", "ERR_PRODCUTID"){
+                };
             }
             i++;
         }
@@ -124,8 +129,16 @@ public class Catalog {
                 double priceDouble = Double.parseDouble(price);
                 int num_personInt = Integer.parseInt(num_person);
                 Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
-                if(productEvent.getNum_person() == 0){
-                    Notifier.showErrorAddEvent(typeEvent);
+                if(productEvent.getNum_person() == 0) {
+                    String mensajeUsuario;
+                    if (typeEvent.equals(TypeEvent.MEETING)) {
+                        mensajeUsuario = "Error processing -> prod addMeeting -> Error adding product";
+                    } else if (typeEvent.equals(TypeEvent.FOOD)) {
+                        mensajeUsuario = "Error processing -> prod addFood -> Error adding product";
+                    } else {
+                        mensajeUsuario = "Error processing -> Error adding product";
+                    }
+                    throw new TiendaUPMExcepcion(mensajeUsuario, "ERR_ADD_EVENT");
                 }else{
                     products[num_products] = productEvent;
                     num_products++;
@@ -134,16 +147,16 @@ public class Catalog {
                 }
             }
         } else {
-            Notifier.showErrorAddProduct();
+            throw new TiendaUPMExcepcion("The product can't be added.", "ERR_PRODUCT");
         }
     }
-    public void addService(String expiration_day, String category){
+    public void addService(String expiration_day, String category)throws TiendaUPMExcepcion{
         if(expiration_day!=null && category!=null){
             Category_service category_service = switch (category){
                 case "TRANSPORT" -> Category_service.TRANSPORT;
                 case "SHOW" -> Category_service.SHOW;
                 case "INSURANCE" -> Category_service.INSURANCE;
-                default -> Notifier.UnexpectecValueService(category);
+                default -> throw new TiendaUPMExcepcion("Unexpected value: " + category, "ERR_UNEXPECTEDVALUED");
             };
             if(num_products<MAX_NUM_PRODUCTS ){
                 Services services= new Services(expiration_day,category_service,createID_S());
@@ -155,10 +168,10 @@ public class Catalog {
                     Notifier.showSuccessAddProduct();
                 }
             }else{
-                Notifier.fullCatalog();
+                throw new TiendaUPMExcepcion("The catalog is full, you can't add more products.", "ERR_CATALOG");
             }
         }else{
-            Notifier.showErrorAddProduct();
+            throw new TiendaUPMExcepcion("The product can't be added.",  "ERR_PRODUCT");
         }
     }
 
@@ -187,7 +200,7 @@ public class Catalog {
      * @param change    Atributo a modificar (name, category o price).
      * @param value     Nuevo valor del atributo.
      */
-    public void update(String id, String change, String value) throws IllegalStateException {
+    public void update(String id, String change, String value) throws TiendaUPMExcepcion {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i<num_products){
@@ -211,7 +224,7 @@ public class Catalog {
                             case "CLOTHES" -> Category.CLOTHES;
                             case "BOOK" -> Category.BOOK;
                             case "ELECTRONICS" -> Category.ELECTRONICS;
-                            default -> Notifier.UnexpectecValue(value);
+                            default -> throw new TiendaUPMExcepcion("Unexpected value: " + value, "ERR_UNEXPECTEDVALUE");
                         };
                         product.setCategory(category);
                         products[i] = product;
@@ -224,7 +237,7 @@ public class Catalog {
                             case "CLOTHES" -> Category.CLOTHES;
                             case "BOOK" -> Category.BOOK;
                             case "ELECTRONICS" -> Category.ELECTRONICS;
-                            default -> Notifier.UnexpectecValue(value);
+                            default -> throw new TiendaUPMExcepcion("Unexpected value: " + value, "ERR_UNEXPECTEDVALUE");
                         };
                         product.setCategory(category);
                         products[i]=product;
@@ -234,13 +247,12 @@ public class Catalog {
                             case "TRANSPORT" -> Category_service.TRANSPORT;
                             case "SHOWS" -> Category_service.SHOW;
                             case "INSURANCE" -> Category_service.INSURANCE;
-                            default -> Notifier.UnexpectecValueService(value);
+                            default -> throw new TiendaUPMExcepcion("Unexpected value: " + value, "ERR_UNEXPECTEDVALUE");
                         };
                         product.setCategory_service(category);
                         products[i]=product;
-                    } else if (products[i].getClass().equals(Events.class)) {
-                        System.out.println("Can't be edit de category or typeEvent of a Event");
-                    }
+                    } else if (products[i].getClass().equals(Events.class)) throw new TiendaUPMExcepcion("Can't be edit de category or typeEvent of a Event", "ERR_CATEGORY"){
+                    };
                     break;
                 case "PRICE":
                     double price = Double.parseDouble(value);
@@ -249,8 +261,8 @@ public class Catalog {
             }
             System.out.println(products[i].toString());
             System.out.println("prod update: ok");
-        }else{
-            System.out.println("Product to update not found");
+        }else {
+            throw new TiendaUPMExcepcion("Product to update not found", "ERR_PRODUCT");
         }
     }
 
@@ -258,7 +270,7 @@ public class Catalog {
      * Elimina un producto del catálogo.
      * @param id    Identificador del producto.
      */
-    public void remove(String id) {
+    public void remove(String id) throws TiendaUPMExcepcion {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i< products.length){
@@ -280,8 +292,8 @@ public class Catalog {
                 num_sesiones--;
             }
             System.out.println("prod remove: ok");
-        }else{
-            System.out.println("Product to remove not found");
+        }else {
+            throw new TiendaUPMExcepcion("Product to remove not found", "ERR_PRODUCT");
         }
     }
 

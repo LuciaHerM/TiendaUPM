@@ -4,6 +4,7 @@ import es.upm.etsisi.poo.BussinessClient;
 import es.upm.etsisi.poo.Client;
 import es.upm.etsisi.poo.NormalClient;
 import es.upm.etsisi.poo.TiendaUPMExcepcion;
+import es.upm.etsisi.poo.persistence.ClientDAO;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,7 @@ public class AddClient extends ComandClient {
                 client = new NormalClient(name, id, email, cashId);
             }
             clients.add(client);
+            ClientDAO.save(client);
 
             System.out.println(client.toString());
             System.out.println("client add: ok");
