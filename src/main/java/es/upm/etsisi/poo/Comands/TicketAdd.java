@@ -42,6 +42,7 @@ public class TicketAdd extends ComandTicket{
         this.catalog=catalog;
         this.casher = selectCash(cashers,cashId) ;
         this.personalizaciones = null;
+        this.quantity="1";
     }
 
     /**
@@ -99,7 +100,7 @@ public class TicketAdd extends ComandTicket{
                             ticketActual.AddProduct(p);
                         }
                     }
-                    TicketDAO.guardarProductos(ticketActual);
+                    TicketDAO.guardarProductos(ticketActual, p, Integer.parseInt(quantity));
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 } else {

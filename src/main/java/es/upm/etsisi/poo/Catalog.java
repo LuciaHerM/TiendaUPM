@@ -24,7 +24,7 @@ public class Catalog {
         for(Product p : all){
             products[num_products]=p;
             num_products++;
-            if(products[num_products].getID().contains("S")){
+            if(p.getID().contains("S")){
                 num_sesiones++;
             }
         }

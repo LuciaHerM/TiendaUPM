@@ -54,9 +54,9 @@ public class TiendaUPM {
         ClientDAO clientDAO = new ClientDAO();
         CashDAO cashDAO = new CashDAO();
 
-        /*catalog = new Catalog(productDAO.findAll());
+        catalog = new Catalog(productDAO.findAll());
         cashers = cashDAO.findAll(ticketDAO, productDAO);
-        clients = clientDAO.findAll(ticketDAO, productDAO);*/
+        clients = clientDAO.findAll(ticketDAO, productDAO);
 
     }
 

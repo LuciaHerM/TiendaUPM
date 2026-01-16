@@ -12,7 +12,7 @@ public class TicketDAO {
 
         String sql = """
             INSERT OR REPLACE INTO ticket
-            (id, status, total_price, total_discount, client_dni, cash_id)
+            (id, status, total_price, total_discount, client_id, cash_id)
             VALUES (?, ?, ?, ?, ?, ?)
         """;
 
@@ -30,7 +30,6 @@ public class TicketDAO {
 
             ps.executeUpdate();
 
-            guardarProductos(t);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,31 +37,25 @@ public class TicketDAO {
     }
 
 
-    public static void guardarProductos(Ticket t) {
+    public static void guardarProductos(Ticket t, Product p, int quantity) {
 
         try {
-            String delete = "DELETE FROM ticket_product WHERE ticket_id = ?";
             String insert = """
-                        INSERT INTO ticket_product(ticket_id, product_id)
-                        VALUES (?, ?)
-                    """;
+            INSERT INTO ticket_product (ticket_id, product_id, quantity)
+            VALUES (?, ?, ?)
+        """;
 
             Connection conn = DatabaseManager.getInstance().getConnection();
 
-            try (PreparedStatement del = conn.prepareStatement(delete);
-                 PreparedStatement ins = conn.prepareStatement(insert)) {
-
-                del.setString(1, t.getTicketId());
-                del.executeUpdate();
-
-                for (Product p : t.getCart()) {
-                    ins.setString(1, t.getTicketId());
-                    ins.setString(2, p.getID());
-                    ins.executeUpdate();
-                }
+            try (PreparedStatement ps = conn.prepareStatement(insert)) {
+                ps.setString(1, t.getTicketId());
+                ps.setString(2, p.getID());
+                ps.setInt(3, quantity);
+                ps.executeUpdate();
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error guardando producto en ticket", e);
         }
     }
 

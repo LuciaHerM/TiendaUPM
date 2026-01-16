@@ -27,16 +27,18 @@ public class ProductDAO {
 
             ps.setString(1, p.getID());
             ps.setString(2, p.getName());
-            ps.setDouble(3, p.getPrice());
 
             /* ===== DISCRIMINADOR ===== */
             if (p instanceof Events) {
+                ps.setDouble(3, p.getPrice());
                 ps.setString(4, "EVENT");
             } else if (p instanceof Services) {
                 ps.setString(4, "SERVICE");
             } else if (p instanceof Personalized) {
+                ps.setDouble(3, p.getPrice());
                 ps.setString(4, "CUSTOM");
             } else {
+                ps.setDouble(3, p.getPrice());
                 ps.setString(4, "BASIC");
             }
 
@@ -70,7 +72,11 @@ public class ProductDAO {
             /* ===== Personalizado ===== */
             if (p instanceof Personalized per) {
                 ps.setInt(11, per.getMax_pers());
-                ps.setString(12, String.join(",", per.getPersonalizaciones()));
+                String pers = null;
+                if(per.personalizaciones!=null) {
+                    pers = String.join(",", per.getPersonalizaciones());
+                }
+                ps.setString(12, pers);
             } else {
                 ps.setNull(11, Types.INTEGER);
                 ps.setNull(12, Types.VARCHAR);
