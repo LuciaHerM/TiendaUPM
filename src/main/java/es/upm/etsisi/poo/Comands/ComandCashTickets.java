@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import es.upm.etsisi.poo.Cash;
 import es.upm.etsisi.poo.Ticket;
+import es.upm.etsisi.poo.TiendaUPMExcepcion;
 
 public class ComandCashTickets extends ComandCash {
 
@@ -18,7 +19,7 @@ public class ComandCashTickets extends ComandCash {
     /**
      * Te busca el cajero y posteriormente te imprime los tickets del cajero.
      */
-    public void apply() {
+    public void apply() throws TiendaUPMExcepcion {
         es.upm.etsisi.poo.Cash cajero = null;
         for (es.upm.etsisi.poo.Cash cash : cashers) {
             if (cash.getCashId().equals(id)) {
@@ -38,7 +39,7 @@ public class ComandCashTickets extends ComandCash {
             }
             System.out.println("cash tickets: ok");
         } else {
-            System.out.println("The casher was not found");
+            throw new TiendaUPMExcepcion("The casher was not found", "ERR_CASHID");
         }
     }
 }
