@@ -76,7 +76,7 @@ public  class TicketNew extends ComandTicket{
                 System.out.println(ticket.toString());
                 System.out.println("ticket new: ok");
             } else{
-                throw new TiendaUPMExcepcion("The ticket id is not correct because it does exist the ticket or because the format is not correct:  YY-MM-dd-HH:mm-#####", "ERR_TICKETID");
+                throw new TiendaUPMExcepcion("The ticket id is not correct because it does exist the ticket or because the format is not correct:  YY-MM-dd-HH:mm-ssss", "ERR_TICKETID");
             }
         }
     }
