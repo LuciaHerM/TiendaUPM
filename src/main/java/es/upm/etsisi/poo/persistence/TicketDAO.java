@@ -170,6 +170,22 @@ public class TicketDAO {
         }
 
     }
+    public static void openTicket(String ticketId) {
+
+        String sql = "UPDATE ticket SET status = 'OPEN' WHERE id = ?";
+
+        try (PreparedStatement ps =
+                     DatabaseManager.getInstance()
+                             .getConnection()
+                             .prepareStatement(sql)) {
+
+            ps.setString(1, ticketId);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
 
