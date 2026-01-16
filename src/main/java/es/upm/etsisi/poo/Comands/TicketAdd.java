@@ -48,7 +48,7 @@ public class TicketAdd extends ComandTicket{
     /**
      *  Añade una cantidad específica de un producto al ticket.
      */
-    public void apply() {
+    public void apply() throws TiendaUPMExcepcion{
         Ticket ticketActual = selectTicket();
         if(ticketActual !=null) {
             if (ticketActual.getStatus() != TicketStatus.CLOSE) {
@@ -74,9 +74,10 @@ public class TicketAdd extends ComandTicket{
                 else {
                     p=catalog.find(cont);
                 }
-                if(find && (p instanceof Events) && ticketActual.reunionIntroduce(p)){
+                if(find && (p instanceof Events) && ticketActual.reunionIntroduce(p)) {
                     find=false;
-                    System.out.println("There can't be two identical events.");
+                    throw new TiendaUPMExcepcion("There can't be two identical events.", "ERR_EVENT"){
+                    };
                 }
                 if(find && (p instanceof Services) && (ticketActual instanceof TicketComunes)){
                     Notifier.showErrorAddServicesInComunTicket();
@@ -104,14 +105,14 @@ public class TicketAdd extends ComandTicket{
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 } else {
-                    System.out.println("The product was not found");
+                    throw new TiendaUPMExcepcion("The product was not found", "ERR_PRODUCT");
                 }
             } else {
                 System.out.println("The ticket was closed");
             }
         }
         else {
-            System.out.println("The id can't be find.");
+            throw new TiendaUPMExcepcion("The id can't be find.", "ERR_PRODUCTID");
         }
     }
 
