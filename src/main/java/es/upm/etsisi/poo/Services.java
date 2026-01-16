@@ -13,14 +13,19 @@ public class Services extends Product{
     public final double DISCOUNT=0.15;
     public Services(String expiration_day, Category_service category_service, String id) {
         this.category_service=category_service;
-        if(check_correct_day(expiration_day)){
-           this.expiration_day=expiration_day;
-        }else {
-            expiration_day=null;
-        }
+        this.expiration_day=expiration_day;
         this.id=id;
     }
-    public boolean check_correct_day(String day){
+    public static Services createFromInput(String expiration_day, Category_service category_service, String id) {
+        if (check_correct_day(expiration_day)) {
+            return new Services(expiration_day, category_service, id);
+        }
+        else {
+            return null;
+        }
+    }
+
+    public static boolean check_correct_day(String day){
         LocalDate eventDate;
         try{
             eventDate=LocalDate.parse(day);

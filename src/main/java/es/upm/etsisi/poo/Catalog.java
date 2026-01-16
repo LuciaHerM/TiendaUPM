@@ -132,7 +132,7 @@ public class Catalog {
             if (!encontrado && num_products < MAX_NUM_PRODUCTS) {
                 double priceDouble = Double.parseDouble(price);
                 int num_personInt = Integer.parseInt(num_person);
-                Events productEvent = new Events(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
+                Events productEvent = Events.createFromInput(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
                 if(productEvent.getNum_person() == 0) {
                     String mensajeUsuario;
                     if (typeEvent.equals(TypeEvent.MEETING)) {
@@ -164,7 +164,7 @@ public class Catalog {
                 default -> throw new TiendaUPMExcepcion("Unexpected value: " + category, "ERR_UNEXPECTEDVALUED");
             };
             if(num_products<MAX_NUM_PRODUCTS ){
-                Services services= new Services(expiration_day,category_service,createID_S());
+                Services services= Services.createFromInput(expiration_day,category_service,createID_S());
                 if(services.getExpiration_day()!=null){
                     products[num_products]=services;
                     num_products++;

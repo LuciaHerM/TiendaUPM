@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 public class Events extends Product {
     private String expiration_day;
-    private final int MAX_PARTICIPANTS=100;
+    private static final int MAX_PARTICIPANTS=100;
     private int num_person;
     private TypeEvent typeEvent;
     private int invited_person=0;
@@ -14,19 +14,28 @@ public class Events extends Product {
     public Events(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) throws TiendaUPMExcepcion{
         super(id, name, price);
         this.typeEvent=typeEvent;
-        if(check_min_time(expiration_day)){
-            this.expiration_day=expiration_day;
-        }
+        this.expiration_day=expiration_day;
+        this.num_person=num_person;
+    }
+
+    public static Events createFromInput(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) {
         if(num_person>MAX_PARTICIPANTS){
             throw new TiendaUPMExcepcion(
                     "Error: El número de personas (" + num_person + ") excede el máximo permitido (" + MAX_PARTICIPANTS + ").",
                     "ERR_EVENT_CAPACITY");
         }
-        this.num_person=num_person;
+        if(num_person==0){
+            Notifier.showErrorAddEvent(typeEvent);
+        }
+        else if (check_min_time(typeEvent, expiration_day) && num_person <= MAX_PARTICIPANTS) {
 
+            return new Events(id, name, price, expiration_day, num_person, typeEvent);
+        }
+        return null;
     }
 
-    public boolean check_min_time(String expiration_day) throws TiendaUPMExcepcion{
+
+    public static boolean check_min_time(TypeEvent typeEvent, String expiration_day)throws TiendaUPMExcepcion{
         LocalDate eventDate;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try{
