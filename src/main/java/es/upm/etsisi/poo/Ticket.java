@@ -79,13 +79,12 @@ public class Ticket {
      * Añade el producto al array de productos, cart. El producto se inserta en la siguiente posición libre del array.
      * @param producto  Producto a añadir al ticket.
      */
-    public void AddProduct(Product producto) {
+    public void AddProduct(Product producto) throws TiendaUPMExcepcion{
         if(productNumber<MAX_CART_PRODUCTS) {
             cart[productNumber] = producto;
             productNumber++;
             //Arrays.sort(cart,Comparator.comparing(Product::getName));
-        }else{
-            System.out.println("You are trying to introduce more products to the ticket.");
+        }else{ throw new TiendaUPMExcepcion("You are trying to introduce more products to the ticket.", "ERR_MOREPRODUCTS");
         }
     }
 
