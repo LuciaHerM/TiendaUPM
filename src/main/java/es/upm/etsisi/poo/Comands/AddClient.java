@@ -48,7 +48,7 @@ public class AddClient extends ComandClient {
         }
         if (foundIDEnClientList){
             throw new TiendaUPMExcepcion(
-                    "The client already exist.", "ERR_CLIENT_001"
+                    "The client already exist.", "ERR_CLIENT"
             );
         }
     }
