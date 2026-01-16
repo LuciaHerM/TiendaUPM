@@ -84,6 +84,7 @@ public class TicketAdd extends ComandTicket{
                 }else if(find && (p instanceof Services) && (ticketActual instanceof TicketEmpresa)){
                     if (ticketActual.getStatus() != TicketStatus.OPEN) {
                         ticketActual.setStatus(TicketStatus.OPEN);
+                        TicketDAO.openTicket(ticketActual.getTicketId());
                     }
                     ticketActual.AddProduct(p);
                     System.out.println(ticketActual.toString());
