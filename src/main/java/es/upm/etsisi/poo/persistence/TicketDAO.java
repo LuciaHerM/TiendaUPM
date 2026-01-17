@@ -8,12 +8,12 @@ import java.util.List;
 public class TicketDAO {
 
 
-    public static void save(Ticket t, String clientDni, String cashId) {
+    public static void save(Ticket t, String type, String clientDni, String cashId) {
 
         String sql = """
             INSERT OR REPLACE INTO ticket
-            (id, status, total_price, total_discount, client_id, cash_id)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (id, status, ticket_type, client_id, cash_id)
+            VALUES (?, ?, ?, ?, ?)
         """;
 
         try (PreparedStatement ps =
@@ -23,10 +23,9 @@ public class TicketDAO {
 
             ps.setString(1, t.getTicketId());
             ps.setString(2, t.getStatus().name());
-            ps.setDouble(3, t.getTotalPrice());
-            ps.setDouble(4, t.getTotalDiscount());
-            ps.setString(5, clientDni);
-            ps.setString(6, cashId);
+            ps.setString(3, type);
+            ps.setString(4, clientDni);
+            ps.setString(5, cashId);
 
             ps.executeUpdate();
 
@@ -37,11 +36,11 @@ public class TicketDAO {
     }
 
 
-    public static void guardarProductos(Ticket t, Product p, int quantity) {
+    public static void guardarProductos(Ticket t, Product p) {
 
         try {
             String insert = """
-            INSERT INTO ticket_product (ticket_id, product_id, quantity)
+            INSERT INTO ticket_product (ticket_id, product_id)
             VALUES (?, ?, ?)
         """;
 
@@ -50,7 +49,6 @@ public class TicketDAO {
             try (PreparedStatement ps = conn.prepareStatement(insert)) {
                 ps.setString(1, t.getTicketId());
                 ps.setString(2, p.getID());
-                ps.setInt(3, quantity);
                 ps.executeUpdate();
             }
 
@@ -70,8 +68,21 @@ public class TicketDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
+                String clientId = rs.getString("client_id");
 
-                Ticket t = new Ticket(rs.getString("id"));
+                Ticket t;
+                if (clientId.matches("[A-Za-z][0-9]{8}")){
+                    String type = rs.getString("ticket_type");
+                    CompanyTicketTipe ticketType = switch (type){
+                        case "-c" -> CompanyTicketTipe.PRODUCTS_AND_SERVICES;
+                        case "-p" -> CompanyTicketTipe.PRODUCTS_ONLY;
+                        case "-s" -> CompanyTicketTipe.SERVICES_ONLY;
+                        default -> CompanyTicketTipe.PRODUCTS_ONLY;
+                    };
+                    t=new TicketEmpresa(rs.getString("id"), ticketType);
+                }else {
+                    t = new TicketComunes(rs.getString("id"));
+                }
                 t.setStatus(
                         TicketStatus.valueOf(rs.getString("status"))
                 );

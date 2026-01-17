@@ -72,7 +72,7 @@ public  class TicketNew extends ComandTicket{
                 Ticket ticket = new TicketComunes(ticketId);
                 client.ticketAddClients(ticket);
                 cash.ticketAddCash(ticket);
-                TicketDAO.save(ticket,clientId,cashId);
+                TicketDAO.save(ticket,"-p", clientId,cashId);
                 System.out.println(ticket.toString());
                 System.out.println("ticket new: ok");
             } else{
