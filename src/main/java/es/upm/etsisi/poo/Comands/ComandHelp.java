@@ -25,6 +25,7 @@ public class ComandHelp extends Comands{
                 "  prod remove <id>\n" +
                 "  help\n" +
                 "  echo \"<text>\" \n" +
+                "  deleteAll\n" +
                 "  exit\n\n" +
                 "Categories: MERCH, STATIONERY, CLOTHES, BOOK, ELECTRONICS\n" +
                 "Discounts if there are ≥2 units in the category: MERCH 0%, STATIONERY 5%, CLOTHES 7%, BOOK 10%, ELECTRONICS 3%.");
