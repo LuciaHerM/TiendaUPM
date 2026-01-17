@@ -133,7 +133,7 @@ public class Catalog {
                 double priceDouble = Double.parseDouble(price);
                 int num_personInt = Integer.parseInt(num_person);
                 Events productEvent = Events.createFromInput(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
-                if(productEvent.getNum_person() == 0) {
+                if(productEvent != null) {
                     String mensajeUsuario;
                     if (typeEvent.equals(TypeEvent.MEETING)) {
                         mensajeUsuario = "Error processing -> prod addMeeting -> Error adding product";
@@ -277,7 +277,7 @@ public class Catalog {
      * Elimina un producto del catálogo.
      * @param id    Identificador del producto.
      */
-    public void remove(String id) throws TiendaUPMExcepcion {
+    public void remove(String id) {
         int i=0;
         boolean encontrado=false;
         while(!encontrado && i< products.length){
@@ -300,8 +300,8 @@ public class Catalog {
                 num_sesiones--;
             }
             System.out.println("prod remove: ok");
-        }else {
-            throw new TiendaUPMExcepcion("Product to remove not found", "ERR_PRODUCT");
+        }else{
+            System.out.println("Product to remove not found");
         }
     }
 

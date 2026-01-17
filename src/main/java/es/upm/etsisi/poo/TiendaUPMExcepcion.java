@@ -7,7 +7,7 @@ public class TiendaUPMExcepcion extends Exception{
     public TiendaUPMExcepcion(String descripcionError, String codigoError) {
         super(descripcionError);
         this.codigoError = codigoError;
-
+        this.descripcionError=descripcionError;
     }
 
     public String getMensaje() {
