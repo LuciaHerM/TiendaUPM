@@ -20,12 +20,17 @@ public class Events extends Product {
 
     public static Events createFromInput(String id, String name, Double price, String expiration_day, int num_person, TypeEvent typeEvent) throws TiendaUPMExcepcion {
         if(num_person>MAX_PARTICIPANTS){
-            throw new TiendaUPMExcepcion(
-                    "Error: El número de personas (" + num_person + ") excede el máximo permitido (" + MAX_PARTICIPANTS + ").",
-                    "ERR_EVENT_CAPACITY");
+            String mensajeUsuario;
+            if (typeEvent.equals(TypeEvent.MEETING)) {
+                mensajeUsuario = "Error processing -> prod addMeeting -> Error adding product";
+            } else if (typeEvent.equals(TypeEvent.FOOD)) {
+                mensajeUsuario = "Error processing -> prod addFood -> Error adding product";
+            } else {
+                mensajeUsuario = "Error processing -> Error adding product";
+            }
+            throw new TiendaUPMExcepcion(mensajeUsuario, "ERR_ADD_EVENT");
         }
         else if (check_min_time(typeEvent, expiration_day) && num_person <= MAX_PARTICIPANTS) {
-
             return new Events(id, name, price, expiration_day, num_person, typeEvent);
         }
         return null;

@@ -106,8 +106,7 @@ public class ProductDAO {
 
                 switch (type) {
 
-                    case "EVENT" -> {
-                        p = new Events(
+                    case "EVENT" -> p = new Events(
                                 rs.getString("id"),
                                 rs.getString("name"),
                                 rs.getDouble("price"),
@@ -115,8 +114,6 @@ public class ProductDAO {
                                 rs.getInt("num_person"),
                                 TypeEvent.valueOf(rs.getString("type_event"))
                         );
-                        ((Events) p).setNum_person(rs.getInt("num_person"));
-                    }
 
                     case "SERVICE" -> p = new Services(
                             rs.getString("expiration_day"),
@@ -129,8 +126,7 @@ public class ProductDAO {
                             rs.getString("id")
                     );
 
-                    case "CUSTOM" -> {
-                        p = new Personalized(
+                    case "CUSTOM" -> p = new Personalized(
                                 rs.getString("id"),
                                 rs.getString("name"),
                                 switch (rs.getString("category")) {
@@ -144,11 +140,6 @@ public class ProductDAO {
                                 rs.getDouble("price"),
                                 rs.getInt("max_pers")
                         );
-                        String pers = rs.getString("personalizations");
-                        if (pers != null)
-                            ((Personalized) p)
-                                    .setPersonalizaciones(pers.split(","));
-                    }
 
                     default -> p = new Product_Basic(
                             rs.getString("id"),

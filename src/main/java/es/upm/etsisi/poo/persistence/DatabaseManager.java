@@ -97,12 +97,11 @@ public class DatabaseManager {
         // TICKET
         stmt.execute("""
         CREATE TABLE IF NOT EXISTS ticket (
-            id TEXT PRIMARY KEY,
+            id TEXT,
             cash_id TEXT,
             client_id TEXT,
             status TEXT NOT NULL,
-            total_price REAL,
-            total_discount REAL
+            ticket_type TEXT NOT NULL DEFAULT "-p"
         );
     """);
 
@@ -111,8 +110,6 @@ public class DatabaseManager {
         CREATE TABLE IF NOT EXISTS ticket_product (
             ticket_id TEXT,
             product_id TEXT,
-            quantity INTEGER NOT NULL DEFAULT 1,
-            FOREIGN KEY (ticket_id) REFERENCES ticket(id),
             FOREIGN KEY (product_id) REFERENCES product(id)
         );
     """);

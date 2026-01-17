@@ -87,22 +87,25 @@ public class TicketAdd extends ComandTicket{
                         TicketDAO.openTicket(ticketActual.getTicketId());
                     }
                     ticketActual.AddProduct(p);
+                    TicketDAO.guardarProductos(ticketActual, p);
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 }
                 else if (find) {
                     if (ticketActual.getStatus() != TicketStatus.OPEN) {
                         ticketActual.setStatus(TicketStatus.OPEN);
+                        TicketDAO.openTicket(ticketActual.getTicketId());
                     }
                     if(p instanceof Events) {
                         ((Events) p).setInvited_person(Integer.parseInt(quantity));
                         ticketActual.AddProduct(p);
+                        TicketDAO.guardarProductos(ticketActual, p);
                     }else{
                         for (int i = 0; i < Integer.parseInt(quantity); i++) {
                             ticketActual.AddProduct(p);
+                            TicketDAO.guardarProductos(ticketActual, p);
                         }
                     }
-                    TicketDAO.guardarProductos(ticketActual, p, Integer.parseInt(quantity));
                     System.out.println(ticketActual.toString());
                     System.out.println("ticket add: ok");
                 } else {

@@ -21,7 +21,7 @@ public class ClientDAO {
                              .getConnection()
                              .prepareStatement(sql)) {
 
-            ps.setString(1, c.getCashId());
+            ps.setString(1, c.getId());
             ps.setString(2, c.getName());
             ps.setString(3, c.getEmail());
             ps.setString(4, c.getCashId());
