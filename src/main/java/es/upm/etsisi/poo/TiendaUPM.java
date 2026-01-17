@@ -67,6 +67,7 @@ public class TiendaUPM {
         boolean proceed = true;
         System.out.println("Ticket module. Type 'help' to see commands.");
         while (proceed) {
+            try {
                 System.out.print("tUPM>");
                 String comand = sc.nextLine();
                 Pattern pattern = Pattern.compile("\"([^\"]*(?:\"[^\"]*)*)\"|(\\S+)");
@@ -85,7 +86,12 @@ public class TiendaUPM {
                     comands[i] = comand_list.get(i);
                 }
                 proceed = gestionComandos(comands);
+            } catch(TiendaUPMExcepcion e){
+                System.out.println(e.getMensaje());
+            } catch (Exception e){
+                System.out.println("Formato de comando incorrecto o error inesperado.");
             }
+        }
     }
 
     /**
@@ -93,7 +99,7 @@ public class TiendaUPM {
      * @param comand
      * @return
      */
-    private boolean gestionComandos(String[] comand){
+    private boolean gestionComandos(String[] comand) throws TiendaUPMExcepcion {
         boolean continuar=true;
         Comands comad = null;
         switch (comand[0]) {
@@ -246,7 +252,7 @@ public class TiendaUPM {
         } catch (TiendaUPMExcepcion e) {
             System.out.println(e.getMensaje());
         } catch (Exception e) {
-            System.out.println("Aviso: Error inesperado al procesar el producto.");
+            System.out.println("Aviso: Error inesperado al procesar el comando.");
     }
         System.out.println();
         return continuar;
