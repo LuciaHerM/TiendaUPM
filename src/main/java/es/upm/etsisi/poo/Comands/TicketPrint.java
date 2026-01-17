@@ -36,7 +36,7 @@ public class TicketPrint extends ComandTicket{
                 System.out.println(ticketActive.toString());
                 System.out.println("ticket print: ok");
                 ticketActive.setStatus(TicketStatus.CLOSE);
-                TicketDAO.closeTicket(ticketId);
+                TicketDAO.closeTicket(ticketId, ticketActive.getTicketId());
             }
             else {
                 throw new TiendaUPMExcepcion("It is not possible to close a combined company ticket without including at least one product and one service", "ERR_CLOSECOMBINEDTICKET");
