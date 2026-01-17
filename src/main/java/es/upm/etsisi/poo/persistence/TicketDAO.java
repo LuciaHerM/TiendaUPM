@@ -41,7 +41,7 @@ public class TicketDAO {
         try {
             String insert = """
             INSERT INTO ticket_product (ticket_id, product_id)
-            VALUES (?, ?, ?)
+            VALUES (?, ?)
         """;
 
             Connection conn = DatabaseManager.getInstance().getConnection();

@@ -133,7 +133,7 @@ public class Catalog {
                 double priceDouble = Double.parseDouble(price);
                 int num_personInt = Integer.parseInt(num_person);
                 Events productEvent = Events.createFromInput(id, name, priceDouble, expiration_day, num_personInt, typeEvent);
-                if(productEvent != null) {
+                if(productEvent == null) {
                     String mensajeUsuario;
                     if (typeEvent.equals(TypeEvent.MEETING)) {
                         mensajeUsuario = "Error processing -> prod addMeeting -> Error adding product";
