@@ -87,7 +87,7 @@ public class TiendaUPM {
                 }
                 proceed = gestionComandos(comands);
             } catch(TiendaUPMExcepcion e){
-                System.out.println(e.getMessage());
+                System.out.println(e.getMensaje());
             } catch (Exception e){
                 System.out.println("Formato de comando incorrecto o error inesperado.");
             }
