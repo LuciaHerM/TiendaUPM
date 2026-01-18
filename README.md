@@ -1,71 +1,85 @@
 # 🏬 TiendaUPM – Sistema de Gestión de Tienda (POO)
 
-**TiendaUPM** es una aplicación desarrollada para la asignatura **Programación Orientada a Objetos (POO)**.
-Su objetivo es ofrecer una plataforma modular y extensible para gestionar productos, clientes, cajeros, tickets y eventos dentro de la **Tienda UPM**, utilizando una **interfaz de línea de comandos (CLI)**.
+**TiendaUPM** es una aplicación desarrollada para la asignatura **Programación Orientada a Objetos (POO)** en la Universidad Politécnica de Madrid.
+El objetivo del proyecto es implementar un sistema completo, modular y extensible para la gestión de una tienda mediante **arquitectura orientada a objetos**, **patrones de diseño** y una **interfaz de línea de comandos (CLI)**.
 
-Este proyecto corresponde a la **Entrega E2 (funcionalidad práctica)** del desarrollo incremental planteado para el curso.
+📦 **Esta versión corresponde a la *Entrega 3 y final*** del proyecto, integrando:
+
+* Modelo de dominio completo
+* Sistema de comandos
+* Capa de persistencia con base de datos
 
 ---
 
 ## 📌 Características principales
 
-* ✔️ Arquitectura completamente orientada a objetos
-* ✔️ Sistema de comandos extensible mediante clases especializadas
-* ✔️ Gestión de productos y categorías
-* ✔️ Creación y edición de tickets
-* ✔️ Registro de clientes
-* ✔️ Gestión del personal (cajeros)
-* ✔️ Soporte para productos especiales tipo evento
-* ✔️ Código preparado para futuras capas visuales (GUI)
+* ✔️ Arquitectura orientada a objetos en capas
+* ✔️ Sistema de comandos extensible (patrón Command)
+* ✔️ Persistencia de datos mediante DAOs
+* ✔️ Gestión de productos, eventos y servicios
+* ✔️ Gestión de clientes normales y de empresa
+* ✔️ Gestión de cajeros y tickets
+* ✔️ Control de estados de ticket
+* ✔️ Manejo centralizado de excepciones
+* ✔️ Preparado para ampliaciones futuras (GUI, nuevos comandos, nuevos productos)
 
 ---
 
 ## 🧱 Arquitectura del Proyecto
 
-El proyecto se divide en **dos grandes módulos**:
+El proyecto se estructura en **tres grandes bloques**, cada uno reflejado en su correspondiente **diagrama UML**:
 
-1. **Modelo de dominio** (TiendaUPM, Product, Ticket, Client, Cash...)
-2. **Sistema de comandos** (Commands, prodAdd, ticketPrint, cashList...)
+1. **Modelo de Dominio (Aplicación)**
+2. **Sistema de Comandos (CLI)**
+3. **Capa de Persistencia (DAO + Base de Datos)**
 
-Los siguientes diagramas UML (no incluidos en el README, pero usados para el diseño) detallan la estructura interna.
-
----
-
-# 1️⃣ Modelo de Dominio
-
-### 🏬 TiendaUPM
-
-Clase principal que coordina la aplicación.
-
-Gestiona:
-
-* Catálogo de productos
-* Lista de clientes
-* Cajeros (empleados de la tienda)
-* Tickets en curso y finalizados
-* Ejecución de comandos
-
-Es responsable del **estado general de la tienda**.
+Cada bloque es independiente pero está correctamente acoplado mediante interfaces claras y responsabilidades bien definidas.
 
 ---
 
-### 📦 Product
+# 1️⃣ Modelo de Dominio (Aplicación)
 
-Representa cualquier producto estándar de la tienda.
+Este módulo representa la **lógica principal del negocio** y está reflejado en el UML de la aplicación.
+
+## 🏬 TiendaUPM
+
+Clase principal que actúa como **fachada del sistema**.
+
+Responsabilidades:
+
+* Mantener el catálogo de productos
+* Gestionar clientes y cajeros
+* Controlar tickets activos y cerrados
+* Procesar comandos introducidos por el usuario
+* Inicializar y cerrar la aplicación
+
+Es el **punto de entrada** y coordinación de toda la aplicación.
+
+---
+
+## 📦 Product y Jerarquía de Productos
+
+### 🔹 Product
+
+Clase base que representa cualquier producto de la tienda.
 
 Atributos principales:
 
 * `id`
 * `name`
-* `category` (enum **Category**)
 * `price`
-* `personalizaciones` (si aplica)
 
 ---
 
-### 📚 Category
+### 🔹 Product_Basic
 
-Enumeración que define **categorías generales de producto**.
+Extiende `Product` y añade:
+
+* `category` (enum **Category**)
+
+#### Category
+
+Define categorías estándar:
 
 | Categoría   |
 | ----------- |
@@ -77,160 +91,287 @@ Enumeración que define **categorías generales de producto**.
 
 ---
 
-### 🎟️ Events y TypeEvent
+### 🔹 Personalized
 
-`Events` extiende `Product` para soportar servicios/eventos especiales.
+Extiende `Product_Basic` y permite:
+
+* Personalizaciones
+* Número máximo de personas
+
+---
+
+### 🔹 Events
+
+Extiende `Product` para representar **eventos y servicios temporales**.
+
 Incluye:
 
 * Fecha de expiración
-* Número de asistentes o aforo
-* Cálculo dinámico de precio
+* Número máximo de participantes
 * Tipo de evento
+* Validaciones específicas
 
-**TypeEvent** define tipos específicos:
+#### TypeEvent
 
-| Tipo de Evento |
-| -------------- |
-| FOOD           |
-| MEETING        |
+| Tipo    |
+| ------- |
+| FOOD    |
+| MEETING |
 
 ---
 
-### 👤 Client
+### 🔹 Services
 
-Define a un cliente registrado.
+Producto especial asociado a servicios, con:
+
+* Categoría de servicio
+* Descuento
+* Fecha de expiración
+
+#### Category_Service
+
+| Categoría Servicio |
+| ------------------ |
+| TRANSPORT          |
+| SHOWS              |
+| INSURANCE          |
+
+---
+
+## 👤 Clientes
+
+### 🔹 Client
+
+Clase base de cliente.
 
 Atributos:
 
-* `DNI`
-* `cashId` (cajero asignado)
-* Lista de tickets asociados
+* `cashId`
+* Lista de tickets
+
+Subclases:
+
+* **NormalClient** → cliente estándar (DNI)
+* **BusinessClient** → cliente empresa (NIF)
 
 ---
 
-### 💼 Cash (Cajeros)
+## 💼 Cash (Cajeros)
 
-Representa a los **empleados de la tienda**, no a máquinas.
+Representa a los **empleados de la tienda**.
 
-Un cajero contiene:
+Incluye:
 
-* `id`
-* `name`
+* Identificador
+* Nombre
 * Lista de tickets gestionados
 
 ---
 
-### 🧾 Ticket
+## 🧾 Ticket
 
 Modela un ticket de compra.
 
-Incluye:
+Atributos:
 
-* Productos añadidos (`cart`)
-* Total (`totalPrice`)
-* Descuento total (`totalDiscount`)
-* ID
+* Lista de productos (`cart`)
+* Precio total
+* Descuento total
+* Estado del ticket
 * Cajero asociado
-* Estado del ticket (`TicketStatus`)
-
----
 
 ### 🎛️ TicketStatus
 
-Estados del ticket:
+| Estado |
+| ------ |
+| EMPTY  |
+| OPEN   |
+| CLOSE  |
 
-| Estado    |
-| --------- |
-| **EMPTY** |
-| **OPEN**  |
-| **CLOSE** |
+Subtipos:
+
+* **TicketComunes**
+* **TicketEmpresa** (con validaciones adicionales)
 
 ---
 
 # 2️⃣ Sistema de Comandos (CLI)
 
-El sistema está construido mediante una jerarquía de clases que extienden la abstracción:
+Este bloque implementa el **patrón Command**, reflejado en el UML de comandos.
 
-### **Commands**
+## 🔧 Commands
 
-* Define el método `apply()`
-* Cada comando lo implementa según su función
-* Facilita añadir nuevas órdenes sin modificar la arquitectura
+Clase abstracta que define:
+
+```java
+apply()
+```
+
+Todos los comandos concretos heredan de esta clase, permitiendo:
+
+* Alta cohesión
+* Bajo acoplamiento
+* Fácil extensibilidad
 
 ---
 
 ## 📦 Comandos de Productos
 
-| Comando                                | Descripción                  |
-| -------------------------------------- | ---------------------------- |
-| `prod add "<name>" <category> <price>` | Añade un producto            |
-| `prod add food ...`                    | Añade un producto tipo FOOD  |
-| `prod add meeting ...`                 | Añade un evento tipo MEETING |
-| `prod list`                            | Lista los productos          |
-| `prod update <field> <id> <value>`     | Modifica un producto         |
-| `prod remove <id>`                     | Elimina un producto          |
+* `prod add`
+* `prod add food`
+* `prod add meeting`
+* `prod add services`
+* `prod list`
+* `prod update`
+* `prod remove`
+
+Cada comando tiene su propia clase (`prodAdd`, `prodUpdate`, etc.).
 
 ---
 
 ## 🧾 Comandos de Tickets
 
-| Comando                | Descripción                |
-| ---------------------- | -------------------------- |
-| `ticket new`           | Inicia un nuevo ticket     |
-| `ticket add <id>`      | Añade un producto          |
-| `ticket remove <id>`   | Elimina un producto        |
-| `ticket print`         | Imprime el ticket actual   |
-| `ticket list <cashId>` | Lista tickets de un cajero |
+* `ticket new`
+* `ticket add`
+* `ticket remove`
+* `ticket print`
+* `ticket list`
+* `ticket business new`
 
 ---
 
 ## 👤 Comandos de Clientes
 
-| Comando               | Descripción        |
-| --------------------- | ------------------ |
-| `client add`          | Añade un cliente   |
-| `client list`         | Lista los clientes |
-| `client remove <dni>` | Elimina un cliente |
+* `client add`
+* `client list`
+* `client remove`
 
 ---
 
 ## 💼 Comandos de Cajeros
 
-| Comando             | Descripción                 |
-| ------------------- | --------------------------- |
-| `cash add`          | Añade un nuevo cajero       |
-| `cash list`         | Muestra los cajeros         |
-| `cash remove <id>`  | Elimina un cajero           |
-| `cash tickets <id>` | Muestra tickets gestionados |
+* `cash add`
+* `cash list`
+* `cash remove`
+* `cash tickets`
 
 ---
 
 ## ⚙️ Comandos Generales
 
-| Comando         | Descripción                |
-| --------------- | -------------------------- |
-| `help`          | Lista comandos disponibles |
-| `echo "<text>"` | Muestra texto              |
-| `exit`          | Cierra la aplicación       |
+* `help`
+* `echo`
+* `deleteAll`
+* `exit`
+* `unknownCommand`
 
 ---
 
-# 🧩 Diseño Extensible
+# 3️⃣ Capa de Persistencia
 
-El proyecto está diseñado para que futuras entregas (E3) puedan añadir:
+Este módulo está reflejado en el **UML de persistencia** y permite almacenar los datos de forma permanente.
 
-* Nuevos tipos de productos
-* Más comandos
-* Métodos de pago
-* Sistema gráfico (GUI)
-* Conexión con base de datos
+## 🗄️ DatabaseManager
 
-Gracias al uso de herencia, composición y abstracciones limpias, la arquitectura permite ampliar funcionalidades sin romper el diseño actual.
+Clase **Singleton** responsable de:
+
+* Crear y mantener la conexión con la base de datos
+* Inicializar tablas
+* Proveer conexiones a los DAOs
+* Borrar datos (modo desarrollo)
+
+---
+
+## 📂 DAO (Data Access Object)
+
+Cada entidad principal tiene su DAO correspondiente:
+
+### 🔹 ProductDAO
+
+* `save(Product)`
+* `findAll()`
+* `update(...)`
+* `delete(id)`
+
+---
+
+### 🔹 TicketDAO
+
+* Gestión completa de tickets
+* Apertura y cierre
+* Añadir y eliminar productos
+* Consultas cruzadas con productos
+
+---
+
+### 🔹 ClientDAO
+
+* Persistencia de clientes
+* Relación cliente–ticket
+
+---
+
+### 🔹 CashDAO
+
+* Gestión de cajeros
+* Asociación con tickets
+
+---
+
+Los DAOs **aislan la lógica de persistencia** del modelo de dominio, cumpliendo el principio de **separación de responsabilidades**.
+
+---
+
+## ⚠️ Gestión de Excepciones
+
+La aplicación utiliza una excepción personalizada:
+
+### 🔹 TiendaUPMException
+
+Incluye:
+
+* Código de error
+* Descripción
+* Mensaje claro para el usuario
+
+Centraliza el control de errores en toda la aplicación.
+
+---
+
+# 🧩 Diseño y Patrones Utilizados
+
+* **Command** → sistema CLI
+* **Singleton** → DatabaseManager
+* **DAO** → persistencia
+* **Herencia y Polimorfismo** → productos, clientes y tickets
+* **Composición** → tickets y productos
+* **Enumeraciones** → categorías y estados
+
+---
+
+# 🚀 Conclusión
+
+Esta **Entrega 3** presenta una aplicación:
+
+* Completa
+* Persistente
+* Modular
+* Extensible
+* Alineada con los principios de POO
+
+El diseño permite futuras ampliaciones como:
+
+* Interfaz gráfica (GUI)
+* Nuevos métodos de pago
+* Informes avanzados
+* Conexión con servicios externos
 
 ---
 
 # 📄 Licencia
 
-Este proyecto ha sido desarrollado exclusivamente para fines académicos en la UPM.
+Proyecto desarrollado exclusivamente con fines académicos para la Universidad Politécnica de Madrid (UPM).
 
 ---
+* Añadir un apartado de **decisiones de diseño**
+* O alinearlo palabra por palabra con los UML para defensa oral
