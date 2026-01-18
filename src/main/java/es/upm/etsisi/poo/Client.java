@@ -5,19 +5,13 @@ import java.util.List;
 
 public class Client extends User{
 
-    public String id;
     public String cashId;
     private List<Ticket> clientTickets;
 
     public Client (String name, String id, String email, String cashId){
         super(name, email, id);
-        this.id = id;
         this.cashId=cashId;
         this.clientTickets = new ArrayList<>();
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getCashId() {
