@@ -52,11 +52,10 @@ public class Catalog {
     public void add(String id, String name, String category, String price) throws TiendaUPMExcepcion {
         int i=0;
         boolean encontrado=false;
-        while(!encontrado && i< num_products){
+        while(!encontrado && i < num_products){
             if(products[i].getID().equals(id)) {
-                encontrado=true;
-                throw new TiendaUPMExcepcion("Can't be added a product with the same id", "ERR_PRODCUTID"){
-                };
+                encontrado = true;
+                throw new TiendaUPMExcepcion("Can't be added a product with the same id", "ERR_PRODCUTID");
             }
             i++;
         }
@@ -306,12 +305,11 @@ public class Catalog {
     }
 
     public String createId(){
-
         String sol="0";
         if(products[0]!=null) {
             int idBuscado=0;
             boolean find=false;
-            while (idBuscado<=num_products && find){
+            while (idBuscado <= num_products && !find){
                 boolean idEncontrado = false;
                 int i=0;
                 while(i<num_products && !idEncontrado){
